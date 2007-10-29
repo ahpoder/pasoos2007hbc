@@ -1,4 +1,4 @@
-#Exercise 2.6 from Reliable and Flexible Software Explained.
+#summary Exercise 2.6 from Reliable and Flexible Software Explained.
 
 = Introduction =
 
