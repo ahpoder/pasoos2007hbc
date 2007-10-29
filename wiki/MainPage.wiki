@@ -1,0 +1,10 @@
+#summary Entry point for documentation of PaSOOS
+
+= Introduction =
+
+This is merely a list of exercises and projects
+
+
+= Exercises =
+
+* Exercise2_6
