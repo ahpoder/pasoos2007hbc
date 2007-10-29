@@ -7,4 +7,4 @@ This is merely a list of exercises and projects
 
 = Exercises =
 
-* Exercise2_6
+* [Exercise2_6]
