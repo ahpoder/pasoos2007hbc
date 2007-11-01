@@ -99,14 +99,14 @@ Iteration 15: Move Red in RedMoveState four spaces with identical dice.
 
 1. Add test case 'testMoveRedCheckerFourTimesInRedMoveStateDiceMatchReturnTrue'
 2. Test case failed
-3. 
+3. moveChecker always looks for two moves. This has been increased with a variable-check as to whether the last roll was identical dice.
 4. Test case succeeded
-5. Refactoring - Same two line code (moveBlackChecker + moveChecker) used in last test case - creting method.
+5. Refactoring - Same two line code (moveBlackCheckerTwice + rollDice + moveChecker * 2) used in last test case - creting method.
 
 Iteration 16: Move Red in RedMoveState four spaces with identical dice.
 
 1. Add test case 'testMoveRedCheckerFourTimesInRedMoveStateDiceMatchToRollDiceState'
-4. Test case succeeded
+2. Test case succeeded
 
 
 
