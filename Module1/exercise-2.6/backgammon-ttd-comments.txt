@@ -1,0 +1,113 @@
+Iteration outline:
+
+NB.: 	What return value from newGame() means OK - asumed true
+		When is it allowed to call newGame - asumed always.
+
+Iteration 1: New Game return value
+
+1. Add test case 'testNewGameReturnValue'
+2. Test case succeeded
+
+Iteration 2: New Game state change
+
+1. Add test case 'testNewGameToDiceShakeState'
+2. Test case failed
+3. Requires two updates - getState and newGame. getState is a triangulation with StartState (test case 1) which would breake if FakeIt. getState would require 'if' to FakeIt - not allowed. newGame is strongly connected with getState(); may not be abstracted. 
+4. Create state variable, newGame set state to DiceShakeState and getState return state variable, Create constructor to set initial state to StartState. => Obvious implementation.
+5. Test case succeeded
+
+Iteration 3: Move Red In DiceShakeState
+
+1. Add test case 'testMoveRedCheckerInDiceShakeState'
+2. Test case failed
+3. FakeIt - return false in moveChecker
+4. Test case succeeded
+
+Iteration 4: Roll Dice in DiceShakeState return value
+
+1. Add test case 'testRollDiceInDiceShakeStateReturnTrue'
+2. Test case succeeded - already return true.
+
+Iteration 5: Roll Dice in DiceShakeState state change
+
+1. Add test case 'testRollDiceInDiceShakeStateToRedMoveState'
+2. Test case failed
+3. FakeIt - Simply change to RedMoveState
+4. Test case succeeded
+
+Iteration 6: Roll Dice In first RedMoveState
+
+1. Add test case 'testRollDiceInFirstRedMoveState'
+2. Test case failed
+3. Triangulation - validate is in DiceShakeState. 
+4. Test case succeeded
+5. Refactoring - Same two line code (newGame + rollDice) used in last test case - creting method.
+
+Iteration 7: Move Red Checker in RedMoveState return value
+
+1. Add test case 'testMoveRedCheckerInRedMoveStateReturnTrue'
+2. Test case failed
+3. FakeIt - remember not break test case 3 - return state == RedMoveState
+4. Test case succeeded
+
+Iteration 8: Move Black Checker in RedMoveState return value
+
+1. Add test case 'testMoveBlackCheckerInRedMoveStateReturnFalse'
+2. Test case failed
+3. FakeIt - evaluate isRedState before 
+4. Test case succeeded
+
+Iteration 9: Move Red Checker in RedMoveState state change
+
+1. Add test case 'testRedMoveCheckerInRedMoveStateState'
+2. Test case succeeded
+
+Iteration 10: Move Red Checker in RedMoveState twice return value
+
+1. Add test case 'testMoveRedCheckerInRedMoveStateTwiceReturnTrue'
+2. Test case succeeded
+3. Refactoring - Same two line code (gotoRedState + moveChecker) used in last test case - creting method.
+
+Iteration 11: Move Red Checker in RedMoveState twice state change
+
+1. Add test case 'testMoveRedCheckerInRedMoveStateTwiceNoDiceMatchToShakeDiceState'
+2. Test case failed
+3. Update wirh code which switches state every other turn - resetting variable in newGame (obvious implementation)
+4. Test case succeeded
+
+Iteration 12: Move Black Checker after two red move and a dice roll return value
+
+1. Add test case 'testMoveBlackCheckerInBlackMoveStateReturnTrue'
+2. Test case failed
+3. rollDice always move to RedMoveState (fakeIt) - this is updated so it compares to previous state
+4. Test case succeeded
+5. Refactoring - Same two line code (moveRedChecker + moveChecker) used in last test case - creting method.
+
+Iteration 13: Move Black Checker after two red move and a dice roll state change
+
+1. Add test case 'testMoveBlackCheckerInBlackMoveStateRemainInState'
+2. Test case succeeded
+3. Refactoring - Same two line code (moveRedCheckerTwice + rollDice) used in last test case - creting method.
+
+Iteration 14: Move Black Checker twice after two red move and a dice roll state change
+
+1. Add test case 'testMoveBlackCheckerTwiceInBlackMoveStateNoDiceMatchToRollDiceState'
+2. Test case succeeded
+3. Refactoring - Same two line code (gotoBlackState + moveChecker) used in last test case - creting method.
+
+Iteration 15: Move Red in RedMoveState four spaces with identical dice.
+
+1. Add test case 'testMoveRedCheckerFourTimesInRedMoveStateDiceMatchReturnTrue'
+2. Test case failed
+3. 
+4. Test case succeeded
+5. Refactoring - Same two line code (moveBlackChecker + moveChecker) used in last test case - creting method.
+
+Iteration 16: Move Red in RedMoveState four spaces with identical dice.
+
+1. Add test case 'testMoveRedCheckerFourTimesInRedMoveStateDiceMatchToRollDiceState'
+4. Test case succeeded
+
+
+
+Remember to refactor the test sequences which are reused.
