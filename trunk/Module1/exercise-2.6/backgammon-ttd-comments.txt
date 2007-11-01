@@ -35,9 +35,9 @@ Iteration 5: Roll Dice in DiceShakeState state change
 3. FakeIt - Simply change to RedMoveState
 4. Test case succeeded
 
-Iteration 6: Roll Dice In first RedMoveState
+Iteration 6: Roll Dice In RedMoveState
 
-1. Add test case 'testRollDiceInFirstRedMoveState'
+1. Add test case 'testRollDiceInRedMoveStateReturnFalse'
 2. Test case failed
 3. Triangulation - validate is in DiceShakeState. 
 4. Test case succeeded
