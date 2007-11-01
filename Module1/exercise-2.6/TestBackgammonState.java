@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
     Author: (c) Henrik Bærbak Christensen 2007
 */
 
-
 public class TestBackgammonState {
   private BackgammonStateMachine bs;
 
@@ -84,8 +83,6 @@ public class TestBackgammonState {
 	assertEquals( BackgammonState.RedMoveState, bs.getState() );
   }
   
-  
-  
   @Test
   public void testMoveRedCheckerInRedMoveStateTwiceReturnTrue() {
 	moveRedChecker();
@@ -125,36 +122,34 @@ public class TestBackgammonState {
 	assertEquals( BackgammonState.BlackMoveState, bs.getState() );
   }
 
-  @Test
-  public void testMoveBlackCheckerTwiceInBlackMoveStateNoDiceMatchToRollDiceState() {
+  private void moveBlackCheckerTwice() {
 	moveBlackChecker();
 	bs.moveChecker(false);
+  }
+
+  @Test
+  public void testMoveBlackCheckerTwiceInBlackMoveStateNoDiceMatchToRollDiceState() {
+	moveBlackCheckerTwice();
 	assertEquals( BackgammonState.DiceShakeState, bs.getState() );
+  }
+
+  private void moveRedCheckerTwiceSecondTurn() {
+	moveBlackCheckerTwice();
+	bs.rollDice();
+	bs.moveChecker(true);
+	bs.moveChecker(true);
   }
 
   @Test
   public void testMoveRedCheckerFourTimesInRedMoveStateDiceMatchReturnTrue() {
-	moveBlackChecker();
-	bs.moveChecker(false);
-	bs.rollDice();
-	bs.moveChecker(true);
-	bs.moveChecker(true);
+	moveRedCheckerTwiceSecondTurn();
 	assertTrue( bs.moveChecker(true) );
 	assertTrue( bs.moveChecker(true) );
   }
   
   @Test
   public void testMoveRedCheckerFourTimesInRedMoveStateDiceMatchToRollDiceState() {
-    bs.newGame();
-	bs.rollDice();
-	bs.moveChecker(true);
-	bs.moveChecker(true);
-	bs.rollDice();
-	bs.moveChecker(false);
-	bs.moveChecker(false);
-	bs.rollDice();
-	bs.moveChecker(true);
-	bs.moveChecker(true);
+	moveRedCheckerTwiceSecondTurn();
 	bs.moveChecker(true);
 	bs.moveChecker(true);
 	assertEquals( BackgammonState.DiceShakeState, bs.getState() );
