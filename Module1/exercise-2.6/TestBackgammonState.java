@@ -21,7 +21,7 @@ public class TestBackgammonState {
   }
   
   @Test
-  public void testNewGameReturnValue() {
+  public void testNewGameReturnTrue() {
     assertTrue( bs.newGame() );
   }
 
@@ -32,7 +32,7 @@ public class TestBackgammonState {
   }
 
   @Test
-  public void testMoveRedInDiceShakeState() {
+  public void testMoveRedCheckerInDiceShakeState() {
     bs.newGame();
 	assertFalse(bs.moveChecker(true) );
   }
@@ -55,13 +55,13 @@ public class TestBackgammonState {
   }
   
   @Test
-  public void testRollDiceInFirstRedMoveState() {
+  public void testRollDiceInRedMoveStateReturnFalse() {
 	gotoRedMoveState();
 	assertFalse( bs.rollDice() );
   }
   
-  @Test
-  public void testRedMoveCheckerInRedMoveStateReturnTrue() {
+  @Test		  
+  public void testMoveRedCheckerInRedMoveStateReturnTrue() {
 	gotoRedMoveState();
 	assertTrue( bs.moveChecker(true) );
   }
@@ -78,7 +78,7 @@ public class TestBackgammonState {
   }
   
   @Test
-  public void testRedMoveCheckerInRedMoveStateStateChange() {
+  public void testMoveRedCheckerInRedMoveStateRemainInState() {
 	moveRedChecker();
 	assertEquals( BackgammonState.RedMoveState, bs.getState() );
   }
