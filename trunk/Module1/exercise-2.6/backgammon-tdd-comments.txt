@@ -73,7 +73,7 @@ Iteration 10: Move Red Checker in RedMoveState twice return value
 
 1. Add test case 'testMoveRedCheckerInRedMoveStateTwiceReturnTrue'
 2. Test case succeeded
-3. Refactoring - Same two line code (gotoRedState + moveChecker) used in last test case - creting method.
+3. Refactoring - Same two line code (gotoRedState + moveChecker) used in last test case - creating method.
 
 Iteration 11: Move Red Checker in RedMoveState twice state change
 
