@@ -1,3 +1,10 @@
+Original list of overall test cases:
+
+newGame
+rollDice
+Move red
+Move black
+
 Iteration outline:
 
 NB.: 	What return value from newGame() means OK - asumed true
@@ -5,7 +12,7 @@ NB.: 	What return value from newGame() means OK - asumed true
 
 Iteration 1: New Game return value
 
-1. Add test case 'testNewGameReturnValue'
+1. Add test case 'testNewGameReturnTrue'
 2. Test case succeeded
 
 Iteration 2: New Game state change
@@ -41,7 +48,7 @@ Iteration 6: Roll Dice In RedMoveState
 2. Test case failed
 3. Triangulation - validate is in DiceShakeState. 
 4. Test case succeeded
-5. Refactoring - Same two line code (newGame + rollDice) used in last test case - creting method.
+5. Refactoring - Same two line code (newGame + rollDice) used in last test case - creating method.
 
 Iteration 7: Move Red Checker in RedMoveState return value
 
@@ -59,7 +66,7 @@ Iteration 8: Move Black Checker in RedMoveState return value
 
 Iteration 9: Move Red Checker in RedMoveState state change
 
-1. Add test case 'testRedMoveCheckerInRedMoveStateState'
+1. Add test case 'testMoveRedCheckerInRedMoveStateRemainInState'
 2. Test case succeeded
 
 Iteration 10: Move Red Checker in RedMoveState twice return value
@@ -108,6 +115,7 @@ Iteration 16: Move Red in RedMoveState four spaces with identical dice.
 1. Add test case 'testMoveRedCheckerFourTimesInRedMoveStateDiceMatchToRollDiceState'
 2. Test case succeeded
 
+Conclusion:
 
-
-Remember to refactor the test sequences which are reused.
+The above does indeed give small steps, yet the size of the steps here are more academic than practical.
+It may be noted that no Black checker is moved 4 times. This is due to the supplied values of the dice. They only allow for one identical dice roll and since there are four values using a cyclic approach will still not allow black to roll identical dice.
