@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- PayStation build file -->
+<!-- 8c) Henrik Bærbak Christensen 2006 -->
+
+<project name="paystation" default="help" basedir=".">
+  
+  <property name="src" value="src"></property>
+  <property name="test" value="test"></property>
+  <property name="build" value="build"></property>
+  <property name="doc" value="doc"></property>
+  
+  <!-- Jar Files -->
+  <property name="junit" value="lib/junit-4.1.jar"/>
+  <property name="junit-runners" value="lib/junit-ui-runners-3.8.2.jar"/>
+
+  <!-- Classpath -->
+  <path id="_classpath">
+    <pathelement location="${junit}"/>
+    <pathelement location="${junit-runners}"/>
+    <pathelement path="${build}"/>
+  </path>
+
+  <path id="_srcpath">
+    <pathelement path="${src}"/>
+  </path>
+  
+  <path id="_testsrcpath">
+    <pathelement path="${test}"/>
+  </path>
+  
+  <target name="prepare">
+    <mkdir dir="${build}"></mkdir>
+  </target>
+
+  <!-- Help -->
+  <target name="help">
+    <echo message="Ant build system for Pay Station"/>
+    <echo message="  Targets are:"/>
+    <echo message="    test:	  JUnit text based"/>
+    <echo message="    test-gui:  JUnit Swing based"/>
+    <echo message=""/>    
+    <echo message="    gui: Operate using a GUI"/>
+    <echo message=""/>
+    <echo message="    sc1: Supervisor Scenario 1"/>
+    <echo message=""/>
+    <echo message="    doc: Generate JavaDoc in doc directory"/>
+    <echo message="    clean: Clean everything to prepare build from scratch"/>
+    <echo message=""/>
+    <echo message="(c) Henrik B Christensen"/>
+  </target>
+  
+  <!-- Core classes -->
+  <target name="build_src" depends="prepare">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="build_test" depends="build_src">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_testsrcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="lint" depends="prepare">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+      <compilerarg value= "-Xlint"/>
+    </javac>
+  </target>
+ 
+  <!-- BUILD ALL -->
+  <target name="build-all" depends="build_src,build_test">
+  </target>
+
+  <!-- CLEAN -->
+  <target name="clean">
+    <delete dir="${build}"></delete>
+    <delete dir="${doc}"></delete>
+  </target>
+
+  <!-- JUNIT TESTING -->
+  <target name="test" depends="build-all">
+    <java classname="org.junit.runner.JUnitCore">
+      <arg value="paystation.domain.TestPayStation"/>
+      <classpath refid="_classpath"/>
+    </java>
+  </target>
+  
+  <target name="test-gui" depends="build-all">
+    <java classname="junit.swingui.TestRunner" fork="yes">
+      <arg value="paystation.domain.TestPayStation"/>
+      <classpath refid="_classpath"/>
+    </java>
+  </target>
+  
+  <!-- Run GUI that similate hardware -->
+  <target name="gui" depends="build-all">
+    <java fork="yes" classname="paystation.gui.PayStationGUI">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>      
+  </target>
+
+  <!-- Run Scenario 1 that supervise a number of pay stations. -->
+  <target name="sc1" depends="build-all">
+    <java fork="yes" classname="paystation.scenario.Scenario1">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>      
+  </target>
+  
+  <target name="runGUI" depends="build-all">
+    <java fork="yes" classname="paystation.scenario.Scenario1">
+      <arg value="PAYSTATION"/>
+      <arg value="localhost"/>
+      <arg value="1"/>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>      
+  </target>
+
+  <target name="runMonitor" depends="build-all">
+    <java fork="yes" classname="paystation.scenario.Scenario1">
+      <arg value="MONITOR"/>
+      <arg value="localhost"/>
+      <arg value="1"/>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>      
+  </target>
+  
+  <!-- Make a deployment -->
+
+  <target name="mkdir_deploy">
+     <mkdir dir="${deploy}"></mkdir>
+  </target>
+
+  <!-- Copy jars to deploy directory -->
+  <target name="deploy_3rdparty_jars" depends="mkdir_deploy">
+    <copy todir="${deploy}" >
+      <fileset dir="">
+	<include name="lib/*.jar"/>
+      </fileset>
+    </copy>
+  </target>
+
+    
+  <target name="deploy" depends="deploy_3rdparty_jars,build-all">
+    <jar jarfile="${deploy}/${jarname}" basedir="${build}"/>
+    <echo file="${deploy}/run.bat">
+java -classpath ${jarname};${jhd} paystation.gui.PayStationGUI
+    </echo>
+  </target>
+
+
+
+  <!-- Make JavaDoc : run your web browser on doc/index.html !-->
+  <target name="mkdoc">
+    <mkdir dir="${doc}"></mkdir>
+  </target>
+
+  <target name="doc" depends="clean,build_src,mkdoc">
+    <javadoc
+      packagenames=
+      "*"
+      sourcepath="${src}"
+      destdir="${doc}"
+      package="true"
+      doctitle="&lt;b&gt;PayStation&lt;/b&gt;"
+      bottom="&lt;b&gt;Copyright &#169; Henrik Bærbak Christensen. From the book: Reliable and Flexible Software. &lt;/b&gt;"
+      windowtitle="PayStation &#169; Henrik Bærbak Christensen."
+      >
+      <sourcepath> 
+	<path refid="_srcpath"/> 
+      </sourcepath>
+      <classpath> 
+	<path refid="_classpath"/> 
+      </classpath>
+    </javadoc>
+  </target>
+
+</project>
+
+
