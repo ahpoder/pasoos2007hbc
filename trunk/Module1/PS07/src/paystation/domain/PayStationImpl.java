@@ -7,7 +7,7 @@ import java.net.*;
 
 /** Implementation of the pay station covering 25 parking lots.
     Author: (c) Henrik Bærbak Christensen 2006 */
-public class PayStationImpl extends UnicastRemoteObject implements PayStation {
+public class PayStationImpl extends UnicastRemoteObject implements PayStation, StatusObservable{
   // AHP Is this required and if so, why?
   static final long serialVersionUID = -1L;
 
@@ -69,6 +69,5 @@ public class PayStationImpl extends UnicastRemoteObject implements PayStation {
 		}
     }
   }
-      
 }
 

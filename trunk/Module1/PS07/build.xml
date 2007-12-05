@@ -8,8 +8,12 @@
   <property name="src" value="src"></property>
   <property name="test" value="test"></property>
   <property name="build" value="build"></property>
+  <property name="resources" value="resources"></property>
   <property name="doc" value="doc"></property>
   
+  <property name="registry_host" value="localhost"/>
+  <property name="registry_host_spec" value="//${registry_host}/"/>
+
   <!-- Jar Files -->
   <property name="junit" value="lib/junit-4.1.jar"/>
   <property name="junit-runners" value="lib/junit-ui-runners-3.8.2.jar"/>
@@ -79,8 +83,17 @@
     </javac>
   </target>
  
+   <!-- === RESOURCE COPYING === -->
+  <target name="copy_resources" depends="prepare">
+    <copy todir="${build}" >
+      <fileset dir="${resources}">
+	<include name="java.policy"/>
+      </fileset>
+    </copy>
+  </target>
+
   <!-- BUILD ALL -->
-  <target name="build-all" depends="build_src,build_test">
+  <target name="build-all" depends="build_src,build_test,copy_resources">
   </target>
 
   <!-- CLEAN -->
@@ -119,16 +132,22 @@
   </target>
   
   <target name="runGUI" depends="build-all">
-    <java fork="yes" classname="paystation.scenario.Scenario1">
+    <java fork="yes" dir="${build}" classname="paystation.scenario.Scenario1">
+      <sysproperty key="java.security.policy" path="${build}/java.policy"/>
+      <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
+      <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
       <arg value="PAYSTATION"/>
       <arg value="localhost"/>
       <arg value="1"/>
       <classpath> <path refid="_classpath"/> </classpath>
     </java>      
   </target>
-
+  
   <target name="runMonitor" depends="build-all">
-    <java fork="yes" classname="paystation.scenario.Scenario1">
+    <java fork="yes" dir="${build}" classname="paystation.scenario.Scenario1">
+      <sysproperty key="java.security.policy" path="${build}/java.policy"/>
+      <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
+      <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
       <arg value="MONITOR"/>
       <arg value="localhost"/>
       <arg value="1"/>

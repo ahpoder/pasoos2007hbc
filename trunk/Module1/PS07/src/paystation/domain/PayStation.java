@@ -17,7 +17,7 @@ package paystation.domain;
     Author: (c) Henrik Bærbak Christensen 2006
 */
 
-public interface PayStation extends StatusObservable {
+public interface PayStation {
   /** Insert coin into the pay station and adjusts state accordingly.
    *  @param coinValue is an integer value representing the coin in
    *  cent. That is a quarter is coinValue=25, etc.
