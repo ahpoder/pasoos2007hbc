@@ -47,12 +47,15 @@ public class Scenario1 {
 		}
 		catch (RemoteException re)
 		{
+			System.out.println(re);
 		}
 		catch (MalformedURLException mue)
 		{
+			System.out.println(mue);
 		}
 		catch (NotBoundException nbe)
 		{
+			System.out.println(nbe);
 		}
     }
 	System.out.println( "Ready...");

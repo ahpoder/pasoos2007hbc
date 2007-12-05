@@ -12,12 +12,14 @@ import static org.junit.Assert.*;
 
 public class TestPayStation {
   PayStation ps;
+  StatusObservable so;
   /** Fixture for pay station testing. */
   @Before
   public void setUp() {
     try
 	{
-		ps = new PayStationImpl("localhost", 1);
+		ps = new PayStationImpl();
+		so = (StatusObservable)ps;
 	}
 	catch (RemoteException re)
 	{
@@ -85,8 +87,8 @@ public class TestPayStation {
 
 	try
 	{
-    ps.addStatusListener( l1 );
-    ps.addStatusListener( l2 );
+		so.addStatusListener( l1 );
+		so.addStatusListener( l2 );
 	}
 	catch (RemoteException re)
 	{
