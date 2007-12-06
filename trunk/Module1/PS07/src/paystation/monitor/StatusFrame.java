@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.rmi.*;
+import java.rmi.server.*;
+import java.net.*;
+
 /** A crude graphical monitor application.
 
     Author: Henrik Bærbak Christense 2007
@@ -25,7 +29,14 @@ public class StatusFrame extends JFrame {
     pane.add(vLabel);
     pane.add(eLabel);
 
-    myListener = new LabelUpdater(vLabel, eLabel);
+    try
+	{
+		myListener = new LabelUpdater(vLabel, eLabel);
+	}
+	catch (RemoteException re)
+	{
+		System.out.println(re);
+	}
 
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
