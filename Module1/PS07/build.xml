@@ -13,6 +13,8 @@
   
   <property name="registry_host" value="localhost"/>
   <property name="registry_host_spec" value="//${registry_host}/"/>
+  <property name="serial_number" value="1"/>
+  <property name="paystation_list" value="{1}"/>
 
   <!-- Jar Files -->
   <property name="junit" value="lib/junit-4.1.jar"/>
@@ -48,9 +50,27 @@
     <echo message=""/>
     <echo message="    sc1: Supervisor Scenario 1"/>
     <echo message=""/>
+    <echo message="    runGUI: Run Paystation and register RMI object"/>
+    <echo message="    runMonitor: Run monitor and bind to paystation RMI object"/>
+    <echo message=""/>
     <echo message="    doc: Generate JavaDoc in doc directory"/>
     <echo message="    clean: Clean everything to prepare build from scratch"/>
+    <echo message="Registry defaults to 'localhost'; you can change"/>
+    <echo message="by setting property -Dregistry_host=&quot;(hostname)&quot;; this"/>
+    <echo message="apply to bith the payatation (GUI) and the monitor"/>
+    <echo message="To support multiple pay stations a simple serial"/>
+    <echo message="number has been added (default 1). This may be"/>
+	<echo message="changed by setting property -Dserial_number=&quot;(serial nr)&quot;;"/>
+	<echo message="this apply only to the pay station (GUI)"/>
+    <echo message="To connect to one or more paystations their registry and serial "/>
+    <echo message="numbers must be known. It is assumed that there is only one"/>
+	<echo message="registry. This is set as a list {serial1;serial2;serial3} where"/>
+	<echo message="default is {1}. This may be changed by setting property "/>
+	<echo message="-Dpaystation_list=&quot;{serial;serial;...}&quot;; this apply only"/>
+    <echo message="to the monitor"/>
     <echo message=""/>
+    <echo message="In order for this to work the classpath must be set"/>
+    <echo message="CLASSPATH=.;(root)\PS07\build"/>
     <echo message="(c) Henrik B Christensen"/>
   </target>
   
@@ -93,13 +113,31 @@
   </target>
 
   <!-- BUILD ALL -->
-  <target name="build-all" depends="build_src,build_test,copy_resources">
+  <target name="build-all" depends="build_src,build_test,rmic,copy_resources">
   </target>
 
   <!-- CLEAN -->
   <target name="clean">
     <delete dir="${build}"></delete>
     <delete dir="${doc}"></delete>
+  </target>
+
+    <!-- RMIC targets -->
+  <target name="rmic" depends="build_src">
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="paystation.domain.PayStationImpl">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="paystation.monitor.LabelUpdater">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
   </target>
 
   <!-- JUNIT TESTING -->
@@ -137,8 +175,8 @@
       <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
       <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
       <arg value="PAYSTATION"/>
-      <arg value="localhost"/>
-      <arg value="1"/>
+      <arg value="${registry_host}"/>
+      <arg value="${serial_number}"/>
       <classpath> <path refid="_classpath"/> </classpath>
     </java>      
   </target>
@@ -149,8 +187,8 @@
       <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
       <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
       <arg value="MONITOR"/>
-      <arg value="localhost"/>
-      <arg value="1"/>
+      <arg value="${registry_host}"/>
+      <arg value="${paystation_list}"/>
       <classpath> <path refid="_classpath"/> </classpath>
     </java>      
   </target>

@@ -15,9 +15,10 @@ import java.net.*;
     Author: Henrik Bærbak Christense 2007
 */
 
-public class LabelUpdater implements StatusListener {
+public class LabelUpdater extends UnicastRemoteObject implements StatusListener {
   private JLabel vLabel, eLabel;
-  public LabelUpdater(JLabel vacantLabel, JLabel earnedLabel) {
+  public LabelUpdater(JLabel vacantLabel, JLabel earnedLabel) throws RemoteException {
+    super();
     vLabel = vacantLabel;
     eLabel = earnedLabel;
   }

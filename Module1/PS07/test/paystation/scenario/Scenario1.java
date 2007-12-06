@@ -6,19 +6,20 @@ import paystation.monitor.*;
 import java.rmi.*;
 import java.rmi.server.*;
 import java.net.*;
+import java.util.StringTokenizer;
 
 public class Scenario1 {
   public static void main(String[] args) {
 	if (System.getSecurityManager() == null) {
 		System.setSecurityManager(new RMISecurityManager());
 	}
-    String host = args[1];
-	int serial = Integer.parseInt(args[2]);
+	String host = args[1];
 
     System.out.println( "Scenario 1: Supervising 4 pay stations." );
 
 	if (args[0].equals("PAYSTATION"))
 	{
+		int serial = Integer.parseInt(args[2]);
 		PayStationGUI g1;
 
 		g1 = new PayStationGUI(10,10);
@@ -39,11 +40,18 @@ public class Scenario1 {
     }
 	else
 	{
+        String content = args[2].substring(1);
+		content = content.substring(0, content.length() - 1);
 		StatusFrame f1 = new StatusFrame(580,10);
 		try
 		{
-		  StatusObservable obs = (StatusObservable)Naming.lookup("//" + host + "/PayStation" + serial);
-		  obs.addStatusListener(f1.getStatusListener());
+		  StringTokenizer collection = new StringTokenizer(content, ";");
+		  while (collection.hasMoreTokens())
+		  {
+			int serial = Integer.parseInt(collection.nextToken());
+			StatusObservable obs = (StatusObservable)Naming.lookup("//" + host + "/PayStation" + serial);
+			obs.addStatusListener(f1.getStatusListener());
+		  }
 		}
 		catch (RemoteException re)
 		{
