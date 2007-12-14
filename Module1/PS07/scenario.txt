@@ -1,0 +1,19 @@
+Et scenario, hvor der er tre computere; serv1, serv2 og serv3, kunne være som følger (deres IP-adresser bør være lige meget, så længe deres firewall er slået fra for den port som rmiregisteret arbejder på og de er til at fince i host tabellen eller via DNS)
+
+Scenariet skal læses sequentielt, med den PC hvor kommandoen skal udføres på skrevet i []
+
+1. [serv1] start rmiregistry
+2. [serv2] runGUI -Dregistry_host="serv1" -Dserial_number="1"
+3. [serv2] runGUI -Dregistry_host="serv1" -Dserial_number="2"
+4. [serv3] runGUI -Dregistry_host="serv1" -Dserial_number="3"
+5. [serv3] runMonitor -Dregistry_host="serv1" -Dpaystation_list="{1;2;3}"
+6. [serv3] runMonitor -Dregistry_host="serv1" -Dpaystation_list="{1;2;3}"
+
+Det er naturligvis muligt at eksekvere ovenstående på en enkelt PC, så skal "serv1", "serv2" og "serv3" bare erstattes med "localhost", eller -Dregistry_host kan helt udelades:
+
+1. start rmiregistry
+2. runGUI -Dserial_number="1"
+3. runGUI -Dserial_number="2"
+4. runGUI -Dserial_number="3"
+5. runMonitor -Dpaystation_list="{1;2;3}"
+6. runMonitor -Dpaystation_list="{1;2;3}"
