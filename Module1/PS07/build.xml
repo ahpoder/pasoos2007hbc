@@ -71,6 +71,7 @@
     <echo message=""/>
     <echo message="In order for this to work the classpath must be set"/>
     <echo message="CLASSPATH=.;(root)\PS07\build"/>
+    <echo message="REMEMBER to 'start rmiregistry' first!"/>
     <echo message="(c) Henrik B Christensen"/>
   </target>
   
