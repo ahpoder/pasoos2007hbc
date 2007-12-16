@@ -21,6 +21,7 @@ public class Scenario1 {
 	{
 		int serial = Integer.parseInt(args[2]);
 		PayStationGUI g1;
+		System.out.println("Creating Paystation GUI and exposing at: " + "//" + host + "/PayStation" + serial);
 
 		g1 = new PayStationGUI(10,10);
 		try
@@ -36,7 +37,6 @@ public class Scenario1 {
 		{
 			System.out.println(re);
 		}
-
     }
 	else
 	{
@@ -46,9 +46,11 @@ public class Scenario1 {
 		try
 		{
 		  StringTokenizer collection = new StringTokenizer(content, ";");
+          System.out.println("Creating Paystation Monitor:");
 		  while (collection.hasMoreTokens())
 		  {
 			int serial = Integer.parseInt(collection.nextToken());
+			System.out.println("\tConnecting to: " + "//" + host + "/PayStation" + serial);
 			StatusObservable obs = (StatusObservable)Naming.lookup("//" + host + "/PayStation" + serial);
 			obs.addStatusListener(f1.getStatusListener());
 		  }
