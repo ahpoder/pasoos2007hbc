@@ -1,0 +1,118 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{times}
+\usepackage{rotating}
+
+\begin{document}
+
+\title{Exercise 1: Software Architecture Description of the HS07 System}
+
+\author{
+  $<<$Names$>>$\\
+  Department of Computer Science, University of Aarhus\\
+  Aabogade 34, 8200 {\AA}rhus N, Denmark\\
+  \makeatletter
+  \texttt{<<Group name>>}\\
+  \texttt{<<Student IDs>>}\\
+  \texttt{\{..., ...\}@daimi.au.dk}
+}
+
+\date{$<<$Date: 2007/11/05 22:51:26 $>>$}
+
+\maketitle
+
+% =====================================================================
+\begin{abstract}
+  The HS07 system implements a closed-loop control of the heating in a
+  private home. It monitors thermometers in the home, and based on
+  measurements HS07 adjusts radiators in the home. This report gives a
+  software architecture description of an architectural prototype of
+  the HS07 system. The techniques used for architectural description
+  are taken from \cite{christensen2004archdesc}.
+\end{abstract}
+
+% =====================================================================
+\section{Introduction}
+
+Figure~\ref{fig:hs07} shows a schematic overview of HS07 in a
+home. The home may be accessed by the home owner from the outside
+through the HS07 gateway. The HS07 gateway also monitors and controls
+the home.
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/hs07,scale=0.4 }}
+\caption{HS07 in a home}
+\label{fig:hs07}
+\end{figure}
+
+HS07 includes sensor and actuator hardware which runs on an embedded Java virtual
+machine with standard software.
+
+% =====================================================================
+\section{Architectural Requirements}
+
+For our purposes there is one main use case for the HS07 system:
+\begin{quote}
+  \emph{Control Temperature}: The gateway collects measurements from
+  thermometers and reports this to radiators that then control the
+  temperature.
+\end{quote}
+
+The major driving qualities attributes of the HS07 system
+are\footnote{These qualities will be operationalized in Exercise 2}:
+
+\begin{itemize}
+\item \emph{Performance.} HS07 should be performant so that a large
+  number of thermometers and radiators may be part of the system.
+\item \emph{Modifiability.} It must be possible to modify HS07 to
+  include new types of sensors and actuators.
+  \item $<<$Extra quality requirement that you consider important $>>$
+\end{itemize}
+
+
+% =====================================================================
+\section{Architectural Description}
+
+
+% ---------------------------------------------------------------------
+\subsection{Module Viewpoint}
+
+$<<$Describe HS07 from this viewpoint using UML. Where appropriate
+provide textual supplements$>>$
+
+% ---------------------------------------------------------------------
+\subsection{Component \& Connector Viewpoint}
+
+$<<$Describe HS07 from this viewpoint using UML. Where appropriate
+provide textual supplements$>>$
+
+% ---------------------------------------------------------------------
+\subsection{Allocation Viewpoint}
+
+$<<$Describe HS07 from this viewpoint using UML. Where appropriate
+provide textual supplements$>>$
+
+% =====================================================================
+\section{Discussion}
+$<<$What are the strengths and limitations of this approach to
+architectural description judging from this case?$>>$
+
+$<<$Are there aspects of the software architecture that have not been
+properly described?$>>$
+
+$<<$...$>>$
+
+% =====================================================================
+\section{...}
+
+% =====================================================================
+\bibliography{paper}
+\bibliographystyle{apalike}
+
+
+\end{document}
+
+
