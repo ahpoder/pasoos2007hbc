@@ -1,0 +1,10 @@
+#summary Software Architecture in Practice Module 1 Hand-in 1
+
+= Introduction =
+
+This page covers the process of creating the first handin for the first module of the SAiP course given by Aarhus University Winter 2008.
+
+
+= Details =
+
+Import of software and documentation template into the svn repos complete.
