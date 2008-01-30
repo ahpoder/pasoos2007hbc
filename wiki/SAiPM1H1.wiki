@@ -8,3 +8,5 @@ This page covers the process of creating the first handin for the first module o
 = Details =
 
 Import of software and documentation template into the svn repos complete.
+
+2008-01-30: I gave my first shot at a moduleview of HS07 in svn as pdf (doc/figures)
