@@ -29,6 +29,7 @@ Iteration 2: Implement PredefinedDieRollStrategy
 2. Test case fail
 3. Obvious implementation - Create PredefinedDieRollStrategy with same implementation as existing.
 4. Test case succeeded
+5. Refactoring - existing implementation may be refatored to avoid if.
 
 Iteration 3: Use DieRollStrategy
 
