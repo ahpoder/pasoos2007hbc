@@ -12,7 +12,7 @@ public class TestBackgammonState {
   /** fixture for testing the Backgammon statemachine */
   @Before
   public void setUp() {
-    bs = new BackgammonStateMachineImpl(new PredefinedDieRollStrategy());
+    bs = new BackgammonStateMachineImpl(new PredefinedRandomStrategy());
   }
   
   @Test
