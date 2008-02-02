@@ -41,3 +41,49 @@ use PredefinedDieRollStrategy
 
 Conclusion:
 
+This is the minimal implementation to get the same functionality, yet where the die roll is removed and replaced with a seperate class. This is not a practical implementation, as the interface name do not represent what it does, and we do not get the dice valie.
+
+An alternative is to design an interface, which return the value. How this interface should be designed must be considered. A design principle is to abstract the smallest shared functionality. 
+
+In could design a method to return a roll with two dice, yet this can only be used for games with two dice. Alternatively a method returning a single dice roll. This is far better, yet still limiting. What about a dice with more or less than 6 eyes? The smallest shared functionality must therefore be the random value used to generate the dice roll, which in the backgammon game is two rolls of 6-eyed dice.
+
+Java do not define a Random interface, only a Random class and a random method. For this reason an interface must be defined.
+
+Introducing this can be done as below:
+
+3-1-2 process:
+
+3. Identify behaviour likely to change
+
+- Predefined random algorithm
+
+1. State responsibility that covers behaviour likely to change
+
+<<class>>
+RandomStrategy
+-- Return "random" value
+
+2. Refator implement use RandomStrategy
+
+Iteration outline:
+
+Iteration 1: Introduce RandomStrategy
+
+5. Introduce RandomStrategy
+6. Test case succeeded
+
+Iteration 2: Implement PredefinedRandomStrategy
+
+1. Add test case 'testRandomStrategyReturnOne'
+2. Test case fail
+3. Obvious implementation - Create PredefinedRandomStrategy with same implementation as existing.
+4. Test case succeeded
+
+Iteration 3: Use RandomStrategy
+
+5. Refator - Replace hard-coded die-roll with Random
+6. Test case failed
+7. Create RandomStrategy constructor argument to BackgammonStateMachine and 
+use PredefinedRandomStrategy
+8. Test case succeeded
+

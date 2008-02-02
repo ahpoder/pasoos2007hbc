@@ -4,7 +4,7 @@
 */
 
 public class BackgammonStateMachineImpl implements BackgammonStateMachine {
-  public BackgammonStateMachineImpl(DieRollStrategy drs) { state=BackgammonState.StartState; dieRoller = drs; }
+  public BackgammonStateMachineImpl(RandomStrategy rs) { state=BackgammonState.StartState; randomGenerator = rs; }
   public boolean newGame() 
   { 
 	state = BackgammonState.DiceShakeState; 
@@ -19,7 +19,9 @@ public class BackgammonStateMachineImpl implements BackgammonStateMachine {
 	{
 		state = (lastMoveWasRed ? BackgammonState.BlackMoveState : BackgammonState.RedMoveState);
 		
-		identicalDice = dieRoller.dieRoll();
+		int die1 = randomGenerator.nextInt(6) + 1;
+		int die2 = randomGenerator.nextInt(6) + 1;
+		identicalDice = (die1 == die2);
 	}
 	return isInDiceShakeState;
   }
@@ -43,7 +45,7 @@ public class BackgammonStateMachineImpl implements BackgammonStateMachine {
     return state;
   }
   
-  private DieRollStrategy dieRoller;
+  private RandomStrategy randomGenerator;
   private boolean lastMoveWasRed;
   private boolean identicalDice;
   private BackgammonState state;
