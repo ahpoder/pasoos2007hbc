@@ -1,0 +1,42 @@
+Continueation from Module 1:
+
+Exercise 3.12
+
+3-1-2 process:
+
+3. Identify behaviour likely to change
+
+- Predefined random algorithm
+
+1. State responsibility that covers behaviour likely to change
+
+<<interface>>
+DieRollStrategy
+-- Return "random" die roll
+
+2. Refator implement use DieRollStrategy
+
+Iteration outline:
+
+Iteration 1: Introduce DieRollStartegy
+
+5. Introduce DieRollStartegy
+6. Test case succeeded
+
+Iteration 2: Implement PredefinedDieRollStrategy
+
+1. Add test case 'testDieRollStrategyReturnFalse'
+2. Test case fail
+3. Obvious implementation - Create PredefinedDieRollStrategy with same implementation as existing.
+4. Test case succeeded
+
+Iteration 3: Use DieRollStrategy
+
+5. Refator - Replace hard-coded die-roll with DieRollStrategy
+6. Test case failed
+7. Create DieRollStrategy constructor argument to BackgammonStateMachine and 
+use PredefinedDieRollStrategy
+8. Test case succeeded
+
+Conclusion:
+
