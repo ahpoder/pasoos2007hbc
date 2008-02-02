@@ -1,0 +1,39 @@
+<project name="PayStation" default="help" basedir=".">
+    
+  <target name="help">
+    <echo message="Pay station build management."/>
+    <echo message="Targets:"/>
+    <echo message="  build-src: Builds production code."/>
+    <echo message="  test: Runs test cases (text)."/>
+    <echo message="  test-gui: Runs test cases (gui)."/>
+  </target>
+  
+  <target name="build-src">
+    <javac srcdir="src"
+      classpath="junit-4.1.jar"
+      debug="on"
+      source="1.5"/>
+  </target>
+
+  <target name="test" depends="build-src">
+    <java classname="org.junit.runner.JUnitCore">
+      <arg value="paystation.domain.TestAll"/>
+      <classpath>
+	<pathelement location="junit-4.1.jar"/>
+	<pathelement path="src"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="test-gui" depends="build-src">
+    <java classname="junit.swingui.TestRunner" fork="yes">
+      <arg value="paystation.domain.TestAll"/>
+      <classpath>
+	<pathelement location="junit-4.1.jar"/>
+	<pathelement location="junit-ui-runners-3.8.2.jar"/>
+	<pathelement path="src"/>
+      </classpath>
+    </java>
+  </target>
+
+</project>
