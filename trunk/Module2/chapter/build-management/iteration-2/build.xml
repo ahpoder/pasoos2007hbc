@@ -1,0 +1,16 @@
+<project name="PayStation" default="help" basedir=".">
+    
+  <target name="help">
+    <echo message="Pay station build management."/>
+    <echo message="Targets:"/>
+    <echo message="  build-src: Builds production code."/>
+  </target>
+  
+  <target name="build-src">
+    <javac srcdir="src"
+      classpath="junit-4.1.jar"
+      debug="on"
+      source="1.5"/>
+  </target>
+
+</project>
