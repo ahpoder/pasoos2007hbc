@@ -16,9 +16,9 @@
   Department of Computer Science, University of Aarhus\\
   Aabogade 34, 8200 {\AA}rhus N, Denmark\\\\
   \makeatletter
-  \texttt{<<Group name>>}\\
-  \texttt{19951439, xxx, 20074842}\\
-  \texttt{\{ahp, xxx, u074842\}@daimi.au.dk}
+  \texttt{Group 11. Kilo}\\
+  \texttt{19951439, 20074976, 20074842}\\
+  \texttt{\{ahp, jdalberg, u074842\}@daimi.au.dk}
 }
 
 \date{$<<$Date: 2007/11/05 22:51:26 $>>$}
@@ -76,24 +76,52 @@ are\footnote{These qualities will be operationalized in Exercise 2}:
 % =====================================================================
 \section{Architectural Description}
 
-
 % ---------------------------------------------------------------------
 \subsection{Module Viewpoint}
 
-$<<$Describe HS07 from this viewpoint using UML. Where appropriate
-provide textual supplements$>>$
+The module viewpoint of the HS07 system.
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=0 10 600 550,scale=0.4]{figures/mv.pdf}}
+\caption{HS07 Package Diagram}
+\label{fig:mv}
+\end{figure}
+
+The figure shows the packages of the HS07 system, and how they interact 
+with java packages used.
 
 % ---------------------------------------------------------------------
 \subsection{Component \& Connector Viewpoint}
 
-$<<$Describe HS07 from this viewpoint using UML. Where appropriate
-provide textual supplements$>>$
+The Component \& Connecter view consists of an Active Objects diagram and a
+sequence diagram. The Active Objects diagram shows the active objects of 
+the HS07 system, and how they interact. 
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=0 10 600 420,scale=0.5]{figures/cc_ao.pdf}}
+\caption{HS07 Active Objects}
+\label{fig:cc_ao}
+\end{figure}
+The sequence diagram illustrates the timing of the interactions.
+\begin{figure}[!htb]
+\includegraphics[viewport=0 10 500 650,scale=0.3]{figures/sequence.pdf}
+\caption{HS07 Sequence Diagram}
+\label{fig:sequence}
+\end{figure}
+
 
 % ---------------------------------------------------------------------
 \subsection{Allocation Viewpoint}
 
-$<<$Describe HS07 from this viewpoint using UML. Where appropriate
-provide textual supplements$>>$
+The allocation viewpoint illustrates how components are deployed im actaual processes
+within the HS07 system.
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=0 10 700 350,scale=0.4]{figures/deployment.pdf}}
+\caption{HS07 Allocation Diagram}
+\label{fig:allocation}
+\end{figure}
+
 
 % =====================================================================
 \section{Discussion}
