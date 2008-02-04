@@ -1,0 +1,18 @@
+Strength:
+
+- UML is a language that is unambigious and known by many.
+- The three viewpoints are tried and proven, and due to this fact many developers are used to thinking in this way and can generate an understanding of the system based on these views.
+- Having a well-understandable architecture to go by, makes it easier for multiple developers to work in parallel with a common understanding of the priorities inherint in the architecture.
+
+Limitations:
+
+- Just like with any other language it only makes sense to those who know the language. 
+- Choosing three views to focus on, due to the fact that they fit most of the time, means that the focus will sometimes be wrong.
+
+Not covered aspects:
+
+- Security: How is the Gateway protected? What protection is there against attack and inproper use? 
+- Safety: How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
+- Availability: What is the up-time of the HTTP server that the system run on, both embedded and PC?
+- Testability: What is the tesability of the components? How easily is it to replace the actual HTTP servers with test doubles?
+
