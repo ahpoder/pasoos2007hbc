@@ -113,7 +113,7 @@ The sequence diagram illustrates the timing of the interactions.
 % ---------------------------------------------------------------------
 \subsection{Allocation Viewpoint}
 
-The allocation viewpoint illustrates how components are deployed im actaual processes
+The allocation viewpoint illustrates how components are deployed in actual processes
 within the HS07 system.
 
 \begin{figure}[!htb]
@@ -128,10 +128,32 @@ within the HS07 system.
 $<<$What are the strengths and limitations of this approach to
 architectural description judging from this case?$>>$
 
+When performing reverse engineering to achieve an architectural description, the dangers
+posed seem to be finding the correct balance in the choice of detail level. It
+is easy to get to much information, cluttering the purpose of the 
+AD, which in a basic sense is to clarify and present at wider understanding of
+the system.
+
+If you are a systems developer, a reverse engineered AD might help you understand 
+the code better. 
+
+Experienced architects might recognize patterns emerging from the process, and 
+immediately see possible design flaws in the implementation of these, thus
+being able to help improve the next version of the system. 
+  
+
 $<<$Are there aspects of the software architecture that have not been
 properly described?$>>$
 
-$<<$...$>>$
+
+
+$<<For the architectural description above, discuss what (if anything) should be changed or added for it to comply with the IEEE recommended practice for architectural description>>$
+
+
+
+$<<Consider the definition of software architecture by [Perry and Wolf, 1992]. Discuss what the 'elements', 'form', and 'rationale' according to this definition would be for the HS07 system>>$
+
+\cite{perrywolf1992} defines "elements" as three different classes, data elements, processing elements and connecting elements. In HS07 the data elements are temperatures, the processing element is the gateway and the connecting element is HTTP. The "form", as described by Perry and Wolf, is the choice of the observer pattern in HS07, and the "rationale" for doing so are defined by the Achitectural Requirements described elsewhere in this document.
 
 % =====================================================================
 \section{...}
