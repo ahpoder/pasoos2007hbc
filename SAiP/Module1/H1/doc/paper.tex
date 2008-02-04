@@ -102,7 +102,7 @@ the HS07 system, and how they interact.
 \caption{HS07 Active Objects}
 \label{fig:cc_ao}
 \end{figure}
-The sequence diagram illustrates the timing of the interactions.
+The sequence diagram illustrates the protocol of the interactions involved in the setup and the execution of the Gateway. It consists of a registration sequence and an infinite loop of retrieving the temperature of all registered themometers and nitifying all observers (in this case the Radiators). The example is slightly simplified to improve readability, as the registerThermometer, registerObserver, getTemperature and notify is actually network calls performed using the Invoker and the respective servers.
 \begin{figure}[!htb]
 \includegraphics[viewport=0 10 500 650,scale=0.3]{figures/sequence.pdf}
 \caption{HS07 Sequence Diagram}
