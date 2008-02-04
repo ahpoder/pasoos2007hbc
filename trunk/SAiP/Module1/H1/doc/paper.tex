@@ -125,33 +125,41 @@ within the HS07 system.
 
 % =====================================================================
 \section{Discussion}
+\subsection{Strength and Limitations of the approach}
 $<<$What are the strengths and limitations of this approach to
 architectural description judging from this case?$>>$
 
-When performing reverse engineering to achieve an architectural description, the dangers
-posed seem to be finding the correct balance in the choice of detail level. It
+When using the approach described in \cite{christensen2004archdesc} with reverse 
+engineering to achieve an architectural description, the dangers posed seem to 
+be finding the correct balance in the choice of detail level. It
 is easy to get to much information, cluttering the purpose of the 
 AD, which in a basic sense is to clarify and present at wider understanding of
 the system.
 
-If you are a systems developer, a reverse engineered AD might help you understand 
-the code better. 
-
 Experienced architects might recognize patterns emerging from the process, and 
 immediately see possible design flaws in the implementation of these, thus
-being able to help improve the next version of the system. 
-  
+being able to help improve the quality of any evolving system.
 
+The purpose of doing a reverse engineered AD must either be to evolve
+the system of to extract clarification. Care should be taken to achieve either
+goal. 
+\subsection{Whats missing?}
 $<<$Are there aspects of the software architecture that have not been
 properly described?$>>$
+Stakeholders and their concerns. This encompasses both users/aquirers and developers. We also need to discuss the feasibility and maintainablity of the system. 
 
+\subsection{IEEE Conformance}
 
+$<<$For the architectural description above, discuss what (if anything) should be changed or added for it to comply with the IEEE recommended practice for architectural description$>>$
 
-$<<For the architectural description above, discuss what (if anything) should be changed or added for it to comply with the IEEE recommended practice for architectural description>>$
+The following are the problems identified in order to comply with \cite{ieeerecommendedpractice}.
 
+Clause 5.2: The stakeholders and their precise concerns need to be identified for each view. 
 
+Clause 5.5: Consistency checks across all existing views.
 
-$<<Consider the definition of software architecture by [Perry and Wolf, 1992]. Discuss what the 'elements', 'form', and 'rationale' according to this definition would be for the HS07 system>>$
+\subsection{Perry \& Wolf Considerations}
+$<<$Consider the definition of software architecture by [Perry and Wolf, 1992]. Discuss what the 'elements', 'form', and 'rationale' according to this definition would be for the HS07 system$>>$
 
 \cite{perrywolf1992} defines "elements" as three different classes, data elements, processing elements and connecting elements. In HS07 the data elements are temperatures, the processing element is the gateway and the connecting element is HTTP. The "form", as described by Perry and Wolf, is the choice of the observer pattern in HS07, and the "rationale" for doing so are defined by the Achitectural Requirements described elsewhere in this document.
 
@@ -164,5 +172,3 @@ $<<Consider the definition of software architecture by [Perry and Wolf, 1992]. D
 
 
 \end{document}
-
-
