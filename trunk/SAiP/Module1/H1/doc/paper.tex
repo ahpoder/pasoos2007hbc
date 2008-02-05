@@ -69,7 +69,7 @@ are\footnote{These qualities will be operationalized in Exercise 2}:
   number of thermometers and radiators may be part of the system.
 \item \emph{Modifiability.} It must be possible to modify HS07 to
   include new types of sensors and actuators.
-  \item $<<$Extra quality requirement that you consider important $>>$
+%  \item $<<$Extra quality requirement that you consider important $>>$
 \end{itemize}
 
 
@@ -141,24 +141,29 @@ within the HS07 system.
 \section{Discussion}
 \subsection{Strength and Limitations of the approach}
 %$<<$What are the strengths and limitations of this approach to architectural description judging from this case?$>>$
+\subsection{Strengths}
+\begin{itemize}
+\item UML is a language that is unambigious and known by many.
+\item The three viewpoints are tried and proven, and due to this fact many developers are used to thinking in this way and can generate an understanding of the system based on these views.
+ \item Having a well-understandable architecture to go by, makes it easier for multiple developers to work in parallel with a common understanding of the priorities inherint in the architecture.
+\end{itemize}
 
-When using the approach described in \cite{christensen2004archdesc} with reverse 
-engineering to achieve an architectural description, the dangers posed seem to 
-be finding the correct balance in the choice of detail level. It
-is easy to get too much information, cluttering the purpose of the 
-AD, which in a basic sense is to clarify and present at wider understanding of
-the system.
+\subsection{Limitations}
+\begin{itemize}
+\item Just like with any other language it only makes sense to those who know the language. 
+\item Choosing three views to focus on, due to the fact that they fit most of the time, means that the focus will sometimes be wrong.
+\end{itemize}
 
-Experienced architects might recognize patterns emerging from the process, and 
-immediately see possible design flaws in the implementation of these, thus
-being able to help improve the quality of any evolving system.
-
-The purpose of doing a reverse engineered AD must either be to evolve
-the system or to extract clarification. Care should be taken to achieve either
-goal. 
-\subsection{Whats missing?}
+\subsection{Not covered aspects}
 %$<<$Are there aspects of the software architecture that have not been properly described?$>>$
-Stakeholders and their concerns. This encompasses both users/aquirers and developers. We also need to discuss the feasibility and maintainablity of the system. 
+\begin{itemize}
+\item \emph{Stakeholders and their concerns}. This encompasses both users/aquirers and developers. \item \emph{Ffeasibility}
+\item \emph{Maintainablity}
+\item \emph{Security} How is the Gateway protected? What protection is there against attack and inproper use? 
+\item \emph {Safety} How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
+\item \emph{Availability} What is the up-time of the HTTP server that the system run on, both embedded and PC?
+\item \emph{Testability} What is the tesability of the components? How easily is it to replace the actual HTTP servers with test doubles?
+\end{itemize}
 
 \subsection{IEEE Conformance}
 
