@@ -53,6 +53,7 @@ machine with standard software.
 
 % =====================================================================
 \section{Architectural Requirements}
+\label{sec:requirements}
 
 For our purposes there is one main use case for the HS07 system:
 \begin{quote}
@@ -136,13 +137,28 @@ the respective servers.
 % ---------------------------------------------------------------------
 \subsection{Allocation Viewpoint}
 
-The allocation viewpoint illustrates how components are deployed in actual processes
-within the HS07 system.
+The allocation viewpoint illustrates how components are deployed in actual
+processes within the HS07 system. 
+
+Figure~\ref{fig:allocation_pc} shows the setup as specified in the build-file
+where all HS07 processes are located on the same node. As can be seen in the
+figure the gateway can be accessed from one or more PC through an internet
+connection.
 
 \begin{figure}[!htb]
-\center {\includegraphics[viewport=0 10 700 350,scale=0.5]{figures/deployment.pdf}}
-\caption{HS07 Allocation Diagram}
-\label{fig:allocation}
+\center {\includegraphics[scale=0.4]{figures/deployment.pdf}}
+\caption{HS07 Allocation Diagram showing deployment on a PC}
+\label{fig:allocation_pc}
+\end{figure}
+
+Figure~\ref{fig:allocation_actual} shows a more realistic example of a deployment
+where thermometers and radiators are seperate nodes that are connected to
+the gateway through a LAN connection.
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=110 200 600 420, scale=0.4]{figures/deployment_actual.pdf}}
+\caption{HS07 Allocation Diagram showing deployment on seperate nodes}
+\label{fig:allocation_actual}
 \end{figure}
 
 
@@ -166,7 +182,8 @@ within the HS07 system.
 \subsection{Not covered aspects}
 %$<<$Are there aspects of the software architecture that have not been properly described?$>>$
 \begin{itemize}
-\item \emph{Stakeholders and their concerns}. This encompasses both users/aquirers and developers. \item \emph{Ffeasibility}
+\item \emph{Stakeholders and their concerns}. This encompasses both users/aquirers and developers.
+\item \emph{Feasibility}
 \item \emph{Maintainablity}
 \item \emph{Security} How is the Gateway protected? What protection is there against attack and inproper use? 
 \item \emph {Safety} How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
@@ -187,7 +204,17 @@ Clause 5.5: Consistency checks across all existing views.
 \subsection{Perry \& Wolf Considerations}
 %$<<$Consider the definition of software architecture by [Perry and Wolf, 1992]. Discuss what the 'elements', 'form', and 'rationale' according to this definition would be for the HS07 system$>>$
 
-\cite{perrywolf1992} defines "elements" as three different classes, data elements, processing elements and connecting elements. In HS07 the data elements are temperatures, the processing element is the gateway and the connecting element is HTTP. The "form", as described by Perry and Wolf, is the choice of the observer pattern in HS07, and the "rationale" for doing so are defined by the Achitectural Requirements described elsewhere in this document.
+\cite{perrywolf1992} defines "elements" as three different classes, data elements,
+processing elements and connecting elements. In HS07 the data elements are
+temperatures, the processing element is the gateway and the connecting element
+is HTTP. The "form", as described by Perry and Wolf, is the choice of the observer
+pattern in HS07.
+
+The "rationale" described in \cite{perrywolf1992} captures the reasons for choices
+made when defining the architecture. In this architectural description a rationale
+would e.g. document the choice of using HTTP as the protocol between the components. A
+Rationale is not part of this document.
+
 
 % =====================================================================
 \bibliography{paper}
