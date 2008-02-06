@@ -7,6 +7,9 @@
 \usepackage{times}
 \usepackage{rotating}
 
+\renewcommand{\descriptionlabel}[1]
+    {\hspace{\labelsep}\emph{#1}}
+
 \begin{document}
 
 \title{Exercise 1: Software Architecture Description of the HS07 System}
@@ -21,7 +24,7 @@
   \texttt{\{ahp, jdalberg, u074842\}@daimi.au.dk}
 }
 
-\date{2008-02-04 13:32}
+\date{2008-02-06}
 
 \maketitle
 
@@ -78,9 +81,10 @@ are\footnote{These qualities will be operationalized in Exercise 2}:
 \section{Architectural Description}
 
 % ---------------------------------------------------------------------
-\subsection{Module Viewpoint}
+\subsection{Module View}
 
-The module viewpoint of the HS07 system.
+This section contains the module view of the HS07 system. This view
+is based on the Module Viewpoint as defined in \cite{christensen2004archdesc}.
 
 \begin{figure}[!htb]
 \center {\includegraphics[viewport=0 10 600 500,scale=0.5]{figures/mv.pdf}}
@@ -97,8 +101,12 @@ server. The interactions between the components are described in section
 HTTP servers and HTTP requests.
 
 % ---------------------------------------------------------------------
-\subsection{Component \& Connector Viewpoint}
+\subsection{Component \& Connector View}
 \label{sec:component}
+
+This section contains the Component \& Connecter view of the HS07 system.
+This view is based on the Component \& Connecter viewpoint as defined in
+\cite{christensen2004archdesc}.
 
 The Component \& Connecter view consists of an Active Objects diagram and a
 sequence diagram.
@@ -135,9 +143,12 @@ the respective servers.
 
 
 % ---------------------------------------------------------------------
-\subsection{Allocation Viewpoint}
+\subsection{Allocation View}
 
-The allocation viewpoint illustrates how components are deployed in actual
+This section contains the allocation view of the HS07 system. This view
+is based on the Allocation Viewpoint as defined in \cite{christensen2004archdesc}.
+
+The allocation view illustrates how components are deployed in actual
 processes within the HS07 system. 
 
 Figure~\ref{fig:allocation_pc} shows the setup as specified in the build-file
@@ -181,25 +192,39 @@ the gateway through a LAN connection.
 
 \subsection{Not covered aspects}
 %$<<$Are there aspects of the software architecture that have not been properly described?$>>$
-\begin{itemize}
-\item \emph{Stakeholders and their concerns}. This encompasses both users/aquirers and developers.
-\item \emph{Feasibility}
-\item \emph{Maintainablity}
-\item \emph{Security} How is the Gateway protected? What protection is there against attack and inproper use? 
-\item \emph {Safety} How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
-\item \emph{Availability} What is the up-time of the HTTP server that the system run on, both embedded and PC?
-\item \emph{Testability} What is the tesability of the components? How easily is it to replace the actual HTTP servers with test doubles?
-\end{itemize}
+\begin{description}
+\item[Stakeholders and their concerns] This encompasses both users/aquirers and developers.
+\item[Feasibility]
+\item[Maintainablity]
+\item[Security] How is the Gateway protected? What protection is there against attack and inproper use? 
+\item[Safety] How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
+\item[Availability] What is the up-time of the HTTP server that the system run on, both embedded and PC?
+\item[Testability] What is the testability of the components? How easily is it to replace the actual HTTP servers with test doubles?
+\end{description}
 
 \subsection{IEEE Conformance}
 
 %$<<$For the architectural description above, discuss what (if anything) should be changed or added for it to comply with the IEEE recommended practice for architectural description$>>$
 
-The following are the problems identified in order to comply with \cite{ieeerecommendedpractice}.
+This section describes how this architectural description conforms to recommended practice
+that is defined in \cite{ieeerecommendedpractice}.
 
-Clause 5.2: The stakeholders and their precise concerns need to be identified for each view. 
+\begin{description}
+	\item[Clause 5.1 Architectural documentation] This report does not include a change history
+		and a glossary as defined in the recommended practice. (XXX: scope, context?)
+	\item[Clause 5.2 Identification of stakeholders and concers] The stakeholders of this system and
+		their precise concerns have not been identified in this report. This must be done in order to
+		conform to the recommended practice.
+	\item[Clause 5.3 Selection of architectural viewpoints] The viewpoints used in this architectural
+		description are defined in \cite{christensen2004archdesc}.
+	\item[Clause 5.4 Architectural views] This report contains the following architectural views: Module
+		View, Component \& Connector View and Allocation View.
+	\item[Clause 5.5 Consistency among architectural views] There is no consistency check across the views
+		in this report as specified in the recommended practice.
+	\item[Clause 5.6 Architectural rationale] There is no rationale for the architectural decisions
+		that have made in this report.
+\end{description}
 
-Clause 5.5: Consistency checks across all existing views.
 
 \subsection{Perry \& Wolf Considerations}
 %$<<$Consider the definition of software architecture by [Perry and Wolf, 1992]. Discuss what the 'elements', 'form', and 'rationale' according to this definition would be for the HS07 system$>>$
