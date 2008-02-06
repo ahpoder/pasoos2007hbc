@@ -65,7 +65,7 @@ For our purposes there is one main use case for the HS07 system:
   temperature.
 \end{quote}
 
-The major driving qualities attributes of the HS07 system
+The major driving quality attributes of the HS07 system
 are\footnote{These qualities will be operationalized in Exercise 2}:
 
 \begin{itemize}
@@ -92,11 +92,11 @@ is based on the Module Viewpoint as defined in \cite{christensen2004archdesc}.
 \label{fig:mv}
 \end{figure}
 
-Figure~\ref{fig:mv} shows the packages of the HS07 system, and how they interact 
-with java packages used. The Sensor, Gateway and Actuator packages do not have
+Figure~\ref{fig:mv} shows the packages of the HS07 system, and how they depend
+on java packages. The Sensor, Gateway and Actuator packages do not have
 any knowledge of each other. They are all services that are able to respond to
-HTTP queries. They uses the Invoker to interact with the other modules' HTTP
-server. The interactions between the components are described in section
+HTTP queries. They use the Invoker to interact with the HTTP server in the
+other modules. The interactions between the components are described in section
 \ref{sec:component}. The Java packages Net, Jetty and Http are used for the
 HTTP servers and HTTP requests.
 
@@ -131,7 +131,8 @@ an infinite loop of retrieving the temperature of all registered themometers and
 notifying all observers (in this case the Radiators). The example is slightly 
 simplified to improve readability, as the registerThermometer, registerObserver, 
 getTemperature and notify is actually network calls performed using the Invoker and 
-the respective servers.
+the respective servers. The figure shows an example with only one thermometer and
+one radiator.
 
 \clearpage
 
@@ -151,10 +152,12 @@ is based on the Allocation Viewpoint as defined in \cite{christensen2004archdesc
 The allocation view illustrates how components are deployed in actual
 processes within the HS07 system. 
 
-Figure~\ref{fig:allocation_pc} shows the setup as specified in the build-file
+Figure~\ref{fig:allocation_pc} shows an example setup
 where all HS07 processes are located on the same node. As can be seen in the
-figure the gateway can be accessed from one or more PC through an internet
+figure the gateway can be accessed from one or more PCs through an internet
 connection.
+
+\clearpage
 
 \begin{figure}[!htb]
 \center {\includegraphics[scale=0.4]{figures/deployment.pdf}}
@@ -167,7 +170,7 @@ where thermometers and radiators are seperate nodes that are connected to
 the gateway through a LAN connection.
 
 \begin{figure}[!htb]
-\center {\includegraphics[viewport=110 200 600 420, scale=0.4]{figures/deployment_actual.pdf}}
+\center {\includegraphics[viewport=250 200 600 420, scale=0.4]{figures/deployment_actual.pdf}}
 \caption{HS07 Allocation Diagram showing deployment on seperate nodes}
 \label{fig:allocation_actual}
 \end{figure}
@@ -192,21 +195,21 @@ the gateway through a LAN connection.
 
 \subsection{Not covered aspects}
 %$<<$Are there aspects of the software architecture that have not been properly described?$>>$
-\begin{description}
-\item[Stakeholders and their concerns] This encompasses both users/aquirers and developers.
-\item[Feasibility]
-\item[Maintainablity]
-\item[Security] How is the Gateway protected? What protection is there against attack and inproper use? 
-\item[Safety] How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
-\item[Availability] What is the up-time of the HTTP server that the system run on, both embedded and PC?
-\item[Testability] What is the testability of the components? How easily is it to replace the actual HTTP servers with test doubles?
-\end{description}
+\begin{itemize}
+\item \emph{Stakeholders and their concerns} This encompasses both users/aquirers and developers.
+\item \emph{Feasibility}
+\item \emph{Maintainablity}
+\item \emph{Security} How is the Gateway protected? What protection is there against attack and inproper use? 
+\item \emph{Safety} How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
+\item \emph{Availability} What is the up-time of the HTTP server that the system run on, both embedded and PC?
+\item \emph{Testability} What is the testability of the components? How easily is it to replace the actual HTTP servers with test doubles?
+\end{itemize}
 
 \subsection{IEEE Conformance}
 
 %$<<$For the architectural description above, discuss what (if anything) should be changed or added for it to comply with the IEEE recommended practice for architectural description$>>$
 
-This section describes how this architectural description conforms to recommended practice
+This section describes how this architectural description conforms to the recommended practice
 that is defined in \cite{ieeerecommendedpractice}.
 
 \begin{description}
