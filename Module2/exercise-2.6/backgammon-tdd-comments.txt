@@ -1,4 +1,4 @@
-Continueation from Module 1:
+Continuation from Module 1:
 
 Exercise 3.12
 
@@ -8,17 +8,17 @@ Da der er tale om at erstatte en algoritme, peger det tydeligt på at Strategy pa
 
 3-1-2 process:
 
-3. Identify behaviour likely to change
+3. Identify behavior likely to change
 
 - Predefined random algorithm
 
-1. State responsibility that covers behaviour likely to change
+1. State responsibility that covers behavior likely to change
 
 <<interface>>
 DieRollStrategy
 -- Return "random" die roll
 
-2. Refator implement use DieRollStrategy
+2. Refactor implement use DieRollStrategy
 
 Iteration outline:
 
@@ -33,11 +33,11 @@ Iteration 2: Implement PredefinedDieRollStrategy
 2. Test case fail
 3. Obvious implementation - Create PredefinedDieRollStrategy with same implementation as existing.
 4. Test case succeeded
-5. Refactoring - existing implementation may be refatored to avoid if.
+5. Refactoring - existing implementation may be refactored to avoid if.
 
 Iteration 3: Use DieRollStrategy
 
-5. Refator - Replace hard-coded die-roll with DieRollStrategy
+5. Refactor - Replace hard-coded die-roll with DieRollStrategy
 6. Test case failed
 7. Create DieRollStrategy constructor argument to BackgammonStateMachine and 
 use PredefinedDieRollStrategy
@@ -45,29 +45,29 @@ use PredefinedDieRollStrategy
 
 Conclusion:
 
-This is the minimal implementation to get the same functionality, yet where the die roll is removed and replaced with a seperate class. This is not a practical implementation, as the interface name do not represent what it does, and we do not get the dice valie.
+This is the minimal implementation to get the same functionality, yet where the die roll is removed and replaced with a separate class. This is not a practical implementation, as the interface name does not represent what it does, and we do not get the dice value.
 
-An alternative is to design an interface, which return the value. How this interface should be designed must be considered. A design principle is to abstract the smallest shared functionality. 
+An alternative is to design an interface, which returns the value. How this interface should be designed must be considered. A design principle is to abstract the smallest shared functionality. 
 
-In could design a method to return a roll with two dice, yet this can only be used for games with two dice. Alternatively a method returning a single dice roll. This is far better, yet still limiting. What about a dice with more or less than 6 eyes? The smallest shared functionality must therefore be the random value used to generate the dice roll, which in the backgammon game is two rolls of 6-eyed dice.
+In could design a method to return a roll with two dice, yet this can only be used for games with two dice. Alternatively a method returning a single dice roll. This is far better, yet still limiting. What about a dice with more or less than 6 eyes? The smallest shared functionality must therefore be the random value used to generate the dice roll, which in the backgammon game are two rolls of 6-eyed dice.
 
-Java do not define a Random interface, only a Random class and a random method. For this reason an interface must be defined.
+Java does not define a Random interface, only a Random class and a random method. For this reason an interface must be defined.
 
 Introducing this can be done as below:
 
 3-1-2 process:
 
-3. Identify behaviour likely to change
+3. Identify behavior likely to change
 
 - Predefined random algorithm
 
-1. State responsibility that covers behaviour likely to change
+1. State responsibility that covers behavior likely to change
 
 <<class>>
 RandomStrategy
 -- Return "random" value
 
-2. Refator implement use RandomStrategy
+2. Refactor implement use RandomStrategy
 
 Iteration outline:
 
@@ -85,9 +85,8 @@ Iteration 2: Implement PredefinedRandomStrategy
 
 Iteration 3: Use RandomStrategy
 
-5. Refator - Replace hard-coded die-roll with Random
+5. Refactor - Replace hard-coded die-roll with Random
 6. Test case failed
 7. Create RandomStrategy constructor argument to BackgammonStateMachine and 
 use PredefinedRandomStrategy
 8. Test case succeeded
-
