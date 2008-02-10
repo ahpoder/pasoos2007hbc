@@ -4,7 +4,7 @@ Exercise 3.12
 
 Der lægges op til, at det skal være muligt at ændre random algoritmen så den er forudsigelig uden at hard-code en sekvens, som det blev gjort under exercise 2-16.
 
-Da der er tale om at erstatte en algoritme, peger det tydeligt på at Strategy pattern. Der er flere måder at implementere et Strategy pattern, men det pæneste er at anvende composit og dependency injecte den ønskede implementation ind i objektet. Til dette kan anvendes 3-1-2 processen.
+Da der er tale om at erstatte en algoritme, peger det tydeligt på et Strategy pattern. Der er flere måder at implementere et Strategy pattern, men det pæneste er at anvende composit og dependency injecte den ønskede implementation ind i objektet. Til dette kan anvendes 3-1-2 processen.
 
 3-1-2 process:
 
