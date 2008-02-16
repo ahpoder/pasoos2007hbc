@@ -23,7 +23,14 @@ public class DoorAlarm extends JFrame {
   public static void main(String[] args) {
     System.out.println( "Country code: "+args[0] );
     
-    new DoorAlarm( new DanishMessageDatabase(), new SimpleAccess() );
+	if (args[0].equals("US"))
+	{
+		new DoorAlarm(new SimpleAccess(), new UsDoorAlarmFactory() );
+	}
+	else
+	{
+		new DoorAlarm(new SimpleAccess(), new DkDoorAlarmFactory() );
+	}
   }
 
   /** The entered code so far */
@@ -35,10 +42,12 @@ public class DoorAlarm extends JFrame {
   /** The access system that determines whether a key is ok or not */
   private Access access;
 
-  public DoorAlarm(MessageDatabase language, Access access) {
-    super( language.getFrameTitle() );
-    this.language = language;
+  public DoorAlarm(Access access, DoorAlarmFactory factory) {
+//    super( language.getFrameTitle() );
+    this.language = factory.createMessageDatabase();
     this.access = access;
+	this.factory = factory;
+	this.setTitle(language.getFrameTitle());
 
     // initialize the global listener on the keyboard panel.
     keyCodeListener = new KeyCodeListener();
@@ -54,10 +63,19 @@ public class DoorAlarm extends JFrame {
 
     panel.add( Box.createVerticalGlue() );
 
-    JPanel keyboard = createKeyBoardPanel();
+    // initialize the global listener on the keyboard panel.
+    keyCodeListener = new KeyCodeListener();
+
+	// ********** Solution 1 **************** //
+//    JPanel keyboard = factory.createKeyboardPanel(keyCodeListener);
+	// ********** End Solution 1 **************** //
+
+	// ********** Solution 2 **************** //
+    JPanel keyboard = createKeyboardPanel();
+	// ********** End Solution 2 **************** //
+
     panel.add( keyboard );
  
-    
     TitledBorder title;
     title = 
       BorderFactory.createTitledBorder( BorderFactory.
@@ -68,45 +86,39 @@ public class DoorAlarm extends JFrame {
     panel.setBorder( title );
     getContentPane().add(panel);
 
-    // initialize the global listener on the keyboard panel.
-    keyCodeListener = new KeyCodeListener();
 
     pack();
     setVisible(true);
 
     clearCode();
   }
-   
-  private JPanel createKeyBoardPanel() {
-    JPanel numericalPanel = new JPanel();
+  
+  DoorAlarmFactory factory;
+
+  // ********** Solution 2 ****************** //  
+  public JPanel createKeyboardPanel()
+  {
+	JPanel numericalPanel = new JPanel();
     numericalPanel.setLayout( new GridLayout(4, 3, 5, 5) );
     // insert the buttons
 	
-    numericalPanel.add( makeButton( "1" ));
-    numericalPanel.add( makeButton( "2" ));
-    numericalPanel.add( makeButton( "3" ));
-	
-    numericalPanel.add( makeButton( "4" ));
-    numericalPanel.add( makeButton( "5" ));
-    numericalPanel.add( makeButton( "6" ));
-	
-    numericalPanel.add( makeButton( "7" ));
-    numericalPanel.add( makeButton( "8" ));
-    numericalPanel.add( makeButton( "9" ));
- 
-    numericalPanel.add( makeButton( "*" ));
-    numericalPanel.add( makeButton( "0" ));
-    numericalPanel.add( makeButton( "#" ));
+    String[] strs = factory.createKeyboardPanelSequence();
+	for (int i = 0; i < strs.length; ++i)
+	{
+		numericalPanel.add( makeButton( strs[i] ));
+	}
     return numericalPanel;
   }
-  
-  private JButton makeButton( String label ) {
+
+  private JButton makeButton( String label) {
     JButton b = new JButton( label );
     b.addActionListener( keyCodeListener );
     b.setActionCommand( label );
     return b;
   }
-
+  
+  // ********** End Solution 2 ****************** //  
+  
   private class KeyCodeListener implements ActionListener {
     public void actionPerformed( ActionEvent e ) {
       String arg = e.getActionCommand();
@@ -115,7 +127,6 @@ public class DoorAlarm extends JFrame {
   };
   private KeyCodeListener keyCodeListener;
     
-  
   private void clearCode() {
     codeSoFar = new String();
     info.denied();
