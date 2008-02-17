@@ -10,3 +10,9 @@ Brainstormning, decentralized rantings in general.
   * General progress
   * Step by step advancements
   * Takes care of "meetings" in our decentralized setting.
+
+= Scenario Brainstorming =
+
+  * A sensor stops responding.
+  * Someone leaves a window open in an ice storm, and the sensors makes the actuators overheat.
+  * Someone accidently puts their stiletto through the ethernet switch, disabling networking parts of the system.
