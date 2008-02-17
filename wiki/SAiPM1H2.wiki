@@ -1,0 +1,12 @@
+Page for Handin 2 of the Software Architecture in Practice couse at AU.
+
+= Introduction =
+
+Brainstormning, decentralized rantings in general.
+
+
+= Details =
+
+  * General progress
+  * Step by step advancements
+  * Takes care of "meetings" in our decentralized setting.
