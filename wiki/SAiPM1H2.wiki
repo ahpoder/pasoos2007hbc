@@ -27,7 +27,8 @@ Brainstorming, decentralized rantings in general.
  * Developer (?)
   * Easily adjustable to new requirements
   * Scalable
-  * Upgradeable
+  * Remote maintenance (debugging online)
+  * Remote update (upgrading online)
  * Insurance company
   * Safe with respect to fires (radiators) and breakins (door), ...
 .
@@ -45,3 +46,7 @@ Brainstorming, decentralized rantings in general.
  # The home owner -> logs on to -> the system (normal opreation) -> creates a connection and reports status -> Maximum delay before response 1 second 95% of the time, 5 seconds 4% of the time, more than 5 seconds (unscheduled down-time) less than 1% of the time.
  # The user -> attempts to turn radiator above normal safety-level from outside the house -> the system (normal operation) -> reports an error back to the user explaining the infraction and create a log entry -> the system do not execute illigal command.
  # An attacker -> attempts to log on -> the system (normal operation) -> system creates audit-trail, disconnects and go to degraded mode for 1 hour -> System do not allow IP to reattempt for 1 hour
+ # The developer -> Wishes to add a new device type -> Code (at design time) -> Modification made and tested (incl. regression) -> 1 day.
+ # The technician -> Going to install the system -> house and system (pre-initialization) -> System installed and running -> no more than 4 hours
+ # The developer -> Needs to modify to new requirement -> Code (post design time) -> Code updated and regression test run -> less than 30 man-hours
+ # The developer -> Needs to upgrade the system -> System (maintenance operation) -> New upgrade installed and running -> No more than 30 minutes
