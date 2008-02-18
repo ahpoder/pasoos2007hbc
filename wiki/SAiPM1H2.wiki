@@ -23,6 +23,7 @@ Brainstorming, decentralized rantings in general.
  * Producer
   * Cheap
   * Production line (modifiability for other uses)
+ * Technical installer
   * Easily deployable (installable)
  * Developer (?)
   * Easily adjustable to new requirements
