@@ -1,8 +1,10 @@
-Page for Handin 2 of the Software Architecture in Practice couse at AU.
+Page for Hand-in 2 of the Software Architecture in Practice couse at AU.
 
 = Introduction =
 
-Brainstormning, decentralized rantings in general.
+Brainstorming, decentralized rantings in general.
+
+ * AHP - What do developers care about? Looking over what I came up with, most of the goals (clear requirements, scalable and upgradeable) have root in business, as it will cause the development (or future development) to go faster.
 
 
 = Details =
@@ -11,8 +13,35 @@ Brainstormning, decentralized rantings in general.
   * Step by step advancements
   * Takes care of "meetings" in our decentralized setting.
 
+= Stakeholders and interests =
+
+ * User (homeowner)
+  * Easy to use and configure
+  * Always available
+  * Safe (will not make an error and burn down the house)
+  * Secure (other people cannot control my home)
+ * Producer
+  * Cheap
+  * Production line (modifiability for other uses)
+  * Easily deployable (installable)
+ * Developer (?)
+  * Easily adjustable to new requirements
+  * Scalable
+  * Upgradeable
+ * Insurance company
+  * Safe with respect to fires (radiators) and breakins (door), ...
+.
+.
+.
+
 = Scenario Brainstorming =
 
   * A sensor stops responding.
   * Someone leaves a window open in an ice storm, and the sensors makes the actuators overheat.
-  * Someone accidently puts their stiletto through the ethernet switch, disabling networking parts of the system.
+  * Someone accidentally puts their stiletto through the Ethernet switch, disabling networking parts of the system.
+
+ # The user -> begin using -> the system (normal operation) -> understand basic functionality -> less than 1 hour.
+ # The user -> create a new user -> the system (configuration mode) -> new user ready to log on -> System skales to 65536 users or as hardware allow
+ # The home owner -> logs on to -> the system (normal opreation) -> creates a connection and reports status -> Maximum delay before response 1 second 95% of the time, 5 seconds 4% of the time, more than 5 seconds (unscheduled down-time) less than 1% of the time.
+ # The user -> attempts to turn radiator above normal safety-level from outside the house -> the system (normal operation) -> reports an error back to the user explaining the infraction and create a log entry -> the system do not execute illigal command.
+ # An attacker -> attempts to log on -> the system (normal operation) -> system creates audit-trail, disconnects and go to degraded mode for 1 hour -> System do not allow IP to reattempt for 1 hour
