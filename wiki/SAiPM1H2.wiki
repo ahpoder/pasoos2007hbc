@@ -54,3 +54,12 @@ Brainstorming, decentralized rantings in general.
   # The developer -> Needs to modify to new requirement -> Code (post design time) -> Code updated and regression test run -> less than 30 man-hours
   # The developer -> Needs to upgrade the system -> System (maintenance operation) -> New upgrade installed and running -> No more than 30 minutes
   # The developer -> Needs to do debug a problem -> System (maintenance operation) -> Download debug log and allow maintenance access -> 90% of all reported problems leave system in maintenance mode (as opposed to dead)
+
+  * The system handles 50 sensors and 50 actuators.
+  * The system handles up to 50 rooms/groups with one or more sensors and actuators in each group.
+  * The user changes the preferred temperature from a webpage and the system adapts to it.
+  * The customer requests that the system runs on other hardware (e.g. less power consuming hardware).
+  * The customer requests that the system interfaces with other sensors/actuators?
+  * The developer modifies the sensor poll interval at build time.
+  * The system turns off all actuators when sensors cannot be probed.
+  * The end user adds a sensor/actuator at runtime which registers automatically.
