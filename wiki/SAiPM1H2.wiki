@@ -30,6 +30,8 @@ Brainstorming, decentralized rantings in general.
   * Scalable
   * Remote update (upgrading online)
   * Remote maintenance (debugging online)
+  * Automatically testable (regression test)
+  * Developing in parallel
  * Insurance company
   * Safe with respect to fires (radiators) and break ins (door), ...
 .
