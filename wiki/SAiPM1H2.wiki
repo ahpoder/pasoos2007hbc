@@ -40,6 +40,44 @@ Brainstorming, decentralized rantings in general.
   # A sensor stops responding.
   # Someone leaves a window open in an ice storm, and the sensors makes the actuators overheat.
   # Someone accidentally puts their stiletto through the Ethernet switch, disabling networking parts of the system.
+  # After an average user has used the system for less than one hour e or she has mastered the basic functionality
+  # The user adds a new actuator and the system configures to use the new hardware automatically within 1 minute.
+  # The user logs on externally through the gateway and has access to the home control within 1 second of verifying 95% of the time (5 seconds 4% of the time, more than 5 seconds (unscheduled down-time) less than 1%) is connected and has access
+  # The user attempts to turn radiator above normal safety-level from outside the house and receive an error back to the user explaining the infraction and create a log entry.
+  # 
+  # The system handles 50 sensors and 50 actuators.
+  # The system handles up to 50 rooms/groups with one or more sensors and actuators in each group.
+  # The user changes the preferred temperature from a web page and the system adapts to it.
+  # The customer requests that the system runs on other hardware (e.g. less power consuming hardware).
+  # The customer requests that the system interfaces with other sensors/actuators?
+  # The developer modifies the sensor poll interval at build time.
+  # The system turns off all actuators when sensors cannot be probed.
+  # The end user adds a sensor/actuator at runtime which registers automatically.
+
+== Identical scenarios ==
+
+  * 2. and 7.
+  * 
+
+
+= The vote =
+
+== Round 1 ==
+
+|| *Person* || *Vote 1* || *Vote 2* || *Vote 3* || *Vote 4* || *Vote 5* || *Vote 6* ||
+|| Jesper   ||          ||          ||          ||          ||          ||          ||
+|| Lars     ||          ||          ||          ||          ||          ||          ||
+|| Anders   ||    2/    ||    4     ||          ||          ||          ||          ||
+
+== Round 2 ==
+
+|| *Person* || *Vote 1* || *Vote 2* || *Vote 3* || *Vote 4* || *Vote 5* || *Vote 6* ||
+|| Jesper   ||          ||          ||          ||          ||          ||          ||
+|| Lars     ||          ||          ||          ||          ||          ||          ||
+|| Anders   ||          ||          ||          ||          ||          ||          ||
+
+= Stored for later use =
+
   # The user -> begin using -> the system (normal operation) -> understand basic functionality -> less than 1 hour.
   # The user -> create a new user -> the system (configuration mode) -> new user ready to log on -> System scales to 65536 users or as hardware allow
   # The home owner -> logs on to -> the system (normal operation) -> creates a connection and reports status -> Maximum delay before response 1 second 95% of the time, 5 seconds 4% of the time, more than 5 seconds (unscheduled down-time) less than 1% of the time.
@@ -50,18 +88,3 @@ Brainstorming, decentralized rantings in general.
   # The developer -> Needs to modify to new requirement -> Code (post design time) -> Code updated and regression test run -> less than 30 man-hours
   # The developer -> Needs to upgrade the system -> System (maintenance operation) -> New upgrade installed and running -> No more than 30 minutes
   # The developer -> Needs to do debug a problem -> System (maintenance operation) -> Download debug log and allow maintenance access -> 90% of all reported problems leave system in maintenance mode (as opposed to dead)
-  # The system handles 50 sensors and 50 actuators.
-  # The system handles up to 50 rooms/groups with one or more sensors and actuators in each group.
-  # The user changes the preferred temperature from a web page and the system adapts to it.
-  # The customer requests that the system runs on other hardware (e.g. less power consuming hardware).
-  # The customer requests that the system interfaces with other sensors/actuators?
-  # The developer modifies the sensor poll interval at build time.
-  # The system turns off all actuators when sensors cannot be probed.
-  # The end user adds a sensor/actuator at runtime which registers automatically.
-
-== The vote ==
-
-|| *Person* || *Vote 1* || *Vote 2* || *Vote 3* ||
-|| Jesper   ||          ||          ||          ||
-|| Lars     ||          ||          ||          ||
-|| Anders   ||          ||          ||          ||
