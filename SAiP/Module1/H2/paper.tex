@@ -6,6 +6,7 @@
 \usepackage{url}
 \usepackage{times}
 \usepackage{rotating}
+\usepackage{multirow}
 
 \renewcommand{\descriptionlabel}[1]
     {\hspace{\labelsep}\emph{#1}}
@@ -175,6 +176,135 @@ the gateway through a LAN connection.
 \label{fig:allocation_actual}
 \end{figure}
 
+% ---------------------------------------------------------------------
+\section{Quality Attributes}
+The following chapters documents the selection of the Quality Attributes that we 
+select for the HS07 system. The selection of QA is split into a 3-part process.
+\begin{itemize}
+\item Brainstorming - we think up scenarios
+\item Selection - we chose which scenarios are interesting.
+\item Refinement - we refine the selected scenarios
+\end{itemize}
+\subsection{Brainstorming}
+In this part of the process we just attempt to think of as many possible scenarios for the HS07 system as we possibly can. 
+
+\subsection{Scenarios}
+
+\begin{enumerate}
+\item A sensor stops responding.
+\item Someone leaves a window open in an ice storm, and the sensors makes the actuators overheat.
+\item Someone accidentally puts their stiletto through the Ethernet switch, disabling networking 
+parts of the system.
+\item After an average user has used the system for less than one hour e or she has mastered the basic functionality
+\item The user adds a new actuator and the system configures to use the new hardware automatically within 1 minute.
+\item The user logs on externally through the gateway and has access to the home control within 1 second of verifying 95\% of the time (5 seconds 4\% of the time, more than 5 seconds (unscheduled down-time) less than 1\%) is connected and has access
+\item The user attempts to turn radiator above normal safety-level from outside the house and receive an error back explaining the infraction. The system stores a log of the episode and refuse to execute the command.
+\item An attacker attempts to log on using an invalid password and is thrown off. The next attempt will take longer (progressive log-on time). The system stores a log of the failed attempt.
+\item Developer updates and tests the code base with a new device type in 1 day.
+\item A technical installer installs a system at a customer in no more than 4 hours.
+\item Developer updates the code base to a new requirement in less than 30 man-hours
+\item Configuration manager installs an upgrade remotely at a customer in no more than 30min
+\item Tester/debugger extract debugging information directly from running system at customer.
+\item The system handles 50 sensors and 50 actuators.
+\item The system handles up to 50 rooms/groups with one or more sensors and actuators in each group.
+\item The user changes the preferred temperature from a web page and the system adapts to it.
+\item The customer requests that the system runs on other hardware (e.g. less power consuming hardware).
+\item The customer requests that the system interfaces with other sensors/actuators?
+\item The developer modifies the sensor poll interval at build time.
+\item The system turns off all actuators when sensors cannot be probed.
+\item The end user adds a sensor/actuator at runtime which registers automatically.
+\end{enumerate}
+
+\subsection{Selection}
+Here we put the scenarios to the vote. This is done by emulation of a real-life situation where the actual stakeholder would
+be part of the process. We take on the roles of the stakeholders in their absence, and chose which scenarios would be more
+interesting for us.
+\subsection{Stakeholders and interests}
+\begin{itemize}
+\item User (homeowner)
+\begin{itemize}
+\item Easy to use and configure
+\item Always available
+\item Safe (will not make an error and burn down the house)
+\item Secure (other people cannot control my home)
+\end{itemize}
+\item Producer
+\begin{itemize}
+\item Cheap
+\item Production line (modifiability for other uses)
+\end{itemize}
+\item Technical installer
+\begin{itemize}
+\item Easily deployable (installable)
+\end{itemize}
+\item Developer (?)
+\begin{itemize}
+\item Easily adjustable to new requirements
+\item Scalable
+\item Remote update (upgrading online)
+\item Remote maintenance (debugging online)
+\item Automatically testable (regression test)
+\item Developing in parallel
+\end{itemize}
+\item Insurance company
+\begin{itemize}
+\item Safe with respect to fires (radiators) and break ins (door), ...
+\end{itemize}
+\end{itemize}
+
+\subsection{The Vote}
+\subsection{First vote}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Person & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
+\hline
+Jesper& & & & & & \\
+Lars& & & & & & \\
+Anders&2&4& & & & \\
+\hline
+\end{tabular}
+\subsection{Second vote}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Person & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
+\hline
+Jesper& & & & & & \\
+Lars& & & & & & \\
+Anders& & & & & & \\
+\hline
+\end{tabular}
+
+\subsection{Refinement}
+The process of refining the chosen scenarios centers around specification of various elements of the scenario. Stimulus, Response, Response Measurement. 
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & After an average user has used the system for less than one hour e or she has mastered the basic functionality \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} usability & \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} &  \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} &  \\
+  \cline{2-3}
+  & {\bfseries Artifact} &  \\
+  \cline{2-3}
+  & {\bfseries Environment:} &  \\
+  \cline{2-3}
+  & {\bfseries Response:} &  \\
+  \cline{2-3}
+  & {\bfseries Response Measure:} & \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} &  \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
+  \hline
+\end{tabular}
+\caption{Scenario refinement for HS07-...}
+\end{center}
+\end{table}
 
 % =====================================================================
 \section{Discussion}
