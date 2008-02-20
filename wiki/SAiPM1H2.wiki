@@ -62,8 +62,11 @@ Brainstorming, decentralized rantings in general.
 == Identical scenarios ==
 
   * 2. and 7.
-  * 
-
+  * 6. and 16.
+  * 10. and 17.
+  * 9. and 18.
+  * 1. and 20.
+  * 5. and 21.
 
 = The vote =
 
