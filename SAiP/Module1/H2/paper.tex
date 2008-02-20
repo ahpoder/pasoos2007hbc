@@ -1,0 +1,253 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{times}
+\usepackage{rotating}
+
+\renewcommand{\descriptionlabel}[1]
+    {\hspace{\labelsep}\emph{#1}}
+
+\begin{document}
+
+\title{Exercise 1: Software Architecture Description of the HS07 System}
+
+\author{
+  Anders H Poder, Jesper Dalberg, Lars Kringelbach\\\\
+  Department of Computer Science, University of Aarhus\\
+  Aabogade 34, 8200 {\AA}rhus N, Denmark\\\\
+  \makeatletter
+  \texttt{Group 11 - Kilo}\\
+  \texttt{19951439, 20074976, 20074842}\\
+  \texttt{\{ahp, jdalberg, u074842\}@daimi.au.dk}
+}
+
+\date{2008-02-06}
+
+\maketitle
+
+% =====================================================================
+\begin{abstract}
+  The HS07 system implements a closed-loop control of the heating in a
+  private home. It monitors thermometers in the home, and based on
+  measurements HS07 adjusts radiators in the home. This report gives a
+  software architecture description of an architectural prototype of
+  the HS07 system. The techniques used for architectural description
+  are taken from \cite{christensen2004archdesc}.
+\end{abstract}
+
+% =====================================================================
+\section{Introduction}
+
+Figure~\ref{fig:hs07} shows a schematic overview of HS07 in a
+home. The home may be accessed by the home owner from the outside
+through the HS07 gateway. The HS07 gateway also monitors and controls
+the home.
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/hs07,scale=0.4 }}
+\caption{HS07 in a home}
+\label{fig:hs07}
+\end{figure}
+
+HS07 includes sensor and actuator hardware which runs on an embedded Java virtual
+machine with standard software.
+
+% =====================================================================
+\section{Architectural Requirements}
+\label{sec:requirements}
+
+For our purposes there is one main use case for the HS07 system:
+\begin{quote}
+  \emph{Control Temperature}: The gateway collects measurements from
+  thermometers and reports this to radiators that then control the
+  temperature.
+\end{quote}
+
+The major driving quality attributes of the HS07 system
+are\footnote{These qualities will be operationalized in Exercise 2}:
+
+\begin{itemize}
+\item \emph{Performance.} HS07 should be performant so that a large
+  number of thermometers and radiators may be part of the system.
+\item \emph{Modifiability.} It must be possible to modify HS07 to
+  include new types of sensors and actuators.
+%  \item $<<$Extra quality requirement that you consider important $>>$
+\end{itemize}
+
+
+% =====================================================================
+\section{Architectural Description}
+
+% ---------------------------------------------------------------------
+\subsection{Module View}
+
+This section contains the module view of the HS07 system. This view
+is based on the Module Viewpoint as defined in \cite{christensen2004archdesc}.
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=0 10 600 500,scale=0.5]{figures/mv.pdf}}
+\caption{HS07 Package Diagram}
+\label{fig:mv}
+\end{figure}
+
+Figure~\ref{fig:mv} shows the packages of the HS07 system, and how they depend
+on java packages. The Sensor, Gateway and Actuator packages do not have
+any knowledge of each other. They are all services that are able to respond to
+HTTP queries. They use the Invoker to interact with the HTTP server in the
+other modules. The interactions between the components are described in section
+\ref{sec:component}. The Java packages Net, Jetty and Http are used for the
+HTTP servers and HTTP requests.
+
+% ---------------------------------------------------------------------
+\subsection{Component \& Connector View}
+\label{sec:component}
+
+This section contains the Component \& Connecter view of the HS07 system.
+This view is based on the Component \& Connecter viewpoint as defined in
+\cite{christensen2004archdesc}.
+
+The Component \& Connecter view consists of an Active Objects diagram and a
+sequence diagram.
+
+The Active Objects diagram in figure \ref{fig:cc_ao} shows the active objects
+of the HS07 system, and how they interact. The Gateway accesses the thermometers
+by requesting the temperature repeatedly from all registered TemperatureServices.
+The measured temperature is then published to all registered observers. The
+RadiatorService and ThermometerService registers to the Gateway as Observers and
+Servers respectively through the GatewayService. It is also possible to register
+to the Gateway from an internet connection.
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=0 10 600 420,scale=0.5]{figures/cc_ao.pdf}}
+\caption{HS07 Active Objects}
+\label{fig:cc_ao}
+\end{figure}
+
+The sequence diagram illustrates the protocol of the interactions involved in the 
+setup and the execution of the Gateway. It consists of a registration sequence and 
+an infinite loop of retrieving the temperature of all registered themometers and 
+notifying all observers (in this case the Radiators). The example is slightly 
+simplified to improve readability, as the registerThermometer, registerObserver, 
+getTemperature and notify is actually network calls performed using the Invoker and 
+the respective servers. The figure shows an example with only one thermometer and
+one radiator.
+
+\clearpage
+
+\begin{figure}[!htb]
+\center {\includegraphics[angle=270,scale=0.5]{figures/sequence.pdf}}
+\caption{HS07 Sequence Diagram}
+\label{fig:sequence}
+\end{figure}
+
+
+% ---------------------------------------------------------------------
+\subsection{Allocation View}
+
+This section contains the allocation view of the HS07 system. This view
+is based on the Allocation Viewpoint as defined in \cite{christensen2004archdesc}.
+
+The allocation view illustrates how components are deployed in actual
+processes within the HS07 system. 
+
+Figure~\ref{fig:allocation_pc} shows an example setup
+where all HS07 processes are located on the same node. As can be seen in the
+figure the gateway can be accessed from one or more PCs through an internet
+connection.
+
+\clearpage
+
+\begin{figure}[!htb]
+\center {\includegraphics[scale=0.4]{figures/deployment.pdf}}
+\caption{HS07 Allocation Diagram showing deployment on a PC}
+\label{fig:allocation_pc}
+\end{figure}
+
+Figure~\ref{fig:allocation_actual} shows a more realistic example of a deployment
+where thermometers and radiators are seperate nodes that are connected to
+the gateway through a LAN connection.
+
+\begin{figure}[!htb]
+\center {\includegraphics[viewport=250 200 600 420, scale=0.4]{figures/deployment_actual.pdf}}
+\caption{HS07 Allocation Diagram showing deployment on seperate nodes}
+\label{fig:allocation_actual}
+\end{figure}
+
+
+% =====================================================================
+\section{Discussion}
+\subsection{Strength and Limitations of the approach}
+%$<<$What are the strengths and limitations of this approach to architectural description judging from this case?$>>$
+\subsection{Strengths}
+\begin{itemize}
+\item UML is a language that is unambigious and known by many.
+\item The three viewpoints are tried and proven, and due to this fact many developers are used to thinking in this way and can generate an understanding of the system based on these views.
+ \item Having a well-understandable architecture to go by, makes it easier for multiple developers to work in parallel with a common understanding of the priorities inherint in the architecture.
+\end{itemize}
+
+\subsection{Limitations}
+\begin{itemize}
+\item Just like with any other language it only makes sense to those who know the language. 
+\item Choosing three views to focus on, due to the fact that they fit most of the time, means that the focus will sometimes be wrong.
+\end{itemize}
+
+\subsection{Not covered aspects}
+%$<<$Are there aspects of the software architecture that have not been properly described?$>>$
+\begin{itemize}
+\item \emph{Stakeholders and their concerns} This encompasses both users/aquirers and developers.
+\item \emph{Feasibility}
+\item \emph{Maintainablity}
+\item \emph{Security} How is the Gateway protected? What protection is there against attack and inproper use? 
+\item \emph{Safety} How is synchronization done? What insurances is there that the system cannot mailfunction and overheat a radiator or turn on a radiator which has been turned off deliberately because flammable material is placed near it?
+\item \emph{Availability} What is the up-time of the HTTP server that the system run on, both embedded and PC?
+\item \emph{Testability} What is the testability of the components? How easily is it to replace the actual HTTP servers with test doubles?
+\end{itemize}
+
+\subsection{IEEE Conformance}
+
+%$<<$For the architectural description above, discuss what (if anything) should be changed or added for it to comply with the IEEE recommended practice for architectural description$>>$
+
+This section describes how this architectural description conforms to the recommended practice
+that is defined in \cite{ieeerecommendedpractice}.
+
+\begin{description}
+	\item[Clause 5.1 Architectural documentation] This report does not include a description of the
+		scope of this document, a change history and a glossary as defined in the recommended practice.
+		The context is briefly covered in the introduction.
+	\item[Clause 5.2 Identification of stakeholders and concers] The stakeholders of this system and
+		their precise concerns have not been identified in this report. This must be done in order to
+		conform to the recommended practice.
+	\item[Clause 5.3 Selection of architectural viewpoints] The viewpoints used in this architectural
+		description are defined in \cite{christensen2004archdesc}.
+	\item[Clause 5.4 Architectural views] This report contains the following architectural views: Module
+		View, Component \& Connector View and Allocation View.
+	\item[Clause 5.5 Consistency among architectural views] There is no consistency check across the views
+		in this report as specified in the recommended practice.
+	\item[Clause 5.6 Architectural rationale] There is no rationale for the architectural decisions
+		that have made in this report.
+\end{description}
+
+
+\subsection{Perry \& Wolf Considerations}
+%$<<$Consider the definition of software architecture by [Perry and Wolf, 1992]. Discuss what the 'elements', 'form', and 'rationale' according to this definition would be for the HS07 system$>>$
+
+\cite{perrywolf1992} defines "elements" as three different classes, data elements,
+processing elements and connecting elements. In HS07 the data elements are
+temperatures, the processing element is the gateway and the connecting element
+is HTTP. The "form", as described by Perry and Wolf, is the choice of the observer
+pattern in HS07.
+
+The "rationale" described in \cite{perrywolf1992} captures the reasons for choices
+made when defining the architecture. In this architectural description a rationale
+would e.g. document the choice of using HTTP as the protocol between the components. A
+Rationale is not part of this document.
+
+
+% =====================================================================
+\bibliography{paper}
+\bibliographystyle{apalike}
+
+
+\end{document}
