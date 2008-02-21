@@ -61,6 +61,8 @@ Brainstorming, decentralized rantings in general.
 
 == Identical scenarios ==
 
+Due to the distributed location of the participants in the brainstorming multiple "similar" scenarios was created. In order to avoid having the same scenario represented twice with a slightly different wording, the below list show the scenarios which will be considered identical, meaning that their votes will be accumulated.
+
   * 2. and 7.
   * 6. and 16.
   * 10. and 17.
