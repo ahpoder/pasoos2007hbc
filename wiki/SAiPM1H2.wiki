@@ -113,6 +113,7 @@ This is the result of the vote in a prioritized order.
   == Performance ==
   * Performance and availability are related in the sense that increasing performance may increase timely availability, yet as the timely availability was deemed of low priority, this part of the performance quality attirbute is also of little importance.
   * Another part of performance is related to footprint and memory usage rather than execution speed, and as the system is based on smaller sensors and actuators, this part of performance becomes very important. It is also related to another important quality; cost.
+  * The system must be able to handle enough sensors and actuators to control a full house.
 	
   == Modifiability ==
   * As the system is based on dynamically replacable sensors and actuators of varying type and specification, it is imparative that the architecture supports these varying specification, and modifiability therefore become vital for the system.
