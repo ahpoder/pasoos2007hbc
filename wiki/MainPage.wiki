@@ -10,6 +10,7 @@ This is merely a list of exercises and projects
 == PaSOOS ==
 
   * [Exercise2_6]
+  * [Week45Exercise2]
 
 == SAiP ==
 
