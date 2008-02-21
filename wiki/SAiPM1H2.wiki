@@ -108,7 +108,7 @@ This is the result of the vote in a prioritized order.
     * Hard requirements as to timeing of responses from the individual services are not that important in the HS07 system. Whether an actuator responds in 1 second or 5 seconds is not that important, just like the internet link in the gateway will not sease to function if its response time is e.g. doubled.
 
   == Usability ==
-  * The HS07 system must be used by "ordiary" users, and a high degree of usability must therefore be inherent in the architecture to support rapid user interface modification as well as implementing functionality that may aid the user during use. 
+  * The HS07 system must be used by "ordinary" users (e.g. non-technical), and a high degree of usability must therefore be inherent in the architecture to support rapid user interface modification as well as implementing functionality that may aid the user during use. 
 	  
   == Performance ==
   * Performance and availability are related in the sense that increasing performance may increase timely availability, yet as the timely availability was deemed of low priority, this part of the performance quality attirbute is also of little importance.
