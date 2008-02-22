@@ -82,7 +82,7 @@ Due to the distributed location of the participants in the brainstorming multipl
 == Round 2 ==
 
 || *Person* ||  *Role*  || *Vote 1* || *Vote 2* || *Vote 3* || *Vote 4* || *Vote 5* || *Vote 6* ||
-|| Jesper   ||          ||          ||          ||          ||          ||          ||          ||
+|| Jesper   || Developer ||   11    ||   19    ||    9      ||   11      ||    13      ||      13    ||
 || Lars     ||          ||          ||          ||          ||          ||          ||          ||
 || Anders   || Producer ||    9     ||    11    ||    11    ||    12    ||    17    ||  18       ||
 
