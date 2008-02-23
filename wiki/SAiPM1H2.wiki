@@ -129,6 +129,8 @@ This is the result of the vote in a prioritized order.
   
   == Testability ==
   * As the system is highly modifiable, regression-testing is highly-important. Also the requirement of availability creates extra demands on testability, as it is required to test many fault scenarios to ensure propper recovery (if this is the fault-handling mechanism of choice).
+
+(JDA: Der er vel ikke en 1-1 afhængighed imellem modifiablity og testability? - man kan måske sige at hvis systemet er higly modified, så kan der være en sammenhæng imellem behovet for tests og koden. Noget andet er tests kontra testbarhed. Der er vel igen der er i tvivl om at ethvert system bør hvad et sæt af tests, men at designe for testbarhed er i min opfattelse noget andet. Hvis der altid var afhængigheder imellem Testability og Modifiability, så ville det være svært at have den ene uden den anden, hvorved behovet for begge ville opløses og Testability ville blive en sub-bullit til Modifiability)
  
 ----
 
