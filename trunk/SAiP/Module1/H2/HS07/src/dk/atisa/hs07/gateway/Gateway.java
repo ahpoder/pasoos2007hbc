@@ -19,6 +19,12 @@ public class Gateway implements Runnable {
 	private Collection<String> thermometers = new LinkedList<String>();
 	private Collection<String> observers = new LinkedList<String>();
 	
+	private String modelLocation = "";
+	
+	public Gateway( String _modelLocation ) {
+		modelLocation = _modelLocation;
+	}
+	
 	/**
 	 * Register a thermometer which is used for estimating temperature
 	 * 
@@ -45,9 +51,9 @@ public class Gateway implements Runnable {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public void notifyObservers(double temperature) throws MalformedURLException, IOException {
+	public void notifyObservers(double temperature, double targetTemperature) throws MalformedURLException, IOException {
 		for (String location : observers) {
-			Invoker.invoke(location, "notify", "temperatur___e", "" + temperature);
+			Invoker.invoke(location, "notify", "temperatur___e", "" + temperature, "targettem___p", "" + targetTemperature);
 		}
 	}
 
@@ -65,6 +71,7 @@ public class Gateway implements Runnable {
 		}
 		return sum/thermometers.size();
 	}
+	
 
 	/**
 	 * Run the control algorithm which is decentralized in this case, i.e.,
@@ -75,9 +82,14 @@ public class Gateway implements Runnable {
 			try {
 				Thread.sleep(SLEEP_TIME);
 				if (thermometers.size() > 0) {
+					/* Get the target temperature from the model */
+					double targetTemperature = Double.parseDouble(Invoker.invoke(modelLocation, "getTargetTemperature"));
 					double temperature = getTemperature();
+
 					System.out.println("Average temperature: " + temperature + " for " + thermometers.size() + " thermometer(s)");
-					notifyObservers(temperature);
+					notifyObservers(temperature,targetTemperature);
+
+					Invoker.invoke(modelLocation, "setAverageTemperature", "averageTem___p", ""+temperature);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
