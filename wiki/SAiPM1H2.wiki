@@ -22,7 +22,7 @@ Brainstorming, decentralized rantings in general.
     * Production line (modifiability for other uses)
   * Technical installer
     * Easily deployable (installable)
-  * Developer (?)
+  * Developer
     * Easily adjustable to new requirements
     * Scalable
     * Remote update (upgrading online)
@@ -31,9 +31,6 @@ Brainstorming, decentralized rantings in general.
     * Developing in parallel
   * Insurance company
     * Safe with respect to fires (radiators) and break ins (door), ...
-.
-.
-.
 
 = Scenario Brainstorming =
 
