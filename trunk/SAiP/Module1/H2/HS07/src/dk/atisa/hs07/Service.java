@@ -22,6 +22,25 @@ public abstract class Service {
 	 * @throws Exception
 	 */
 	public Service(String location) throws Exception {
+		start(location);
+	}
+
+	/**
+	 * Creates an un-started HS07 service
+	 * 
+	 * @param location of the service
+	 * @throws Exception
+	 */
+	public Service() {
+	}
+
+	/**
+	 * Starts an HS07 service using the Jetty servlet container
+	 * 
+	 * @param location of the service
+	 * @throws Exception
+	 */
+	public void start(String location) throws Exception {
 		Server server = new Server(new URL(location).getPort());    
 		Context root = new Context(server, "/", Context.SESSIONS);
 		Servlet servlet = new ProtocolServlet(getController());

@@ -24,9 +24,9 @@ public class ThermometerService extends Service {
 	 * @throws Exception
 	 */
 	public ThermometerService(String gatewayLocation, String thisLocation, SensorFactory sf) throws Exception {
-		super(thisLocation);
 		URL url = new URL(thisLocation);
 		sensorFactory = sf;
+		start(thisLocation);
 		Invoker.invoke(gatewayLocation, "registerThermometer", "location", url.toString());
 		System.out.println("Started thermometer service at " + url);
 	}
