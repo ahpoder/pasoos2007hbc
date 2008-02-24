@@ -67,11 +67,11 @@ public class DoorAlarm extends JFrame {
     keyCodeListener = new KeyCodeListener();
 
 	// ********** Solution 1 **************** //
-//    JPanel keyboard = factory.createKeyboardPanel(keyCodeListener);
+    JPanel keyboard = factory.createKeyboardPanel(keyCodeListener);
 	// ********** End Solution 1 **************** //
 
 	// ********** Solution 2 **************** //
-    JPanel keyboard = createKeyboardPanel();
+//    JPanel keyboard = createKeyboardPanel();
 	// ********** End Solution 2 **************** //
 
     panel.add( keyboard );
