@@ -305,11 +305,11 @@ The process of refining the chosen scenarios centers around specification of var
   \cline{2-3}
   & {\bfseries Environment:} & Normal operation \\
   \cline{2-3}
-  & {\bfseries Response:} & Begin adjusting to temperature \\
+  & {\bfseries Response:} & Acknowledge of operation from gateway \\
   \cline{2-3}
-  & {\bfseries Response \mbox{Measure:}} & Within 5 seconds \\
+  & {\bfseries Response \mbox{Measure:}} & Within 5 seconds 98,9% of the time, within 30 seconds 1% of the time and more than 30 seconds 0,1% of the time (unshceduled down-time) \\
   \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & When do the temperature adjustment begin? When the command is received by the radiator? \\
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & When do the temperature adjustment begin? When is the command is received by the radiator? \\
   \hline
   \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
   \hline
@@ -352,13 +352,15 @@ This functionality is not part of the current architecture, even though it suppo
 \subsection{Modifiablity}
 \subsection{Testability}
 \subsection{Refined Scenario \#3}
+Scenario \#3 requires the HS07 system to provide a web interface that can be used to change the temperature in the house. The response requirements sets some requirements to the availability of the http service.
 \subsection{Tactics}
 \subsection{Availability}
-We will use a passive redundancy system for the http service in order to handle the response measurement. 
-We consider the risk of hardware failure to small to use hardware redundancy, given the expected low amount of traffic on the system.
+As the user may experience non-responsiveness 0,1% of the time it is believed that this can be done with a single hardware unit (no HW-redundancy). At the same time the requirement of 30 seconds 1% of the time is sufficient time to restart the web-service, and it is believed sufficient to have \emph{passive redundancy}. Finally it is believed that an availability of 5 seconds 98,9% of the times, require a form of redundancy, \emph{passive redundancy} is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and it uses some kind of fault detection scheme to detect if one become non-responsive. If this happens it is simply killed and an identical process is spawned in its place.
+
 \subsection{Usability}
-The web interface must...
- 
+A web interface must be provided to support the requirement that the user can change the temperature from a web page. In order to maintain the modifiability of the system, a Model-View-Controller pattern will be used to separate the web interface from the gateway. A web backend process will be added to limit the web access to the model thereby hiding irrelevant information. The model needs to maintain all information about the system that is relevant to the user.
+
+
 % =====================================================================
 \bibliography{paper}
 \bibliographystyle{apalike}
