@@ -90,21 +90,21 @@ Due to the distributed location of the participants in the brainstorming multipl
 
 This is the result of the vote in a prioritized order.
 
-  # 1/20  (2/nn votes)
-  # 2/7   (2/nn votes)
-  # 3     (0/nn votes)
-  # 4     (2/nn votes)
-  # 5/21  (3/nn votes)
-  # 6/16  (2/nn votes)
-  # 8     (0/nn votes)
-  # 9/18  (2/nn votes)
-  # 10/17 (1/nn votes)
-  # 11    (1/nn votes)
-  # 12    (1/nn votes)
-  # 13    (0/nn votes)
-  # 14    (0/nn votes)
-  # 15    (1/nn votes)
-  # 19    (1/nn votes)
+  # 1/20  (2 votes)
+  # 2/7   (2 votes)
+  # 3     (0 votes)
+  # 4     (3 votes)
+  # 5/21  (4 votes)
+  # 6/16  (2 votes)
+  # 8     (0 votes)
+  # 9/18  (6 votes)
+  # 10/17 (2 votes)
+  # 11    (6 votes)
+  # 12    (2 votes)
+  # 13    (3 votes)
+  # 14    (0 votes)
+  # 15    (1 votes)
+  # 19    (3 votes)
 
 = Overview of quality-attributes as they relates to HS07 =
 
