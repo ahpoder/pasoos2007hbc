@@ -7,28 +7,23 @@ package dk.atisa.hs07.actuator;
  *
  */
 public class Radiator {
-	/**
-	 * Maximum temperature for control algorithm
-	 */
-	public static final double MAX_TEMPERATURE = 20.5;
-	/**
-	 * Minimum temperature for control algorithm
-	 */
-	public static final double MIN_TEMPERATURE = 19.5;
+	/* Temperature spans a centered with .5 degrees variance */
+	public static final double TEMPERATURE_VARIANCE = 0.5;
 
 	private boolean state = false;
-
+	
 	/**
 	 * Run the control algorithm upon notification of temperature change
 	 * 
 	 * @param _temperature
 	 */
-	public void notify(String _temperature) {
+	public void notify(String _temperature, String _targetTemperature) {
+		double currentTarget = Double.parseDouble(_targetTemperature);
 		double temperature = Double.parseDouble(_temperature);
-		if (temperature < MIN_TEMPERATURE) {
+		if (temperature < currentTarget - TEMPERATURE_VARIANCE) {
 			System.out.println("Turn on radiator");
 			setState(true);
-		} else if (temperature > MAX_TEMPERATURE) {
+		} else if (temperature > currentTarget + TEMPERATURE_VARIANCE) {
 			System.out.println("Turn off radiator");
 			setState(false);
 		} 

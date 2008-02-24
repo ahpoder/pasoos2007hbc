@@ -14,6 +14,8 @@ import dk.atisa.hs07.Service;
  *
  */
 public class GatewayService extends Service {
+	private static String modelUrl = "";
+	
 	public GatewayService(String gatewayLocation) throws Exception {
 		super(gatewayLocation);
 		System.out.println("Started gateway service at " + gatewayLocation);
@@ -24,12 +26,13 @@ public class GatewayService extends Service {
 	 * algorithm continuously
 	 */
 	public Object getController() {
-		Runnable controller = new Gateway();
+		Runnable controller = new Gateway(modelUrl);
 		new Thread(controller).start();
 		return controller;
 	}
 	
 	public static void main(String[] args) throws Exception {
+		modelUrl = args[1];
 		new GatewayService(args[0]);
 	}
 }

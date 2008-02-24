@@ -14,6 +14,7 @@
 	<property name="thermometercount" value="2"/>
 	<property name="radiatorurl" value="http://localhost:8200/"/>
 	<property name="radiatorcount" value="3"/>
+	<property name="modelurl" value="http://localhost:8300/"/>
 
 	<path id="classpath">
 		<fileset dir="${lib}">
@@ -31,6 +32,7 @@
 		<echo message="                     and thermometercount properties)"/>
 		<echo message="  run-radiators:     Run a number of radiators (controlled by the radiatorurl"/>
 		<echo message="                     and radiatorcount properties)"/>
+		<echo message="  run-model:         Run a model for the remote web service"/>
 	    <echo message="  clean:             Remove build"/>
 	    <echo message=""/>
 	    <echo message="Do a run-gateway followed by a run-thermometers and/or run-radiators to start"/>
@@ -54,6 +56,7 @@
 				<path refid="classpath" />
 			</classpath>
 			<arg value="${gatewayurl}"/>
+			<arg value="${modelurl}"/>
 		</java>
 	</target>
 
@@ -76,6 +79,15 @@
 			<arg value="${gatewayurl}"/>
 			<arg value="${radiatorurl}"/>
 			<arg value="${radiatorcount}"/>
+		</java>
+	</target>
+
+	<target name="run-model" depends="compile" description="run a model for the webservice">
+		<java fork="yes" classname="dk.atisa.hs07.model.ModelService">
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+			<arg value="${modelurl}"/>
 		</java>
 	</target>
 
