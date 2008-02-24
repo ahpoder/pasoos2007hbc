@@ -78,7 +78,6 @@ are:
   include new types of sensors and actuators.
 \item \emph{Availability.} The system must be responsive and available for 
 both users and hardware elements.
-\item \emph{Safety.} The system must take care not to overheat the actuators.
 \end{itemize}
 
 
@@ -125,7 +124,7 @@ parts of the system.
 \item The user logs on externally through the gateway and has access to the home control within 1 second of verifying 95\% of the time (5 seconds 4\% of the time, more than 5 seconds (unscheduled down-time) less than 1\%) is connected and has access
 \item The user attempts to turn radiator above normal safety-level from outside the house and receive an error back explaining the infraction. The system stores a log of the episode and refuse to execute the command.
 \item An attacker attempts to log on using an invalid password and is thrown off. The next attempt will take longer (progressive log-on time). The system stores a log of the failed attempt.
-\item Developer updates and tests the code base with a new device type in 1 day.
+\item Developer updates and tests the code base with a new device type in 1 week.
 \item A technical installer installs a system at a customer in no more than 4 hours.
 \item Developer updates the code base to a new requirement in less than 30 man-hours
 \item Configuration manager installs an upgrade remotely at a customer in no more than 30min
@@ -228,10 +227,129 @@ This is the result of the vote in a prioritized order.
 \end{enumerate}
 \subsection{Refinement}
 The process of refining the chosen scenarios centers around specification of various elements of the scenario. Stimulus, Response, Response Measurement. 
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & Developer updates and tests the code base with a new device type in 1 week. \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Modifiability \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} & The developer \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} & Whishes to add a new device type \\
+  \cline{2-3}
+  & {\bfseries Artifact} & The code \\
+  \cline{2-3}
+  & {\bfseries Environment:} & At design time \\
+  \cline{2-3}
+  & {\bfseries Response:} & Modification is made with no side effects \\
+  \cline{2-3}
+  & {\bfseries Response \mbox{Measure:}} & Modification is made and tested within 1 week \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & Does the device use implemented HTTP protocol or do we need an adaptor. Is it necessary to make structual modifications to the user interface. \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
+  \hline
+\end{tabular}
+\caption{Scenario refinement for HS07 - Scenario 9}
+\end{center}
+\end{table}
 
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & The user adds a new actuator and the system configures to use the new hardware automatically within 1 minute \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Modifiability, Usability, Performance \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} & The user \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} & Attaches a new actuator \\
+  \cline{2-3}
+  & {\bfseries Artifact} & The system \\
+  \cline{2-3}
+  & {\bfseries Environment:} & Maintanance operation \\
+  \cline{2-3}
+  & {\bfseries Response:} & New hardware is automatically added to the system configuration and accessible remotely \\
+  \cline{2-3}
+  & {\bfseries Response \mbox{Measure:}} & Within one minute \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & Is the user allwed to install now components himself? \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
+  \hline
+\end{tabular}
+\caption{Scenario refinement for HS07 - Secnerio 5/21}
+\end{center}
+\end{table}
+
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & The user changes the preferred temperature from a web page and the system adapts to it \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Usability,  Availability \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} & The user \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} & Remotely change the temperature \\
+  \cline{2-3}
+  & {\bfseries Artifact} & The system \\
+  \cline{2-3}
+  & {\bfseries Environment:} & Normal operation \\
+  \cline{2-3}
+  & {\bfseries Response:} & Begin adjusting to temperature \\
+  \cline{2-3}
+  & {\bfseries Response \mbox{Measure:}} & Within 5 seconds \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & When do the temperature adjustment begin? When the command is received by the radiator? \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
+  \hline
+\end{tabular}
+\caption{Scenario refinement for HS07 - Scenario 6/16}
+\end{center}
+\end{table}
+
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & Developer updates the code base to a new requirement in less than 30 man-hours \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Modifiability, Testability \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} & The developer \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} & Updates code for new requirement \\
+  \cline{2-3}
+  & {\bfseries Artifact} & The code base \\
+  \cline{2-3}
+  & {\bfseries Environment:} & Developement time \\
+  \cline{2-3}
+  & {\bfseries Response:} & Modification is made with no sideeffect (all unit-/integrationtest pass) \\
+  \cline{2-3}
+  & {\bfseries Response \mbox{Measure:}} & Less than 30 man-hours \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & What limits the allowed requirement changes? \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} & Developer is assumed to know the system architecture \\
+  \hline
+\end{tabular}
+\caption{Scenario refinement for HS07 - Scenario 11}
+\end{center}
+\end{table}
 
 % =====================================================================
 \section{Evaluation}
+
 % =====================================================================
 \section{Architectural Design}
 % =====================================================================
