@@ -133,7 +133,7 @@ Scenario 6/16:
 
 == Availability == 
 
- * As the user may experience non-responsiveness 0,1% of the time it is believed that this can be done with a single hardware unit (no HW-redundancy). At the same time the requirement of 30 seconds 1% of the time is sufficient time to restart the web-service, and it is believed sufficient to have _passive redundancy_. Finally it is believed that an availability of 5 seconds 98,9% of the times, require a form of redundancy, _passive redundancy_ is chosen.
+ * As the user may experience non-responsiveness 0,1% of the time it is believed that this can be done with a single hardware unit (no HW-redundancy). At the same time the requirement of 30 seconds 1% of the time is sufficient time to restart the web-service, and it is believed sufficient to have _passive redundancy_. Finally it is believed that an availability of 5 seconds 98,9% of the times, require a form of redundancy, _passive redundancy_ is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and if one become non-responsive it is simply killed and an identical process is spawned in its place.
 
 
 ----
