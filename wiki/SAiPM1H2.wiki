@@ -82,23 +82,23 @@ Due to the distributed location of the participants in the brainstorming multipl
 == Round 2 ==
 
 || *Person* ||  *Role*  || *Vote 1* || *Vote 2* || *Vote 3* || *Vote 4* || *Vote 5* || *Vote 6* ||
-|| Jesper   || Developer ||   11    ||   19    ||    9      ||   11      ||    13      ||      13    ||
+|| Jesper   || Developer ||   11    ||   19    ||    9      ||   11      ||    13      ||      6/16   ||
 || Lars     || User      ||   1/20   ||    4     ||   6/16   ||    15    ||     4    ||   5/21   ||
-|| Anders   || Producer ||    9     ||    11    ||    11    ||    12    ||    17    ||  18       ||
+|| Anders   || Producer ||    9     ||   6/16   ||    11    ||    12    ||    17    ||  18       ||
 
 == Vote overview ==
 
 This is the result of the vote in a prioritized order.
 
   # 9/18  (6 votes)
-  # 11    (6 votes)
+  # 11    (5 votes)
   # 5/21  (4 votes)
+  # 6/16  (4 votes)
   # 19    (3 votes)
   # 4     (3 votes)
-  # 13    (3 votes)
+  # 13    (2 votes)
   # 1/20  (2 votes)
   # 2/7   (2 votes)
-  # 6/16  (2 votes)
   # 10/17 (2 votes)
   # 12    (2 votes)
   # 15    (1 votes)
