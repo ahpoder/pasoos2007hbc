@@ -307,7 +307,7 @@ The process of refining the chosen scenarios centers around specification of var
   \cline{2-3}
   & {\bfseries Response:} & Acknowledge of operation from gateway \\
   \cline{2-3}
-  & {\bfseries Response \mbox{Measure:}} & Within 5 seconds 98,9% of the time, within 30 seconds 1% of the time and more than 30 seconds 0,1% of the time (unshceduled down-time) \\
+  & {\bfseries Response \mbox{Measure:}} & Within 5 seconds 98,9\% of the time, within 30 seconds 1\% of the time and more than 30 seconds 0,1\% of the time (unshceduled down-time) \\
   \hline
   \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & When do the temperature adjustment begin? When is the command is received by the radiator? \\
   \hline
@@ -350,12 +350,25 @@ This functionality is not part of the current architecture, even though it suppo
 \subsection{Refined Scenario \#1}
 \subsection{Tactics}
 \subsection{Modifiablity}
+\begin{itemize}
+\item New Thermometer/Radiator implementation
+\begin{itemize}
+\item In the present implementation the ThemometerService has a hard-coded reference to Themometer, and having a new operation in the implementation is bad design if modifiability is desired, as it promoted change by modification. Changing the ThemometerService to use e.g. AbstractFactory to create the given Themometer instance will allow a new Themometer to be implemented and deployed by merely adding a class and a factory, which is modification by addition and then writing a main for the device, which uses this factory and the generic ThermometerService. At present the getController returns an object and the AbstractFactory may be implemented to also return this. It would however be an advantage to define a Thermometer interface in order to ensure that the implementations meets the protocol (has getTemperature method). This imply several tactics, as it \emph{localize modifications} to the temperature implementation. If a Temperature interface is created, then this uses \emph{anticipate expected changes} as the interface must contain the methods, which is expected to be needed, not just now but in the future. \emph{Generalize the module} is used in the fact that Objects are exchanged between Gateway and sensor/actuator, giving the Gateway to work on any instance of a class. 
+\item The use of HTTP between Gatwway, sensor and actuator removes the syntactical dependency replacing it with runtime checking (by the Invoker), with the advantages and disadvantages it has. There is also a strong \emph{Location dependency} from all sensore/actuators to the gateway, as they must know where it is located (no discovery). It may be updated with a DNS-lookup to make this weaker.
+\item As the Gateway must support all sensors/actuators in its run algorithm there is a \emph{QoS dependency} that this must not take longer than the period by which the run-method is expected to iterate.
+\item The Gateway already support \emph{defer binding time} as the actuator/sensor registers with the Gateway at runtime.
+\end{itemize}
+\item New sensor/actuator type
+\begin{itemize}
+\item The current implementation of the Gateway supports \emph{defer binding time}, yet as the Gateway run method has a hardcoded dependency on the semantics of the radiator and thermometer (through the getTemperature and notifyObserver command syntax) it is not possible to simply register other types. The Gateway would have to use \emph{Generalize the module} in order to allow more general actuators and sensors to register, as opposed to only those that have radiator and thermometer semantics.
+\end{itemize}
+\end{itemize}
 \subsection{Testability}
 \subsection{Refined Scenario \#3}
 Scenario \#3 requires the HS07 system to provide a web interface that can be used to change the temperature in the house. The response requirements sets some requirements to the availability of the http service.
 \subsection{Tactics}
 \subsection{Availability}
-As the user may experience non-responsiveness 0,1% of the time it is believed that this can be done with a single hardware unit (no HW-reduadance, e.g. \emph{voting}). At the same time the requirement of 30 seconds 1% of the time is sufficient time to restart the web-service, and it is therefore not required to have \emph{active redundancy}. Finally it is believed that an availability of 5 seconds 98,9% of the times, require a form of redundancy, and for this reason \emph{passive redundancy} is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and it uses some kind of fault detection scheme to detect if one become non-responsive. If this happens it is simply killed and an identical process is spawned in its place.
+As the user may experience non-responsiveness 0,1\% of the time it is believed that this can be done with a single hardware unit (no HW-reduadance, e.g. \emph{voting}). At the same time the requirement of 30 seconds 1\% of the time is sufficient time to restart the web-service, and it is therefore not required to have \emph{active redundancy}. Finally it is believed that an availability of 5 seconds 98,9\% of the times, require a form of redundancy, and for this reason \emph{passive redundancy} is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and it uses some kind of fault detection scheme to detect if one become non-responsive. If this happens it is simply killed and an identical process is spawned in its place.
 
 \subsection{Usability}
 A web interface must be provided to support the requirement that the user can change the temperature from a web page. In order to maintain the modifiability of the system, a Model-View-Controller pattern will be used to separate the web interface from the gateway. A web backend process will be added to limit the web access to the model thereby hiding irrelevant information. The model needs to maintain all information about the system that is relevant to the user.
