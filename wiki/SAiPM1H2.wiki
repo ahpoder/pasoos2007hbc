@@ -39,7 +39,7 @@ Brainstorming, decentralized rantings in general.
   # Someone accidentally puts their stiletto through the Ethernet switch, disabling networking parts of the system.
   # After an average user has used the system for less than one hour e or she has mastered the basic functionality
   # The user adds a new actuator and the system configures to use the new hardware automatically within 1 minute.
-  # The user logs on externally through the gateway and has access to the home control within 1 second of verifying 95% of the time (5 seconds 4% of the time, more than 5 seconds (unscheduled down-time) less than 1%) is connected and has access
+  # The user logs on externally through the gateway and has access to the home control within 5 second of verifying 98,9% of the time (30 seconds 1% of the time, more than 30 seconds (unscheduled down-time) less than 0,1%) is connected and has access
   # The user attempts to turn radiator above normal safety-level from outside the house and receive an error back explaining the infraction. The system stores a log of the episode and refuse to execute the command.
   #  An attacker attempts to log on using an invalid password and is thrown off. The next attempt will take longer (progressive log-on time). The system stores a log of the failed attempt.
   # Developer updates and tests the code base with a new device type in 1 week.
