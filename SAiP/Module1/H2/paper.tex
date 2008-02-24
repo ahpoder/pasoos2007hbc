@@ -83,6 +83,25 @@ both users and hardware elements.
 
 % =====================================================================
 \section{Quality Attributes}
+\subsection{Quality Attributes in the HS07 system}
+\subsection{Availability}
+As the HS07 relay on distributed components receiving and transmitting information, as well as remote user access over unreliable communication media outside of the systems control, availability has a high priority.
+Timely availability
+Hard requirements as to timeing of responses from the individual services are not that important in the HS07 system. Whether an actuator responds in 1 second or 5 seconds is not that important, just like the internet link in the gateway will not sease to function if its response time is e.g. doubled.
+\subsection{Usability}
+The HS07 system must be used by "ordinary" users (e.g. non-technical), and a high degree of usability must therefore be inherent in the architecture to support rapid user interface modification as well as implementing functionality that may aid the user during use.
+\subsection{Performance}
+Performance and availability are related in the sense that increasing performance may increase timely availability, yet as the timely availability was deemed of low priority, this part of the performance quality attirbute is also of little importance.
+Another part of performance is related to footprint and memory usage rather than execution speed, and as the system is based on smaller sensors and actuators, this part of performance becomes very important. It is also related to another important quality; cost.
+The system must be able to handle enough sensors and actuators to control a full house.
+\subsection{Modifiability}
+As the system is based on dynamically replacable sensors and actuators of varying type and specification, it is imparative that the architecture supports these varying specification, and modifiability therefore become vital for the system.
+\subsection{Security}
+There are always at least two levels to security; percieved security and actual security. As long as the sensors and actuators are controlling non-vital functions, e.g. heating, lights, etc. it may be sufficient with perceived security as an attacker may not endanger safety and have no financial motive. On the other hand if the system is extended to control door-locks and house survailance, then actual security becomes a must. Perceived security is important to dissuade the fun-time intruders and reassure the customer.
+\subsection{Testability}
+As the system is highly modifiable, regression-testing is highly-important. Also the requirement of availability creates extra demands on testability, as it is required to test many fault scenarios to ensure propper recovery (if this is the fault-handling mechanism of choice).
+
+\subsection{Quality Attribute Selection}
 The following chapters documents the selection of the Quality Attributes that we 
 select for the HS07 system. The selection of QA is split into a 3-part process.
 \begin{itemize}
@@ -156,7 +175,16 @@ interesting for us.
 \item Safe with respect to fires (radiators) and break ins (door), ...
 \end{itemize}
 \end{itemize}
-
+\subsection{Identical scenarios}
+Due to the distributed location of the participants in the brainstorming multiple "similar" scenarios was created. In order to avoid having the same scenario represented twice with a slightly different wording, the below list show the scenarios which will be considered identical, meaning that their votes will be accumulated.
+\begin{itemize}
+\item 2. and 7.
+\item 6. and 16.
+\item 10. and 17.
+\item 9. and 18.
+\item 1. and 20.
+\item 5. and 21.
+\end{itemize}
 \subsection{The Vote}
 \subsection{First vote}
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
@@ -164,8 +192,8 @@ interesting for us.
 Person & Stakeholder Role & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
 \hline
 Jesper&User&4&5&6/16&20&21&2/7\\
-Lars& & & & & & & \\
-Anders& &2/7&4&6/16&8&14&5/21\\
+Lars&Developer&19&19&5/21&9/18&11&13\\
+Anders&Producer&2/7&4&6/16&8&14&5/21\\
 \hline
 \end{tabular}
 \subsection{Second vote}
@@ -173,43 +201,33 @@ Anders& &2/7&4&6/16&8&14&5/21\\
 \hline
 Person & Stakeholder Role & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
 \hline
-Jesper& & & & & & & \\
-Lars& & & & & & & \\
-Anders& & & & & & & \\
+Jesper&Developer&11&19&9&11&13&6/16\\
+Lars&User&1/20&4&6/16&15&4&5/21\\
+Anders&Producer&9&11&11&12&17&9/18\\
 \hline
 \end{tabular}
-
+\subsection{Voting Results}
+This is the result of the vote in a prioritized order.
+\begin{enumerate}
+\item 9/18 (6 votes)
+\item 11 (6 votes)
+\item 5/21 (4 votes)
+\item 19 (3 votes)
+\item 4 (3 votes)
+\item 13 (3 votes)
+\item 1/20 (2 votes)
+\item 2/7 (2 votes)
+\item 6/16 (2 votes)
+\item 10/17 (2 votes)
+\item 12 (2 votes)
+\item 15 (1 votes)
+\item 3 (0 votes)
+\item 8 (0 votes)
+\item 14 (0 votes)
+\end{enumerate}
 \subsection{Refinement}
 The process of refining the chosen scenarios centers around specification of various elements of the scenario. Stimulus, Response, Response Measurement. 
-\begin{table}[!htp]
-\begin{center}
-\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & After an average user has used the system for less than one hour e or she has mastered the basic functionality \\
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} usability & \\
-  \hline
-  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
-  & {\bfseries Source:} &  \\
-  \cline{2-3}
-  & {\bfseries Stimulus:} &  \\
-  \cline{2-3}
-  & {\bfseries Artifact} &  \\
-  \cline{2-3}
-  & {\bfseries Environment:} &  \\
-  \cline{2-3}
-  & {\bfseries Response:} &  \\
-  \cline{2-3}
-  & {\bfseries Response Measure:} & \\
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} &  \\
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
-  \hline
-\end{tabular}
-\caption{Scenario refinement for HS07-...}
-\end{center}
-\end{table}
+
 
 % =====================================================================
 \section{Evaluation}
