@@ -14,7 +14,7 @@ import dk.atisa.hs07.Service;
 public class ThermometerService extends Service {
 	
 	public Object getController() {
-		return new Thermometer();
+		return sensorFactory.createSensor();
 	}
 	
 	/**
@@ -23,18 +23,21 @@ public class ThermometerService extends Service {
 	 * @param thisLocation
 	 * @throws Exception
 	 */
-	public ThermometerService(String gatewayLocation, String thisLocation) throws Exception {
+	public ThermometerService(String gatewayLocation, String thisLocation, SensorFactory sf) throws Exception {
 		super(thisLocation);
 		URL url = new URL(thisLocation);
+		sensorFactory = sf;
 		Invoker.invoke(gatewayLocation, "registerThermometer", "location", url.toString());
 		System.out.println("Started thermometer service at " + url);
 	}
 
 	public static void main(String[] args) throws Exception {
 		URL baseUrl = new URL(args[1]);
+		SensorFactory sf = new RandomThermometerFactory();
 		for (int i = 0; i < Integer.parseInt(args[2]); i++) {
 			String location = "http://" + baseUrl.getHost() + ":" + (baseUrl.getPort() + i) + "/";
-			new ThermometerService(args[0], location);
+			new ThermometerService(args[0], location, sf);
 		}
 	}
+	private SensorFactory sensorFactory;
 }
