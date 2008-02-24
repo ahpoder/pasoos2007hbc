@@ -2,7 +2,7 @@ Exercise 9.3
 
 Problems encountered:
 
-The GUI setup is hardcoded in the dooralarm.gui
+The GUI setup (makeButton and keyCodeListener) are hardcoded in the dooralarm.gui
 
 3-1-2 process:
 
@@ -13,10 +13,10 @@ The GUI setup is hardcoded in the dooralarm.gui
 1. State responsibility that covers behavior likely to change
 
 <<interface>>
-KeyPannelFactorey
+KeyPanelFactory
 - createKeyboardPanel (return instance of JPanel with implementation specific layout)
 
-2. Refactor implement use KeyBoardFactory
+2. Refactor - implement KeyBoardFactory
 
 Iteration outline:
 
@@ -34,18 +34,17 @@ Iteration 3: Use DkKeyBoardFactory
 
 5. Refactor - Replace hard-coded createKeyboardPanel with KeyBoardFactory
 6. Test case failed (Java crash)
-7. Create KeyBoardFactory constructor argument to DoorAlarm and 
-use DkKeyBoardFactory
+7. Create KeyBoardFactory constructor argument to DoorAlarm and use DkKeyBoardFactory
 8. (ant dk) Test case succeeded (manual inspection of GUI)
 
 Iteration 4: Implement UsKeyBoardFactory
 
 1. Copy DkKeyBoardFactory to UsKeyBoardFactory and adjust.
 2. (ant us) Test case failed (manual inspection of GUI - no change = error)
-3. Treangulere - anvend command line argument til at vælge Factory implmentation
+3. Triangulation - use command line argument to choose Factory implmentation
 4. (ant us) Test case succeeded (manual inspection of GUI)
 5. (ant dk) Test case succeeded (manual inspection of GUI)
-6. Refector - Create base class with common functionality.
+6. Refactor - Create base class with common functionality.
 
 - Add 3 - 1 - 2 description
 
@@ -55,35 +54,43 @@ Iteration 5: Refactor Factory responsibility
 4. (ant us) Test case succeeded (manual inspection of GUI)
 5. (ant dk) Test case succeeded (manual inspection of GUI)
 
-Iterator 6: Update Factory to handle MessageDatabase
+Iteration 6: Update Factory to handle MessageDatabase
 
-2. Create method createMessageDatabase() on all factoris (fake-it - return NULL)
+2. Create method createMessageDatabase() on all factories (fake-it - return NULL)
 4. (ant us) Test case succeeded (manual inspection of GUI)
 5. (ant dk) Test case succeeded (manual inspection of GUI)
 
-Iterator 7: Use createMessageDatabase
+Iteration 7: Use createMessageDatabase
 
 1. Update DoorAlarm to create MessageDatabase from factory (requires using the setTitle method of JFrame rather than super(<title>)
-2. Test case failed (Java crash) - no imple. of factory
+2. Test case failed (Java crash) - no implementation of factory
 3. Implement DK factory (obvious implementation)
 5. (ant dk) Test case succeeded (manual inspection of GUI)
 
-Iterator 8: Create UsMessageDatabase
+Iteration 8: Create UsMessageDatabase
 
 1. Create UsMessageDatabase
 2. (ant us) Test case failed (java crash)
 3. Update factory to return UsMessageDatabase
 4. (ant us) Test case succeeded (manual inspection of GUI)
 
-Other possibility:
+Other possibility (Solution 2):
 
 - Add 3 - 1 - 2 description
 
-Iterator 9: Change factory return value to String[]
+Iteration 9: Change factory return value to String[]
 
 1. Change factory to return String[] array instead of JPanel. 
 
 Conclusion:
 
-The two solutions differ mainly in defining what may vary. The first solution, where the factory create a JPanel it is possible to alter the entire Panel, meaning that the US may have different buttons, colours, size, etc. In solution two this is not possible, as it is know that only the text on the buttons may change. If it is know the size, font, etc. that is used and this will never change, e.g. due to physical restrictions and architectual decisions, it is risky to allow the factory to change the layout of the panel, as if it is possible, some programmer at some point in time, will attempt it. Which of the two solutions is better is difficult to say as it depends on what may change in the future.
+The two solutions differ mainly in defining what may vary.
+In the first solution, where the factory create a JPanel, it is possible to alter the entire Panel,
+meaning that the US may have different buttons, colours, size, etc.
+In solution two this is not possible, as it is known that only the text on the buttons may change.
+If it is known that the size, font, etc. that is used will never change,
+e.g. due to physical restrictions and architectural decisions,
+it is risky to allow the factory to change the layout of the panel, as if it is possible,
+some programmer at some point in time, will attempt to do it.
+Which of the two solutions is better is difficult to say as it depends on what may change in the future.
 
