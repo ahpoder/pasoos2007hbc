@@ -227,13 +227,14 @@ This is the result of the vote in a prioritized order.
 \end{enumerate}
 \subsection{Refinement}
 The process of refining the chosen scenarios centers around specification of various elements of the scenario. Stimulus, Response, Response Measurement. 
+
 \begin{table}[!htp]
 \begin{center}
 \begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
   \hline
   \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & Developer updates and tests the code base with a new device type in 1 week. \\
   \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Modifiability \\
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Modifiability, Testability  \\
   \hline
   \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
   & {\bfseries Source:} & The developer \\
@@ -244,16 +245,16 @@ The process of refining the chosen scenarios centers around specification of var
   \cline{2-3}
   & {\bfseries Environment:} & At design time \\
   \cline{2-3}
-  & {\bfseries Response:} & Modification is made with no side effects \\
+  & {\bfseries Response:} & Modification is made with no side effects (all unit-/integrationtest pass)\\
   \cline{2-3}
   & {\bfseries Response \mbox{Measure:}} & Modification is made and tested within 1 week \\
   \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & Does the device use implemented HTTP protocol or do we need an adaptor. Is it necessary to make structual modifications to the user interface. \\
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & Does the device use implemented HTTP protocol or do we need an adaptor? Is it necessary to make structual modifications to the user interface? Does the change have architectural impact? \\
   \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} & Developer is assumed to know the system architecture  \\
   \hline
 \end{tabular}
-\caption{Scenario refinement for HS07 - Scenario 9}
+\caption{Refined Scenario \#1 - QA Scenario 9/11/18}
 \end{center}
 \end{table}
 
@@ -283,7 +284,7 @@ The process of refining the chosen scenarios centers around specification of var
   \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
   \hline
 \end{tabular}
-\caption{Scenario refinement for HS07 - Secnerio 5/21}
+\caption{Refined Scenario \#2 - QA Scenario 5/21}
 \end{center}
 \end{table}
 
@@ -313,45 +314,51 @@ The process of refining the chosen scenarios centers around specification of var
   \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} &  \\
   \hline
 \end{tabular}
-\caption{Scenario refinement for HS07 - Scenario 6/16}
+\caption{Refined Scenario \#3 - QA Scenario 6/16}
 \end{center}
 \end{table}
 
-\begin{table}[!htp]
-\begin{center}
-\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & Developer updates the code base to a new requirement in less than 30 man-hours \\
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Modifiability, Testability \\
-  \hline
-  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
-  & {\bfseries Source:} & The developer \\
-  \cline{2-3}
-  & {\bfseries Stimulus:} & Updates code for new requirement \\
-  \cline{2-3}
-  & {\bfseries Artifact} & The code base \\
-  \cline{2-3}
-  & {\bfseries Environment:} & Developement time \\
-  \cline{2-3}
-  & {\bfseries Response:} & Modification is made with no sideeffect (all unit-/integrationtest pass) \\
-  \cline{2-3}
-  & {\bfseries Response \mbox{Measure:}} & Less than 30 man-hours \\
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & What limits the allowed requirement changes? \\
-  \hline
-  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} & Developer is assumed to know the system architecture \\
-  \hline
-\end{tabular}
-\caption{Scenario refinement for HS07 - Scenario 11}
-\end{center}
-\end{table}
+
 
 % =====================================================================
 \section{Evaluation}
+The compliance of the Architectural Description of HS07 \cite{SAiP1H1} for the selected refined scenarios
+is discussed in the following chapters.
+\subsection{Refined Scenario \#1}
+The new device type can either be a new thermometer/actuator or a completely new type of device, i.e. a door. 
+
+\subsection{Adding new sensor/actuator}
+Localized to changes within the given sensor or actuator type. Update by modification, supported by the architecture now. Not in gateway, which is Update by addition in this case. 
+
+\subsection{Adding different types}
+Update by addition will need to be built into the architecture in the sensor and actuator subsystems to encompass new types apart from thermometers and radiators. Radiators and thermometers are hardcoded into the gateway, it will need to be more abstract.
+
+We have chosen to focus in the integration of new types of thermometers and actuators.
+
+
+\subsection{Refined Scenario \#2}
+Because of the Client/Server architecture of the gateway, adding new actuators is currently possible without architectural changes. With the current design, only actuators of the radiator type can be added.
+
+\subsection{Refined Scenario \#3}
+In order to have the system encompass a user interface that allows a user to change the preferred temperature from a web page, the gateway subsystem needs to become the Model part of a MVC pattern.
+
+This functionality is not part of the current architecture, even though it supports commands on the gateway. At least one new command needs to be implemented on the gateway.
 
 % =====================================================================
 \section{Architectural Design}
+
+\subsection{Refined Scenario \#1}
+\subsection{Tactics}
+\subsection{Modifiablity}
+\subsection{Testability}
+\subsection{Refined Scenario \#3}
+\subsection{Tactics}
+\subsection{Availability}
+We will use a passive redundancy system for the http service in order to handle the response measurement. 
+We consider the risk of hardware failure to small to use hardware redundancy, given the expected low amount of traffic on the system.
+\subsection{Usability}
+The web interface must...
+ 
 % =====================================================================
 \bibliography{paper}
 \bibliographystyle{apalike}
