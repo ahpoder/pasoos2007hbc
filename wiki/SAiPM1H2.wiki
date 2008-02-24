@@ -135,6 +135,16 @@ Scenario 6/16:
 
  * As the user may experience non-responsiveness 0,1% of the time it is believed that this can be done with a single hardware unit (no HW-redundancy). At the same time the requirement of 30 seconds 1% of the time is sufficient time to restart the web-service, and it is believed sufficient to have _passive redundancy_. Finally it is believed that an availability of 5 seconds 98,9% of the times, require a form of redundancy, _passive redundancy_ is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and if one become non-responsive it is simply killed and an identical process is spawned in its place.
 
+== Modifyability ==
+
+  * *New Thermometer/Radiator implementation*
+    * In the present implementation the ThemometerService has a hard-coded reference to Themometer, and having a new operation in the implementation is bad design if modifiability is desired, as it promoted change by modification. Changing the ThemometerService to use e.g. AbstractFactory to create the given Themometer instance will allow a new Themometer to be implemented and deployed by merely adding a class and a factory, which is modification by addition and then writing a main for the device, which uses this factory and the generic ThermometerService. At present the getController returns an object and the AbstractFactory may be implemented to also return this. It would however be an advantage to define a Thermometer interface in order to ensure that the implementations meets the protocol (has getTemperature method). This imply several tactics, as it _localize modifications_ to the temperature implementation. If a Temperature interface is created, then this uses _anticipate expected changes_ as the interface must contain the methods, which is expected to be needed, not just now but in the future. _Generalize the module_ is used in the fact that Objects are exchanged between Gateway and sensor/actuator, giving the Gateway to work on any instance of a class. 
+    * The use of HTTP between Gatwway, sensor and actuator removes the syntactical dependency replacing it with runtime checking (by the Invoker), with the advantages and disadvantages it has. There is also a strong _Location dependency_ from all sensore/actuators to the gateway, as they must know where it is located (no discovery). It may be updated with a DNS-lookup to make this weaker.
+    * As the Gateway must support all sensors/actuators in its run algorithm there is a _QoS dependency_ that this must not take longer than the period by which the run-method is expected to iterate.
+    * The Gateway already support _defer binding time_ as the actuator/sensor registers with the Gateway at runtime.
+  * *New sensor/actuator type*
+    * The current implementation of the Gateway supports _defer binding time_, yet as the Gateway run method has a hardcoded dependency on the semantics of the radiator and themometer (through the getTemperature and notifyObserver command syntax) it is not possible to simply register other types. The Gateway would have to use _Generalize the module_ in order to allow more general actuators and sensors to register, as opposed to only those that have radiator and themometer semantics.
+
 
 ----
 
