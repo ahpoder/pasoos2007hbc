@@ -6,7 +6,7 @@ package dk.atisa.hs07.sensor;
  * @author Klaus Marius Hansen, klaus.m.hansen@daimi.au.dk
  *
  */
-public class Thermometer {
+public class RandomThermometer {
 	private double  temperature = 20;
 
 	/**
