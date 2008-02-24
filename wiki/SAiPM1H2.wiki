@@ -74,14 +74,14 @@ Due to the distributed location of the participants in the brainstorming multipl
 || *Person* ||  *Role*  || *Vote 1* || *Vote 2* || *Vote 3* || *Vote 4* || *Vote 5* || *Vote 6* ||
 || Jesper   ||  User    ||     4    ||    5     ||   6/16   ||    20    ||    21    ||   2/7    ||
 || Lars     || Developer||    19    ||   19     ||   5/21   || 9/11/18  || 9/11/18  ||         13    ||
-|| Anders   || Producer ||   2/7    || 9/11/18  ||  9/11/18 ||    12    ||    17    ||   18   ||
+|| Anders   || Producer ||   2/7    || 9/11/18  ||  9/11/18 ||    12    ||    17    ||  9/11/18 ||
 
 == Round 2 ==
 
 || *Person* ||  *Role*  || *Vote 1* || *Vote 2* || *Vote 3* || *Vote 4* || *Vote 5* || *Vote 6* ||
 || Jesper   || Developer || 9/11/18 ||   19    ||  9/11/18   || 9/11/18   ||    13      ||      6/16   ||
 || Lars     || User      ||   1/20   ||    4     ||   6/16   ||    15    ||     4    ||   5/21   ||
-|| Anders   || Producer || 9/11/18  ||   6/16   || 9/11/18  ||    12    ||    17    ||  18       ||
+|| Anders   || Producer || 9/11/18  ||   6/16   || 9/11/18  ||    12    ||    17    || 9/11/18  ||
 
 == Vote overview ==
 
