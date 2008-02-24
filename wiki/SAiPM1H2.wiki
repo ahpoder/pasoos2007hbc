@@ -128,6 +128,14 @@ This is the result of the vote in a prioritized order.
 
 (JDA: Der er vel ikke en 1-1 afhængighed imellem modifiablity og testability? - man kan måske sige at hvis systemet er higly modified, så kan der være en sammenhæng imellem behovet for tests og koden. Noget andet er tests kontra testbarhed. Der er vel igen der er i tvivl om at ethvert system bør hvad et sæt af tests, men at designe for testbarhed er i min opfattelse noget andet. Hvis der altid var afhængigheder imellem Testability og Modifiability, så ville det være svært at have den ene uden den anden, hvorved behovet for begge ville opløses og Testability ville blive en sub-bullit til Modifiability)
  
+
+Scenario 6/16:
+
+== Availability == 
+
+ * As the user may experience non-responsiveness 0,1% of the time it is believed that this can be done with a single hardware unit (no HW-redundancy). At the same time the requirement of 30 seconds 1% of the time is sufficent time to restart the web-service, and it is believed sufficient to have passive redundancy. Finally it is believed that an availability of 5 seconds 98,9% of the times, require a form of redundancy, passive redundancy is chosen.
+
+
 ----
 
 = Stored for later use =
