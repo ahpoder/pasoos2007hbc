@@ -161,7 +161,7 @@ interesting for us.
 \begin{itemize}
 \item Easily deployable (installable)
 \end{itemize}
-\item Developer (?)
+\item Developer
 \begin{itemize}
 \item Easily adjustable to new requirements
 \item Scalable
@@ -178,12 +178,12 @@ interesting for us.
 \subsection{Identical scenarios}
 Due to the distributed location of the participants in the brainstorming multiple "similar" scenarios was created. In order to avoid having the same scenario represented twice with a slightly different wording, the below list show the scenarios which will be considered identical, meaning that their votes will be accumulated.
 \begin{itemize}
-\item 2. and 7.
-\item 6. and 16.
-\item 10. and 17.
-\item 9. and 11. and 18.
-\item 1. and 20.
-\item 5. and 21.
+\item 2 and 7
+\item 6 and 16
+\item 10 and 17
+\item 9 and 11 and 18
+\item 1 and 20
+\item 5 and 21
 \end{itemize}
 \subsection{The Vote}
 \subsection{First vote}
@@ -192,8 +192,8 @@ Due to the distributed location of the participants in the brainstorming multipl
 Person & Stakeholder Role & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
 \hline
 Jesper&User&4&5&6/16&20&21&2/7\\
-Lars&Developer&19&19&5/21&9/18&11&13\\
-Anders&Producer&2/7&4&6/16&8&14&5/21\\
+Lars&Developer&19&19&5/21&9/11/18&9/11/18&13\\
+Anders&Producer&2/7&9/11/18&9/11/18&12&10/17&10/17\\
 \hline
 \end{tabular}
 \subsection{Second vote}
@@ -201,24 +201,23 @@ Anders&Producer&2/7&4&6/16&8&14&5/21\\
 \hline
 Person & Stakeholder Role & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
 \hline
-Jesper&Developer&11&19&9&11&13&6/16\\
+Jesper&Developer&9/11/18&9/11/18&9/11/18&19&13&6/16\\
 Lars&User&1/20&4&6/16&15&4&5/21\\
-Anders&Producer&9&6/16&11&12&17&9/18\\
+Anders&Producer&9/11/18&6/16&5/21&5/21&12&10/17\\
 \hline
 \end{tabular}
 \subsection{Voting Results}
 This is the result of the vote in a prioritized order.
 \begin{enumerate}
-\item 9/18 (6 votes)
-\item 11 (5 votes)
-\item 5/21 (4 votes)
+\item 9/11/18 (8 votes)
+\item 5/21 (6 votes)
 \item 6/16 (4 votes)
 \item 19 (3 votes)
 \item 4 (3 votes)
 \item 13 (2 votes)
 \item 1/20 (2 votes)
 \item 2/7 (2 votes)
-\item 10/17 (2 votes)
+\item 10/17 (3 votes)
 \item 12 (2 votes)
 \item 15 (1 votes)
 \item 3 (0 votes)
@@ -371,7 +370,7 @@ Scenario \#3 requires the HS07 system to provide a web interface that can be use
 As the user may experience non-responsiveness 0,1\% of the time it is believed that this can be done with a single hardware unit (no HW-reduadance, e.g. \emph{voting}). At the same time the requirement of 30 seconds 1\% of the time is sufficient time to restart the web-service, and it is therefore not required to have \emph{active redundancy}. Finally it is believed that an availability of 5 seconds 98,9\% of the times, require a form of redundancy, and for this reason \emph{passive redundancy} is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and it uses some kind of fault detection scheme to detect if one become non-responsive. If this happens it is simply killed and an identical process is spawned in its place.
 
 \subsection{Usability}
-A web interface must be provided to support the requirement that the user can change the temperature from a web page. In order to maintain the modifiability of the system, a Model-View-Controller pattern will be used to separate the web interface from the gateway. A web backend process will be added to limit the web access to the model thereby hiding irrelevant information. The model needs to maintain all information about the system that is relevant to the user.
+A web interface must be provided to support the requirement that the user can change the temperature from a web page. In order to maintain the modifiability of the system, a \emph{Model-View-Controller} pattern will be used to separate the web interface from the gateway. A web backend process will be added to limit the web access to the model thereby hiding irrelevant information. The model needs to maintain all information about the system that is relevant to the user - \emph{Maintain a model of the system}.
 
 
 % =====================================================================
