@@ -132,6 +132,11 @@ select for the HS07 system. The selection of QA is split into a 3-part process.
 \item Selection - we chose which scenarios are interesting.
 \item Refinement - we refine the selected scenarios
 \end{itemize}
+The actual brainstorming and selection (voting) was done in Wiki in order to allow for a decentralised brainstorming and vote. The setup may be seen at:
+ 
+http://code.google.com/p/pasoos2007hbc/wiki/SAiPM1H2.
+
+All information has been moved to the report so it is only the use of Wiki as a meeting-place that may be of interest.
 
 \subsection{Brainstorming}
 In this part of the process we just attempt to think of as many possible scenarios for the HS07 system as we possibly can. 
@@ -423,13 +428,14 @@ A web interface must be provided to support the requirement that the user can ch
 Figure~\ref{fig:mv-model} illustrates the new packages needed in HS07 to include a web interface for the user. The model package creates a service with witch to get and set the values  need by the user to make a decision an any new target temperature. Both the gateway and the webapp uses their invokers to contact the model service for parameter manipulation.
 
 The separation between the gateway and the model packages creates an opportunity for increase of security when that becomes a driving quality attribute, since the gateway information can be hidden within the system, letting the ModelService become the only exposed part.
+\clearpage
+
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/mv-factory",scale=0.8 }}
 \caption{Module View of the abstract factory in the redesigned HS07 system}
 \label{fig:mv-factory}
 \end{figure}
-
-\clearpage
+Figure~\ref{fig:mv-factory} shows the classes involved and their interdependencies for implementing the factory pattern for the sensor module. Please refer to Figure~\ref{fig:seq-tfac} for its runtime usage.
 
 \subsection{Component \& Connector View}
 
@@ -460,7 +466,7 @@ If the ModelService is non responsive, it is important for the gateway service t
 \caption{Sequence Diagram for the Abstract Factory in the redesigned HS07 system}
 \label{fig:seq-tfac}
 \end{figure}
-
+Figure~\ref{fig:seq-tfac} shows initialization sequence when using the SensorFactory illustrated in Figure~\ref{fig:mv-factory}. The sequence shows the use of the factory to create a decoupling between the actual Thermometer implementation and the ThermometerService.
 \clearpage
 
 \subsection{Allocation View}
