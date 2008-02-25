@@ -185,7 +185,6 @@ Due to the distributed location of the participants in the brainstorming multipl
 \item 1 and 20
 \item 5 and 21
 \end{itemize}
-\subsection{The Vote}
 \subsection{First vote}
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
 \hline
@@ -326,10 +325,10 @@ is discussed in the following chapters.
 \subsection{Refined Scenario \#1}
 The new device type can either be a new thermometer/actuator or a completely new type of device, i.e. a door. 
 
-\subsection{Adding new sensor/actuator}
+\subsubsection{Adding new sensor/actuator}
 Localized to changes within the given sensor or actuator type. Update by modification, supported by the architecture now. Not in gateway, which is Update by addition in this case. 
 
-\subsection{Adding different types}
+\subsubsection{Adding different types}
 Update by addition will need to be built into the architecture in the sensor and actuator subsystems to encompass new types apart from thermometers and radiators. Radiators and thermometers are hardcoded into the gateway, it will need to be more abstract.
 
 We have chosen to focus in the integration of new types of thermometers and actuators.
@@ -346,9 +345,8 @@ This functionality is not part of the current architecture, even though it suppo
 % =====================================================================
 \section{Architectural Design}
 
-\subsection{Refined Scenario \#1}
-\subsection{Tactics}
-\subsection{Modifiablity}
+\subsection{Refined Scenario \#1 - Tactics}
+\subsubsection{Modifiablity}
 \begin{itemize}
 \item New Thermometer/Radiator implementation
 \begin{itemize}
@@ -362,15 +360,14 @@ This functionality is not part of the current architecture, even though it suppo
 \item The current implementation of the Gateway supports \emph{defer binding time}, yet as the Gateway run method has a hardcoded dependency on the semantics of the radiator and thermometer (through the getTemperature and notifyObserver command syntax) it is not possible to simply register other types. The Gateway would have to use \emph{Generalize the module} in order to allow more general actuators and sensors to register, as opposed to only those that have radiator and thermometer semantics.
 \end{itemize}
 \end{itemize}
-\subsection{Testability}
+\subsubsection{Testability}
 Tactics for testability include \emph{Test harness} which is essentially a needed setup for regression testing. The test harness for the HS07 system will consist of a series of JUnit test cases on a modular level. On a larger scale, the deployment on a PC, shown in /cite{SAiP1H1} is one big test scenario where sensors and actuators a stubbed using visual inspection for verification. This harness will continue to be the main test setup for introduction into the gateway/model parts of the system.
-\subsection{Refined Scenario \#3}
+\subsection{Refined Scenario \#3 - Tactics}
 Scenario \#3 requires the HS07 system to provide a web interface that can be used to change the temperature in the house. The response requirements sets some requirements to the availability of the http service.
-\subsection{Tactics}
-\subsection{Availability}
+\subsubsection{Availability}
 As the user may experience non-responsiveness 0,1\% of the time it is believed that this can be done with a single hardware unit (no HW-reduadance, e.g. \emph{voting}). At the same time the requirement of 30 seconds 1\% of the time is sufficient time to restart the web-service, and it is therefore not required to have \emph{active redundancy}. Finally it is believed that an availability of 5 seconds 98,9\% of the times, require a form of redundancy, and for this reason \emph{passive redundancy} is chosen. As an example of a design may be mentioned the Apache web-server design, which is redundant processes. A number of processes is spawned to handle HTTP/GET requests, and it uses some kind of fault detection scheme to detect if one become non-responsive. If this happens it is simply killed and an identical process is spawned in its place.
 
-\subsection{Usability}
+\subsubsection{Usability}
 A web interface must be provided to support the requirement that the user can change the temperature from a web page. In order to maintain the modifiability of the system, a \emph{Model-View-Controller} pattern will be used to separate the web interface from the gateway. A web backend process will be added to limit the web access to the model thereby hiding irrelevant information. The model needs to maintain all information about the system that is relevant to the user - \emph{Maintain a model of the system}.
 
 \clearpage
