@@ -55,41 +55,45 @@ the home.
 HS07 includes sensor and actuator hardware which runs on an embedded Java virtual
 machine with standard software.
 
-% =====================================================================
-\section{Architectural Requirements}
-\label{sec:requirements}
-
-For our purposes there is one main use case for the HS07 system:
-\begin{quote}
-  \emph{Control Temperature}: The gateway collects measurements from
-  thermometers and reports this to radiators that then control the
-  temperature.
-\end{quote}
-
-The major driving quality attributes of the HS07 system
-are:
-
-\begin{itemize}
-\item \emph{Performance.} HS07 should be performant so that a large
-  number of thermometers and radiators may be part of the system.
-\item \emph{Modifiability.} It must be possible to modify HS07 to
-  include new types of sensors and actuators.
-\item \emph{Usability.} It must be easy to use the gateway user interface.
-  include new types of sensors and actuators.
-\item \emph{Availability.} The system must be responsive and available for 
-both users and hardware elements.
-\end{itemize}
-
+An architecture of the HS07 system was proposed in \cite{SAiP1H1}. In this
+report we will elaborate on the quality attributes of the system, define some
+quality attribute scenarios and propose a new architectural design to fulfill
+these scenarios.
 
 % =====================================================================
-\section{Quality Attributes}
-\subsection{Quality Attributes in the HS07 system}
+%\section{Architectural Requirements}
+%\label{sec:requirements}
+%
+%For our purposes there is one main use case for the HS07 system:
+%\begin{quote}
+%  \emph{Control Temperature}: The gateway collects measurements from
+%  thermometers and reports this to radiators that then control the
+%  temperature.
+%\end{quote}
+%
+%The major driving quality attributes of the HS07 system
+%are:
+%
+%\begin{itemize}
+%\item \emph{Performance.} HS07 should be performant so that a large
+%  number of thermometers and radiators may be part of the system.
+%\item \emph{Modifiability.} It must be possible to modify HS07 to
+%  include new types of sensors and actuators.
+%\item \emph{Usability.} It must be easy to use the gateway user interface.
+%  include new types of sensors and actuators.
+%\item \emph{Availability.} The system must be responsive and available for 
+%both users and hardware elements.
+%\end{itemize}
+
+
+% =====================================================================
+\section{Quality Attributes in the HS07 system}
 \subsection{Availability}
 As the HS07 relay on distributed components receiving and transmitting information, as well as remote user access over unreliable communication media outside of the systems control, availability has a high priority.
 Timely availability
 Hard requirements as to timeing of responses from the individual services are not that important in the HS07 system. Whether an actuator responds in 1 second or 5 seconds is not that important, just like the internet link in the gateway will not sease to function if its response time is e.g. doubled.
 \subsection{Usability}
-The HS07 system must be used by "ordinary" users (e.g. non-technical), and a high degree of usability must therefore be inherent in the architecture to support rapid user interface modification as well as implementing functionality that may aid the user during use.
+The HS07 system must be used by "ordinary" users (i.e. non-technical), and a high degree of usability must therefore be inherent in the architecture to support rapid user interface modification as well as implementing functionality that may aid the user during use.
 \subsection{Performance}
 Performance and availability are related in the sense that increasing performance may increase timely availability, yet as the timely availability was deemed of low priority, this part of the performance quality attirbute is also of little importance.
 Another part of performance is related to footprint and memory usage rather than execution speed, and as the system is based on smaller sensors and actuators, this part of performance becomes very important. It is also related to another important quality; cost.
@@ -102,6 +106,25 @@ There are always at least two levels to security; percieved security and actual 
 As the system is highly modifiable, regression-testing is highly-important. Also the requirement of availability creates extra demands on testability, as it is required to test many fault scenarios to ensure propper recovery (if this is the fault-handling mechanism of choice).
 
 \subsection{Quality Attribute Selection}
+
+The major driving quality attributes of the HS07 system
+are:
+
+\begin{itemize}
+\item \emph{Performance.} HS07 should be performant so that a large
+  number of thermometers and radiators may be part of the system.
+\item \emph{Modifiability.} It must be possible to modify HS07 to
+  include new types of sensors and actuators.
+\item \emph{Usability.} It must be easy to use the gateway user interface
+  and include new types of sensors and actuators.
+\item \emph{Availability.} The system must be responsive and available for 
+both users and hardware elements.
+\end{itemize}
+
+
+
+
+\section{Quality Attribute Scenarios}
 The following chapters documents the selection of the Quality Attributes that we 
 select for the HS07 system. The selection of QA is split into a 3-part process.
 \begin{itemize}
@@ -109,10 +132,9 @@ select for the HS07 system. The selection of QA is split into a 3-part process.
 \item Selection - we chose which scenarios are interesting.
 \item Refinement - we refine the selected scenarios
 \end{itemize}
+
 \subsection{Brainstorming}
 In this part of the process we just attempt to think of as many possible scenarios for the HS07 system as we possibly can. 
-
-\subsection{Scenarios}
 
 \begin{enumerate}
 \item A sensor stops responding.
@@ -143,7 +165,9 @@ parts of the system.
 Here we put the scenarios to the vote. This is done by emulation of a real-life situation where the actual stakeholder would
 be part of the process. We take on the roles of the stakeholders in their absence, and chose which scenarios would be more
 interesting for us.
-\subsection{Stakeholders and interests}
+
+\subsubsection{Stakeholders and interests}
+
 \begin{itemize}
 \item User (homeowner)
 \begin{itemize}
@@ -175,7 +199,9 @@ interesting for us.
 \item Safe with respect to fires (radiators) and break ins (door), ...
 \end{itemize}
 \end{itemize}
-\subsection{Identical scenarios}
+
+\subsubsection{Identical scenarios}
+
 Due to the distributed location of the participants in the brainstorming multiple "similar" scenarios was created. In order to avoid having the same scenario represented twice with a slightly different wording, the below list show the scenarios which will be considered identical, meaning that their votes will be accumulated.
 \begin{itemize}
 \item 2 and 7
@@ -185,7 +211,9 @@ Due to the distributed location of the participants in the brainstorming multipl
 \item 1 and 20
 \item 5 and 21
 \end{itemize}
-\subsection{First vote}
+
+\subsubsection{First vote}
+
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
 \hline
 Person & Stakeholder Role & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
@@ -195,7 +223,9 @@ Lars&Developer&19&19&5/21&9/11/18&9/11/18&13\\
 Anders&Producer&2/7&9/11/18&9/11/18&12&10/17&10/17\\
 \hline
 \end{tabular}
-\subsection{Second vote}
+
+\subsubsection{Second vote}
+
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
 \hline
 Person & Stakeholder Role & Vote 1 & Vote 2 & Vote 3 & Vote 4 & Vote 5 & Vote 6\\
@@ -205,7 +235,9 @@ Lars&User&1/20&4&6/16&15&4&5/21\\
 Anders&Producer&9/11/18&6/16&5/21&5/21&12&10/17\\
 \hline
 \end{tabular}
-\subsection{Voting Results}
+
+\subsubsection{Voting Results}
+
 This is the result of the vote in a prioritized order.
 \begin{enumerate}
 \item 9/11/18 (8 votes)
@@ -223,6 +255,8 @@ This is the result of the vote in a prioritized order.
 \item 8 (0 votes)
 \item 14 (0 votes)
 \end{enumerate}
+
+
 \subsection{Refinement}
 The process of refining the chosen scenarios centers around specification of various elements of the scenario. Stimulus, Response, Response Measurement. 
 
@@ -315,7 +349,6 @@ The process of refining the chosen scenarios centers around specification of var
 \caption{Refined Scenario \#3 - QA Scenario 6/16}
 \end{center}
 \end{table}
-
 
 
 % =====================================================================
