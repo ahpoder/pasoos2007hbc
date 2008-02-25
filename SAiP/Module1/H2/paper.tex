@@ -375,14 +375,19 @@ scenarios will be described and tactics that can be applied to the architectural
 fulfill the quality attributes are identified.
 
 \subsection{Refined Scenario \#1}
-The new device type can either be a new thermometer/actuator or a completely new type of device, i.e. a door. 
+The new device type can either be a new thermometer/actuator or a completely new type of device, e.g. a door. 
 
 \begin{description}
-\item[Adding new sensor/actuator:] Localized to changes within the given sensor or actuator type.
-Update by modification, supported by the architecture now. Not in gateway, which is Update by addition in this case. 
-\item[Adding different types:] Update by addition will need to be built into the architecture in the sensor
-and actuator subsystems to encompass new types apart from thermometers and radiators. Radiators and
-thermometers are hardcoded into the gateway, it will need to be more abstract.
+\item[Adding new sensor/actuator:] y
+\begin{itemize}
+\item Currently the Gateway <-> sensor/actuator architecture, being decoupled by Service, supports adding a new Sensor implementation as long as it meets the specifications. The sepcification lie only in semantics, and require that a method getTemperature exist for the sensors (and notify for actuators). There is no interface and therefore no syntax checking at compile time (only runtime).
+\item The present architecture of the sensor/actuator do not directly support replacing the implementation with a new as the Service new the Thermometer type directly (update by modification as opposed to update by addition). It also performs a call to a pure virtual method from a base-class constructor, which is so wrong it is unmentionable.
+\end{itemize}
+\item[Adding different types:] x
+\begin{itemize}
+\item A new sensor/actuator type must only implement the getController method in order to be elligable for use with the Service. The architecture holds.
+\item For the Gateway there is a hard-coded reference to the Thermometer and Ragiator, in the sense that it has registerThermometer methods and what is notified to the oberservers are the temperature. In a general architecture with generic sensors and actuators this hard-coding will greatly limit the possibility of adding new types, and certainly require modifying the existing code (with the required regression test to boot) in order to do so. 
+\end{itemize}
 \end{description}
 
 We have chosen to focus in the integration of new types of thermometers and actuators and
