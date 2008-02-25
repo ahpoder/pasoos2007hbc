@@ -434,45 +434,46 @@ A web interface must be provided to support the requirement that the user can ch
 \subsection{Module View}
 
 \begin{figure}[!htb]
-\centerline{\epsfig{figure="figures/mv-model",scale=0.8 }}
+\centerline{\epsfig{figure="figures/mv-model",scale=0.7 }}
 \caption{Module View of the web interface in the redesigned HS07 system}
 \label{fig:mv-model}
 \end{figure}
-Figure~\ref{fig:mv-model} illustrates the new packages needed in HS07 to include a web interface for the user. The model package creates a service with witch to get and set the values  need by the user to make a decision an any new target temperature. Both the gateway and the webapp uses their invokers to contact the model service for parameter manipulation.
+Figure~\ref{fig:mv-model} illustrates the new packages needed in HS07 to include a web interface for the user. A \emph{Model-View-Controller} pattern has been applied in order to seperate the model from the view and the controller. The model package creates a service with which to get and set the values needed by the user to make a decision an any new target temperature, that is, the Model \emph{maintains a model of the system}. Both the gateway and the WebApp uses their invokers to contact the model service for parameter manipulation.
 
 The separation between the gateway and the model packages creates an opportunity for increase of security when that becomes a driving quality attribute, since the gateway information can be hidden within the system, letting the ModelService become the only exposed part.
-\clearpage
+
+In order to archieve the availability requirements, the Apache web server can be used as HTTP server for the WepApp. This is not depicted in the figure.
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/mv-factory",scale=0.8 }}
 \caption{Module View of the abstract factory in the redesigned HS07 system}
 \label{fig:mv-factory}
 \end{figure}
-Figure~\ref{fig:mv-factory} shows the classes involved and their interdependencies for implementing the factory pattern for the sensor module. Please refer to Figure~\ref{fig:seq-tfac} for its runtime usage.
+Figure~\ref{fig:mv-factory} shows the classes involved and their interdependencies for implementing the \emph{factory} pattern for the sensor module. Please refer to Figure~\ref{fig:seq-tfac} for its runtime usage.
 
 \subsection{Component \& Connector View}
 
 \begin{figure}[!htb]
-\centerline{\epsfig{figure="figures/Active object",scale=0.8 }}
+\centerline{\epsfig{figure="figures/Active object",scale=0.6 }}
 \caption{Active Objects in the redesigned HS07 system}
 \label{fig:activeobjects}
 \end{figure}
-Figure~\ref{fig:activeobjects} shows all the components of the HS07 system. The new parts are the ModelService and the HTTP Server, needed to create a suitable web interface for the user.
+
+Figure~\ref{fig:activeobjects} shows all the active components of the HS07 system. The new parts are the ModelService and the HTTP Server, needed to create a suitable web interface for the user. As can be seen on the figure, the HTTP server only accesses the model and not any internal parts of the system.
+
 \clearpage
 
-% XXX \subsection{Sequence Diagrams}
-% Text til figur her
-
 \begin{figure}[!htb]
-\centerline{\epsfig{figure="figures/seq-stt",scale=0.8 }}
+\centerline{\epsfig{figure="figures/seq-stt",scale=0.6 }}
 \caption{Sequence Diagram for the web requests in the redesigned HS07 system}
 \label{fig:seq-stt}
 \end{figure}
-Figure~\ref{fig:seq-stt} shows the flow of contol when a web application uses the methods exposed throgh the model service. The amount of traffic on the model service will have no direct impact on the performance of the gateway service.
+
+Figure~\ref{fig:seq-stt} shows the flow of contol when a web application uses the methods exposed through the model service. The amount of trafic on the model service will have no direct impact on the performance of the gateway service, and the response times on the web application will not be directly impacted when the gateway is polling the sensors.
 
 The gateway uses the same http interface as the webapp to set the value of the current average room temperature, and to read the values of the target temperature requested by the user.
 
-If the ModelService is non responsive, it is important for the gateway service to continue to work, "guessing" the target temperature either by cache or by default values.
+If the ModelService is non-responsive, it is important for the gateway service to continue to work, "guessing" the target temperature either by cache or by default values.
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/seq-tfac",scale=0.8 }}
@@ -480,12 +481,13 @@ If the ModelService is non responsive, it is important for the gateway service t
 \label{fig:seq-tfac}
 \end{figure}
 Figure~\ref{fig:seq-tfac} shows initialization sequence when using the SensorFactory illustrated in Figure~\ref{fig:mv-factory}. The sequence shows the use of the factory to create a decoupling between the actual Thermometer implementation and the ThermometerService.
-\clearpage
 
 \subsection{Allocation View}
 
+Figure \ref{fig:deployment} shows how the HTTP Server and the ModelService can be deployed on the Home Gateway next to the GatewayService. As all tasks on the Home Gateway are communicating using HTTP, the HTTP Server or the ModelService can be deployed on different hardware if required. E.g. the HTTP Server can be moved to other hardware in order to minimize the impact on the more critical functions of the GatewayService when accessing the web interface.
+
 \begin{figure}[!htb]
-\centerline{\epsfig{figure="figures/deployment",scale=0.8 }}
+\centerline{\epsfig{figure="figures/deployment",scale=0.7 }}
 \caption{Deployment in the redesigned HS07 system}
 \label{fig:deployment}
 \end{figure}
