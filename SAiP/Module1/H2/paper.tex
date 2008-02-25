@@ -363,6 +363,7 @@ This functionality is not part of the current architecture, even though it suppo
 \end{itemize}
 \end{itemize}
 \subsection{Testability}
+Tactics for testability include \emph{Test harness} which is essentially a needed setup for regression testing. The test harness for the HS07 system will consist of a series of JUnit test cases on a modular level. On a larger scale, the deployment on a PC, shown in /cite{SAiP1H1} is one big test scenario where sensors and actuators a stubbed using visual inspection for verification. This harness will continue to be the main test setup for introduction into the gateway/model parts of the system.
 \subsection{Refined Scenario \#3}
 Scenario \#3 requires the HS07 system to provide a web interface that can be used to change the temperature in the house. The response requirements sets some requirements to the availability of the http service.
 \subsection{Tactics}
@@ -381,7 +382,9 @@ A web interface must be provided to support the requirement that the user can ch
 \caption{Module View of the web interface in the redesigned HS07 system}
 \label{fig:mv-model}
 \end{figure}
+Figure~\ref{fig:mv-model} illustrates the new packages needed in HS07 to include a web interface for the user. The model package creates a service with witch to get and set the values  need by the user to make a decision an any new target temperature. Both the gateway and the webapp uses their invokers to contact the model service for parameter manipulation.
 
+The separation between the gateway and the model packages creates an opportunity for increase of security when that becomes a driving quality attribute, since the gateway information can be hidden within the system, letting the ModelService become the only exposed part.
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/mv-factory",scale=0.8 }}
 \caption{Module View of the abstract factory in the redesigned HS07 system}
@@ -397,7 +400,7 @@ A web interface must be provided to support the requirement that the user can ch
 \caption{Active Objects in the redesigned HS07 system}
 \label{fig:activeobjects}
 \end{figure}
-
+Figure~\ref{fig:activeobjects} shows all the components of the HS07 system. The new parts are the ModelService and the HTTP Server, needed to create a suitable web interface for the user.
 \clearpage
 
 \section{Sequence Diagrams}
@@ -407,6 +410,11 @@ A web interface must be provided to support the requirement that the user can ch
 \caption{Sequence Diagram for the web requests in the redesigned HS07 system}
 \label{fig:seq-stt}
 \end{figure}
+Figure~\ref{fig:seq-stt} shows the flow of contol when a web application uses the methods exposed throgh the model service. The amount of traffic on the model service will have no direct impact on the performance of the gateway service.
+
+The gateway uses the same http interface as the webapp to set the value of the current average room temperature, and to read the values of the target temperature requested by the user.
+
+If the ModelService is non responsive, it is important for the gateway service to continue to work, "guessing" the target temperature either by cache or by default values.
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/seq-tfac",scale=0.8 }}
