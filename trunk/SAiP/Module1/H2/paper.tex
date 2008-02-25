@@ -141,21 +141,22 @@ In this part of the process we just attempt to think of as many possible scenari
 \item Someone leaves a window open in an ice storm, and the sensors makes the actuators overheat.
 \item Someone accidentally puts their stiletto through the Ethernet switch, disabling networking 
 parts of the system.
-\item After an average user has used the system for less than one hour e or she has mastered the basic functionality
+\item After an average user has used the system for less than one hour he or she has mastered the basic functionality.
 \item The user adds a new actuator and the system configures to use the new hardware automatically within 1 minute.
-\item The user logs on externally through the gateway and has access to the home control within 1 second of verifying 95\% of the time (5 seconds 4\% of the time, more than 5 seconds (unscheduled down-time) less than 1\%) is connected and has access
-\item The user attempts to turn radiator above normal safety-level from outside the house and receive an error back explaining the infraction. The system stores a log of the episode and refuse to execute the command.
+\item The user logs on externally through the gateway and has access to the home control within 5 second of verifying 98,9\% of the
+time (30 seconds 1\% of the time, more than 30 seconds (unscheduled down-time) less than 0,1\%) is connected and has access.
+\item The user attempts to turn radiator above normal safety-level from outside the house and receive an error explaining the infraction. The system stores a log of the episode and refuse to execute the command.
 \item An attacker attempts to log on using an invalid password and is thrown off. The next attempt will take longer (progressive log-on time). The system stores a log of the failed attempt.
 \item Developer updates and tests the code base with a new device type in 1 week.
 \item A technical installer installs a system at a customer in no more than 4 hours.
-\item Developer updates the code base to a new requirement in less than 30 man-hours
-\item Configuration manager installs an upgrade remotely at a customer in no more than 30min
+\item Developer updates the code base to a new requirement in less than 30 man-hours.
+\item Configuration manager installs an upgrade remotely at a customer in no more than 30 minutes.
 \item Tester/debugger extract debugging information directly from running system at customer.
 \item The system handles 50 sensors and 50 actuators.
 \item The system handles up to 50 rooms/groups with one or more sensors and actuators in each group.
 \item The user changes the preferred temperature from a web page and the system adapts to it.
 \item The customer requests that the system runs on other hardware (e.g. less power consuming hardware).
-\item The customer requests that the system interfaces with other sensors/actuators?
+\item The customer requests that the system interfaces with other sensors/actuators.
 \item The developer modifies the sensor poll interval at build time.
 \item The system turns off all actuators when sensors cannot be probed.
 \item The end user adds a sensor/actuator at runtime which registers automatically.
@@ -405,7 +406,7 @@ A web interface must be provided to support the requirement that the user can ch
 
 \clearpage
 
-\section{Packages}
+\subsection{Module View}
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/mv-model",scale=0.8 }}
@@ -423,7 +424,7 @@ The separation between the gateway and the model packages creates an opportunity
 
 \clearpage
 
-\section{Active Objects}
+\subsection{Component \& Connector View}
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/Active object",scale=0.8 }}
@@ -433,7 +434,8 @@ The separation between the gateway and the model packages creates an opportunity
 Figure~\ref{fig:activeobjects} shows all the components of the HS07 system. The new parts are the ModelService and the HTTP Server, needed to create a suitable web interface for the user.
 \clearpage
 
-\section{Sequence Diagrams}
+% XXX \subsection{Sequence Diagrams}
+% Text til figur her
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/seq-stt",scale=0.8 }}
@@ -454,7 +456,7 @@ If the ModelService is non responsive, it is important for the gateway service t
 
 \clearpage
 
-\section{Deployment}
+\subsection{Allocation View}
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure="figures/deployment",scale=0.8 }}
