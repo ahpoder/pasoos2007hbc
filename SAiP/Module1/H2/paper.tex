@@ -378,12 +378,12 @@ fulfill the quality attributes are identified.
 The new device type can either be a new thermometer/actuator or a completely new type of device, e.g. a door. 
 
 \begin{description}
-\item[Adding new sensor/actuator:] y
+\item[Adding new sensor/actuator:] \
 \begin{itemize}
 \item Currently the Gateway <-> sensor/actuator architecture, being decoupled by Service, supports adding a new Sensor implementation as long as it meets the specifications. The sepcification lie only in semantics, and require that a method getTemperature exist for the sensors (and notify for actuators). There is no interface and therefore no syntax checking at compile time (only runtime).
 \item The present architecture of the sensor/actuator do not directly support replacing the implementation with a new as the Service new the Thermometer type directly (update by modification as opposed to update by addition). It also performs a call to a pure virtual method from a base-class constructor, which is so wrong it is unmentionable.
 \end{itemize}
-\item[Adding different types:] x
+\item[Adding different types:] \
 \begin{itemize}
 \item A new sensor/actuator type must only implement the getController method in order to be elligable for use with the Service. The architecture holds.
 \item For the Gateway there is a hard-coded reference to the Thermometer and Ragiator, in the sense that it has registerThermometer methods and what is notified to the oberservers are the temperature. In a general architecture with generic sensors and actuators this hard-coding will greatly limit the possibility of adding new types, and certainly require modifying the existing code (with the required regression test to boot) in order to do so. 
