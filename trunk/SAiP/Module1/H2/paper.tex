@@ -372,6 +372,24 @@ As the user may experience non-responsiveness 0,1\% of the time it is believed t
 \subsection{Usability}
 A web interface must be provided to support the requirement that the user can change the temperature from a web page. In order to maintain the modifiability of the system, a \emph{Model-View-Controller} pattern will be used to separate the web interface from the gateway. A web backend process will be added to limit the web access to the model thereby hiding irrelevant information. The model needs to maintain all information about the system that is relevant to the user - \emph{Maintain a model of the system}.
 
+\clearpage
+
+\section{Packages}
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure="figures/mv-model",scale=0.8 }}
+\caption{Module View of the web interface in the redesigned HS07 system}
+\label{fig:mv-model}
+\end{figure}
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure="figures/mv-factory",scale=0.8 }}
+\caption{Module View of the abstract factory in the redesigned HS07 system}
+\label{fig:mv-factory}
+\end{figure}
+
+\clearpage
+
 \section{Active Objects}
 
 \begin{figure}[!htb]
@@ -381,6 +399,33 @@ A web interface must be provided to support the requirement that the user can ch
 \end{figure}
 
 \clearpage
+
+\section{Sequence Diagrams}
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure="figures/seq-stt",scale=0.8 }}
+\caption{Sequence Diagram for the web requests in the redesigned HS07 system}
+\label{fig:seq-stt}
+\end{figure}
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure="figures/seq-tfac",scale=0.8 }}
+\caption{Sequence Diagram for the Abstract Factory in the redesigned HS07 system}
+\label{fig:seq-tfac}
+\end{figure}
+
+\clearpage
+
+\section{Deployment}
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure="figures/deployment",scale=0.8 }}
+\caption{Deployment in the redesigned HS07 system}
+\label{fig:deployment}
+\end{figure}
+
+\clearpage
+
 
 % =====================================================================
 \bibliography{paper}
