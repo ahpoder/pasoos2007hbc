@@ -382,7 +382,7 @@ The new device type can either be a new thermometer/actuator or a completely new
 \begin{description}
 \item[Adding new sensor/actuator:] \
 \begin{itemize}
-\item Currently the Gateway <-> sensor/actuator architecture, being decoupled by Service, supports adding a new Sensor implementation as long as it meets the specifications. The sepcification lie only in semantics, and require that a method getTemperature exist for the sensors (and notify for actuators). There is no interface and therefore no syntax checking at compile time (only runtime).
+\item Currently the Gateway $\leftrightarrow$ sensor/actuator architecture, being decoupled by Service, supports adding a new Sensor implementation as long as it meets the specifications. The sepcification lie only in semantics, and require that a method getTemperature exist for the sensors (and notify for actuators). There is no interface and therefore no syntax checking at compile time (only runtime).
 \item The present architecture of the sensor/actuator do not directly support replacing the implementation with a new as the Service new the Thermometer type directly (update by modification as opposed to update by addition). It also performs a call to a pure virtual method from a base-class constructor, which is so wrong it is unmentionable.
 \end{itemize}
 \item[Adding different types:] \
