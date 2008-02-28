@@ -1,4 +1,4 @@
-#Summary Software Architecture in Practice Module 1 Hand-in 3
+#summary Software Architecture in Practice Module 1 Hand-in 3
 
 = Introduction =
 
