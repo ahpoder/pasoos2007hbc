@@ -1,0 +1,187 @@
+%%%%
+%%%% Beer Web Store
+%%%%
+\section{Software Architecture in Practice Case: Beer Web Store}
+
+%%%
+% Architectural Description
+%%%
+\newpage
+\subsection{Software Architecture -- Beer Web Store}
+A new Beer Web Store for specialty beers has the following main use
+case:
+\begin{quote}
+  The customer browses the beer catalogue for descriptions and
+  reviews. The customer selects appropriate beers for purchase and
+  these are added to his shopping basket. When the customer checks
+  out, payment is validated and he is presented with a receipt
+\end{quote}
+As a first step, the software architect of this systems has decided to
+use a layered architectural style (with clients, server, and a
+database in separate layers). He has decided that the communication to
+the database will be done via a Fa\c cade pattern. The system will be
+built in Java.
+
+Discuss:
+\begin{itemize}
+    \item Outline how you would approach the tasks of creating the
+    architecture for the Beer Web Store. Consider, e.g., which steps
+    would you takes and in which order?
+    \item Relate the definition of 'software architecture' in [Bass et
+    al., 2003] to the elements of your design as outlined above. Give
+    concrete examples of elements, relations, and structures.
+    \item Apply [Perry and Wolf, 1992]'s model of software architecture as
+      \begin{quote}
+	{\it Software Architecture = \{Elements, Form, Rationale\}}
+      \end{quote}
+      to the Beer Web System
+    \item Reflect on what happens if the words ``software'' and
+    ``computing'' are removed from the definition of 'software
+    architecture' in [Bass et al., 2003]
+    \item The architect decides to create a full architecture
+    description before embarking on any implementation of the
+    system. Discuss pros and cons of taking that approach
+\end{itemize}
+
+%%%
+% Architectural Description
+%%%
+\newpage
+\subsection{Architectural Description -- Beer Web Store}
+The architect for a new Beer Web Store for specialty beers has drawn
+the following figure of the architecture together with his customers.
+\begin{figure}[h!]
+  \centerline{\epsfig{figure=figures/beerstore,scale=0.30,clip=true}}
+\end{figure}
+The system is to support web users that may purchase beers using a web
+browser. The system runs on top of a database (``DB''), contains
+domain model (``Data''), an overview page (``Overview''), and a
+``Basket'' subpart.
+
+Discuss:
+\begin{itemize}
+    \item Which structures does a system such as the above exhibit?
+    Give examples of elements and relations pertaining to each
+    structure
+    \item Which viewpoints are relevant when describing the example?
+    Give examples of partials views for each viewpoint
+    \item Argue for benefits and liabilities of describing software
+    architecture via a box-and-line drawing such as the above
+    \item Discuss what architectural description would be needed if
+    the system was to be realized as a Service-Oriented Architecture
+\end{itemize}
+
+
+%%%
+% Quality Attributes
+%%%
+\newpage
+\subsection{Quality Attributes -- Beer Web Store}
+
+Consider the following main use case for a Beer Web Store for specialty
+beers:
+
+\begin{quote}
+  The customer browses the beer catalogue for descriptions and
+  reviews. The customer selects appropriate beers for purchase and
+  these are added to his shopping basket. When the customer checks
+  out, payment is validated through the payment service
+\end{quote}
+The main architectural drivers are considered to be performance and
+availability. Moreover, the software architect for the system has
+created the following box-and-line drawing documenting his initial
+ideas of the system:
+\begin{figure}[h!]
+  \centerline{\epsfig{figure=figures/beerstore,scale=0.30,clip=true}}
+\end{figure}
+
+Discuss:
+\begin{itemize}
+    \item Describe technique(s) for architectural requirements capture
+    that are applicable to the above case
+    \item Give feasible architectural requirements for availability
+    and performance for the Beer Web Store using such techniques (at
+    least one for each quality attribute)
+    \item Argue how tactics and/or styles may be used to resolve the requirements
+    \item Discuss where Service-Oriented Architecture can play a role
+    with respect to the Beer Web Store? Consider the quality implications
+    \item Reflect upon what the role of quality attributes in software
+    architecture is
+\end{itemize}
+
+%%%
+% Architectural Design
+%%%
+\newpage
+\subsection{Architectural Design -- Beer Web Store}
+Consider the following main use case for a Beer Web Store for specialty
+beers:
+\begin{quote}
+  The customer browses the beer catalogue for descriptions and
+  reviews. The customer selects appropriate beers for purchase and
+  these are added to his shopping basket. When the customer checks
+  out, payment is validated through the payment service
+\end{quote}
+The main architectural drivers are considered to be performance and
+availability. The software architect and stakeholders of the system
+have based on this outlined the following two central Quality
+Attribute Scenarios:
+\begin{itemize}
+  \item A customer makes a payment to the system in normal mode. The
+  payment is processed within 10 seconds
+  \item The payment service fails during normal operation. The system
+  detects this. The administrator is notified and the system continues
+  in degraded mode until the payment service is made available
+\end{itemize}
+
+Discuss:
+\begin{itemize}
+\item Give examples of performance tactics respectively availability
+tactics that may be applied to the scenario. What are the consequences
+of applying these tactics?
+\item The software architect decides to use a layered architectural
+style for the system. Discuss quality implications of this choice
+\item Outline major elements of a possible component and connector
+structure of the Beer Web Store system
+\end{itemize}
+
+
+%%%
+% Product Lines and Frameworks
+%%%
+\newpage
+\subsection{Product Lines -- Beer Web Store}
+Consider a Beer Web Store for buying specialty beers. The software
+architect has designed a deployment structure of the system as shown
+below:
+\begin{figure}[h!]
+  \centerline{\epsfig{figure=figures/bws-deployment,scale=0.80}}
+  \label{fig:observation}
+\end{figure}
+The main architectural drivers for the system are performance and
+modifiability and the following is the main use case for the system:
+\begin{quote}
+  The customer browses the beer catalogue for descriptions and
+  reviews. The customer selects appropriate beers for purchase and
+  these are added to his shopping basket. When the customer checks
+  out, payment is validated through the payment service
+\end{quote}
+
+The company behind the Beer Web Store has decided to build a product
+line based on the store so that, e.g., sodas or stamps may be sold in
+a new shop or other delivery platforms such as mobile phones may be
+used.
+
+Discuss:
+\begin{itemize}
+\item How will the choice of a product line approach affect the
+  architecture of the beer web store?
+  \item Discuss the benefits and liabilities of using a product line
+    approach in relation to the case?
+  \item Relate Service-Oriented Architecture and Product Lines?
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "document"
+%%% End: 
