@@ -1,0 +1,38 @@
+%%%
+% Architectural Description
+%%%
+\subsection{Software Architecture -- Beer Web Store}
+A new Beer Web Store for specialty beers has the following main use
+case:
+\begin{quote}
+  The customer browses the beer catalogue for descriptions and
+  reviews. The customer selects appropriate beers for purchase and
+  these are added to his shopping basket. When the customer checks
+  out, payment is validated and he is presented with a receipt
+\end{quote}
+As a first step, the software architect of this systems has decided to
+use a layered architectural style (with clients, server, and a
+database in separate layers). He has decided that the communication to
+the database will be done via a Fa\c cade pattern. The system will be
+built in Java.
+
+Discuss:
+\begin{itemize}
+    \item Outline how you would approach the tasks of creating the
+    architecture for the Beer Web Store. Consider, e.g., which steps
+    would you takes and in which order?
+    \item Relate the definition of 'software architecture' in [Bass et
+    al., 2003] to the elements of your design as outlined above. Give
+    concrete examples of elements, relations, and structures.
+    \item Apply [Perry and Wolf, 1992]'s model of software architecture as
+      \begin{quote}
+	{\it Software Architecture = \{Elements, Form, Rationale\}}
+      \end{quote}
+      to the Beer Web System
+    \item Reflect on what happens if the words ``software'' and
+    ``computing'' are removed from the definition of 'software
+    architecture' in [Bass et al., 2003]
+    \item The architect decides to create a full architecture
+    description before embarking on any implementation of the
+    system. Discuss pros and cons of taking that approach
+\end{itemize}
