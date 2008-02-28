@@ -1,0 +1,33 @@
+%%%
+% Product Lines and Frameworks
+%%%
+\subsection{Product Lines -- Beer Web Store}
+Consider a Beer Web Store for buying specialty beers. The software
+architect has designed a deployment structure of the system as shown
+below:
+\begin{figure}[h!]
+  \centerline{\epsfig{figure=figures/bws-deployment,scale=0.80}}
+  \label{fig:observation}
+\end{figure}
+The main architectural drivers for the system are performance and
+modifiability and the following is the main use case for the system:
+\begin{quote}
+  The customer browses the beer catalogue for descriptions and
+  reviews. The customer selects appropriate beers for purchase and
+  these are added to his shopping basket. When the customer checks
+  out, payment is validated through the payment service
+\end{quote}
+
+The company behind the Beer Web Store has decided to build a product
+line based on the store so that, e.g., sodas or stamps may be sold in
+a new shop or other delivery platforms such as mobile phones may be
+used.
+
+Discuss:
+\begin{itemize}
+\item How will the choice of a product line approach affect the
+  architecture of the beer web store?
+  \item Discuss the benefits and liabilities of using a product line
+    approach in relation to the case?
+  \item Relate Service-Oriented Architecture and Product Lines?
+\end{itemize}
