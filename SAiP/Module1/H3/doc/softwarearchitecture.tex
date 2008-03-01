@@ -1,26 +1,58 @@
 %%%
 % Architectural Description
 %%%
-\subsection{Software Architecture -- Beer Web Store}
-A new Beer Web Store for specialty beers has the following main use
-case:
-\begin{quote}
-  The customer browses the beer catalogue for descriptions and
-  reviews. The customer selects appropriate beers for purchase and
-  these are added to his shopping basket. When the customer checks
-  out, payment is validated and he is presented with a receipt
-\end{quote}
-As a first step, the software architect of this systems has decided to
-use a layered architectural style (with clients, server, and a
-database in separate layers). He has decided that the communication to
-the database will be done via a Fa\c cade pattern. The system will be
-built in Java.
+\section{Software Architecture -- Beer Web Store}
 
-Discuss:
+%A new Beer Web Store for specialty beers has the following main use
+%case:
+%\begin{quote}
+%  The customer browses the beer catalogue for descriptions and
+%  reviews. The customer selects appropriate beers for purchase and
+%  these are added to his shopping basket. When the customer checks
+%  out, payment is validated and he is presented with a receipt
+%\end{quote}
+%As a first step, the software architect of this systems has decided to
+%use a layered architectural style (with clients, server, and a
+%database in separate layers). He has decided that the communication to
+%the database will be done via a Fa\c cade pattern. The system will be
+%built in Java.
+
+\subsection{Question 1}
+\begin{quote}
+\emph{Outline how you would approach the tasks of creating the
+architecture for the Beer Web Store. Consider, e.g., which steps
+would you takes and in which order?}
+\end{quote}
+
+Naturally there are many ways to create an architecture, yet as the focus is on the architecture then ADD (Architecture Driven Design) is an obvious choice. ADD is merely a method that employs many of the techniques related to Software Architecture in a predefined structure.
+
+\subsubsection{Choose the module to decompose}
+As this is the beginning of the architectual design then the module is the entire system. In later iterations the sub-components (the layers, the components in the layers, etc.) will be decomposed.
+
+\subsubsection{Refine the module according to the following steps}
+
+\begin{description}
+    \item[a. Choose the architectual drivers]
+  Here the quality attributes of the system would be defined by the stakeholders of the system and then a vote would be used to determine which of the quality attributes are architectual drivers. The quality attributes would be expressed as quality attribute scenarios.
+    \item[b. Choose an architectual pattern]
+  Based on the architectual drivers selected in 1, use the mapping in Bass et al. as well as other literature and experience to determine some tactics for achieving the architectual drivers for the system. Then select some architectual patterns to realize the tactics.
+    \item[c. Instantiate modules using multiple views]
+  Based on the tactics and patterns found above the architecture for the system may be expressed using UML. It is \emph{always} required to use multiple views in order to properly describe the architecture. A good approach is the "3 + 1" structure, which uses three viewpoints; Module viewpoint, Component \& Connector viewpoint and Allocation viewpoint. These three viewpoint is expressed in UML using Package diagrams, Object and sequence diagrams, and deployment diagrams respectively. These diagrams should in the first iteration only look at relations and interactions between the main components (the layers).
+    \item[d. Define interfaces]
+  Define the interfaces between the main components (the layers).
+    \item[e. Verify scenarios and use cases]
+  Make sure that the steps a - d covered all the parts of the scenarios. If not include the missing parts and updates the scenarios/architecture is inconsistencies are found.
+\end{description}
+\subsubsection{Repeat the steps above for every module that needs further decomposition}
+The first iteration only look at the overall architecture (the leation and communication between layers). The following iterations will decompose the individual layers and as needed the individual components in the layers.
+\subsection{Question 2}
+
+\begin{quote}
+\emph{Give concrete examples of what elements, relations, and structures as defined in
+\cite{bass2003sa} could be in relation to an architecture for the Beer Web Store.}
+\end{quote}
+
 \begin{itemize}
-    \item Outline how you would approach the tasks of creating the
-    architecture for the Beer Web Store. Consider, e.g., which steps
-    would you takes and in which order?
     \item Relate the definition of 'software architecture' in [Bass et
     al., 2003] to the elements of your design as outlined above. Give
     concrete examples of elements, relations, and structures.
