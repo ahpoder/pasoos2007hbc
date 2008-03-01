@@ -7,12 +7,16 @@
 \usepackage{url}
 \usepackage{times}
 \usepackage{epsfig}
-\usepackage[numbers]{natbib}
+%\usepackage[numbers]{natbib}
 \newcommand{\concept}[1]{{\em #1}}
 \newcommand{\code}[1]{{\tt #1}}
 
+\renewcommand{\descriptionlabel}[1]
+    {\hspace{\labelsep}\emph{#1}}
 
 \newtheorem{styleconstraint}{Style Constraint}
+
+\newenvironment{question}{\begin{quote}}{\end{quote}}
 
 \begin{document}
 
@@ -27,6 +31,10 @@
 \include{qualityattributes}
 \include{architecturaldesign}
 \include{productlines}
+
+% =====================================================================
+\bibliography{saip}
+\bibliographystyle{apalike}
 
 \end{document}
 
