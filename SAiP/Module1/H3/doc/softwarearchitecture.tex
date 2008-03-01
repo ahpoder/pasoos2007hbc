@@ -18,11 +18,11 @@
 %built in Java.
 
 \subsection{Question 1}
-\begin{quote}
-\emph{Outline how you would approach the tasks of creating the
+\begin{question}
+Outline how you would approach the tasks of creating the
 architecture for the Beer Web Store. Consider, e.g., which steps
-would you takes and in which order?}
-\end{quote}
+would you takes and in which order?
+\end{question}
 
 Naturally there are many ways to create an architecture, yet as the focus is on the architecture then ADD (Architecture Driven Design) is an obvious choice. ADD is merely a method that employs many of the techniques related to Software Architecture in a predefined structure.
 
@@ -47,15 +47,30 @@ As this is the beginning of the architectual design then the module is the entir
 The first iteration only look at the overall architecture (the leation and communication between layers). The following iterations will decompose the individual layers and as needed the individual components in the layers.
 \subsection{Question 2}
 
-\begin{quote}
-\emph{Give concrete examples of what elements, relations, and structures as defined in
-\cite{bass2003sa} could be in relation to an architecture for the Beer Web Store.}
-\end{quote}
+\begin{question}
+Give concrete examples of what elements, relations, and structures as defined in \cite{bass2003sa} could be in relation to an architecture for the Beer Web Store.
+\end{question}
+\subsubsection{Elements}
+Based on the present decomposition the elements that are know the layers, where each layer is an element as described below.
+\begin{itemize}
+    \item[Clients] The clients access the server inorder to perform some action
+    \item[Server] The server is accessed by the clients and when needed access the database via its Fa\c cade pattern.
+    \item[Database] The database exposes its interface to the server via a Fa\c cade pattern.
+\end{itemize}
+\fixme{Insert element (class) diagram for the above}
+\subsubsection{Relations}
+\subsubsection{Strustures}
+\subsection{Question 3}
+\begin{question}
+\emph{Apply \cite{perrywolf1992}'s model of software architecture as
+      \begin{quote}
+	{\it Software Architecture = \{Elements, Form, Rationale\}}
+      \end{quote}
+      to the Beer Web System}
+\end{question}
+
 
 \begin{itemize}
-    \item Relate the definition of 'software architecture' in [Bass et
-    al., 2003] to the elements of your design as outlined above. Give
-    concrete examples of elements, relations, and structures.
     \item Apply [Perry and Wolf, 1992]'s model of software architecture as
       \begin{quote}
 	{\it Software Architecture = \{Elements, Form, Rationale\}}
