@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- Exercise build file -->
+<!-- Henrik Bærbak Christensen 2006 -->
+
+<project name="exercise" default="help" basedir=".">
+  
+  <property name="src" value="src"></property>
+  <property name="test" value="test"></property>
+  <property name="build" value="build"></property>
+  <property name="doc" value="doc"></property>
+    
+  <!-- Classpath -->
+  <path id="_classpath">
+    <pathelement path="${build}"/>
+  </path>
+  
+  <path id="_srcpath">
+    <pathelement path="${src}"/>
+  </path>
+  
+  <path id="_testsrcpath">
+    <pathelement path="${test}"/>
+  </path>
+  
+  <target name="prepare">
+    <mkdir dir="${build}"></mkdir>
+  </target>
+
+  <!-- Help -->
+  <target name="help">
+    <echo message="Ant build system for DoorAlarm Exercise"/>
+    <echo message="  Targets are:"/>
+    <echo message="    dk: Operate Danish version"/>
+    <echo message="    us: Operate United States version"/>
+    <echo message=""/>
+    <echo message="    doc: Generate JavaDoc in doc directory"/>
+    <echo message="    clean: Clean everything to prepare build from scratch"/>
+    <echo message=""/>
+    <echo message="Author: You and Henrik B Christensen"/>
+  </target>
+  
+  <!-- Core classes -->
+  <target name="build_src" depends="prepare">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="build_test" depends="build_src">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_testsrcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <!-- BUILD ALL -->
+  <target name="build_all" depends="build_src,build_test">
+  </target>
+
+  <!-- CLEAN -->
+  <target name="clean">
+    <delete dir="${build}"></delete>
+    <delete dir="${doc}"></delete>
+  </target>
+
+  <!-- Run Danish version -->
+  <target name="dk" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="DK"/>
+    </java>      
+  </target>
+  
+  <!-- Run US version -->
+  <target name="us" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="US"/>
+    </java>      
+  </target>
+ 
+  <!-- Make JavaDoc : run your web browser on doc/index.html !-->
+  <target name="mkdoc">
+    <mkdir dir="${doc}"></mkdir>
+  </target>
+
+  <target name="doc" depends="clean,build_src,mkdoc">
+    <javadoc
+      packagenames=
+      "*"
+      sourcepath="${src}"
+      destdir="${doc}"
+      package="true"
+      doctitle="&lt;b&gt;PayStation&lt;/b&gt;"
+      bottom="&lt;b&gt;Copyright &#169; Henrik Bærbak Christensen. From the book: Reliable and Flexible Software. &lt;/b&gt;"
+      windowtitle="PayStation &#169; Henrik Bærbak Christensen."
+      >
+      <sourcepath> 
+	<path refid="_srcpath"/> 
+      </sourcepath>
+      <classpath> 
+	<path refid="_classpath"/> 
+      </classpath>
+    </javadoc>
+  </target>
+
+</project>
+
+
