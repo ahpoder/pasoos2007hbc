@@ -53,29 +53,36 @@ Give concrete examples of what elements, relations, and structures as defined in
 \end{question}
 
 \subsubsection{Elements}
-Based on the present decomposition the elements that are know the layers, where each layer is an element as described below.
+Based on the present decomposition the elements that are know are the layers, where each layer is an element as described below.
 \begin{itemize}
     \item[Clients] The clients access the server in order to perform some action.
     \item[Server] The server is accessed by the clients and when needed access the database via its Fa\c cade pattern.
     \item[Database] The database exposes its interface to the server via a Fa\c cade pattern.
 \end{itemize}
-The above is quickly sketched in the box-and-line drawing below, where the layering may also be seen.
+The above is quickly sketched in the box-and-line drawing below, where the layering may also be seen. 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/module_view,scale=1.0 }}
-\caption{Module-View overview}
+\caption{Element overview}
 \label{fig:module_view}
 \end{figure}
 \clearpage
 
 \subsubsection{Relations}
-The figure xx shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. 
+The figure xx shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure yy. In these it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
 
-
-\fixme{Answer question 1.2}
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/module_view,scale=1.0 }}
+\caption{Relation overview}
+\label{fig:sequence}
+\end{figure}
 
 \subsubsection{Structures}
 
-\fixme{Answer question 1.2}
+There are many structures which may be used to model a software system. Common for all of them is that they present a certain view of the system. Very rarely is a single structure sufficient to sufficiently express the architecture of a system. For this reason many structures are combined, each structure being represented by one or more views, to create a sufficient representation of the software system.
+
+The most popular combination of structures are the Module, the Component-and-Connector and the Allocation. Each of these three structures focus on a specific aspect of the software architecture; the static elements and their relation, the elements dynamic relations and the elements deployment on hardware, respectively. 
+
+In each structure there is a number of views. Which view, and indeed which structure, that apply is quite dependent on not only the system, but also the iteration of the architectual analysis. In the first iteration of the beer-store it would make sense to choose more overall views, e.g. the Module Layered or Module Decomposition, whereas e.g. the Module Class would be too fine-grained for the first iteration. For the C\&C it would make sense to start with the Client-Server, and finally for the Allocation the Deployment view may give a good indication of the physical location and requirements of the different elements.
 
 \subsection{Software Architecture - Question 3}
 
