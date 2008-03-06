@@ -21,16 +21,44 @@ Give examples of elements and relations pertaining to each
 structure
 \end{question}
 
-\fixme{Answer question 2.1}
-
 The information depicted in the figure above shows several
 software structures of the Beer Web Store to some extent.
 
-\subsubsection{Decomposition}
+\subsubsection{Uses}
+
+The \emph{uses structure} shows how elements are related with regard
+to usage. One perspective of the uses structure is that the
+elements in the figure are ''Overview创, ''Basket创 and ''Data创
+which are all related and the database which is only related
+to ''Data创. This shows that the overview page and the basket
+has been decoupled from the database which therefore can be
+replaced without affecting them.
+
+\subsubsection{Layered}
+
+Another perspective is that the users, the webserver and the
+database are elements where the relations show that the users
+use the webserver and the webserver uses the database. This
+also shows the that the architecture is a
+\emph{strictly layered structure} where the users cannot
+access the database directly.
 
 \subsubsection{Client-Server}
 
+As there are several users, the elements of the
+\emph{strictly layered structure} can also be seen as a
+\emph{client-server structure}, where the users are clients
+and the webserver is a server. The webserver can also be
+seen as a client to the database server. This would make it
+possible to archieve better performance if several webservers
+are used to make load balancing of the user requests.
+
 \subsubsection{Deployment}
+
+With regard to a \emph{deployment structure}, the figure shows
+that the overview page, the basket and the domain model (elements)
+are allocated to (relations) on the webserver and the database is
+allocated to its own server.
 
 \subsection{Architectural Description - Question 2}
 
