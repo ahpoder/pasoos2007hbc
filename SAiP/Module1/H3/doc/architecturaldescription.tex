@@ -14,6 +14,7 @@ domain model (``Data''), an overview page (``Overview''), and a
 ``Basket'' subpart.
 
 \subsection{Architectural Description - Question 1}
+\label{sec:arch_desc_q1}
 
 \begin{question}
 Which structures does a system such as the above exhibit?
@@ -28,9 +29,9 @@ software structures of the Beer Web Store to some extent.
 
 The \emph{uses structure} shows how elements are related with regard
 to usage. One perspective of the uses structure is that the
-elements in the figure are ''Overview创, ''Basket创 and ''Data创
+elements in the figure are ``Overview'', ``Basket'' and ``Data''
 which are all related and the database which is only related
-to ''Data创. This shows that the overview page and the basket
+to ``Data''. This shows that the overview page and the basket
 has been decoupled from the database which therefore can be
 replaced without affecting them.
 
@@ -67,7 +68,38 @@ Which viewpoints are relevant when describing the example?
 Give examples of partials views for each viewpoint
 \end{question}
 
+Selecting the relevant views shall actually be performed on
+the basis of the architectural drivers which have not been
+determined for the Beer Web Store. There are however several
+models that provide a number of views that are often useful,
+e.g. the ``4+1'' model \cite{kruchten1995} and the ``3+1''
+model \cite{christensen2004archdesc} and many others.
+
+As described in \ref{sec:arch_desc_q1} the figure shows parts
+of a module viewpoint (uses, layered), component \& connector
+viewpoint (client-server) and an allocation viewpoint
+(deployment) which are the recommended viewpoints in
+\cite{christensen2004archdesc}.
+
+These viewpoints are all relevant to the Beer Web Store example.
+The Module view describes the internals of the webserver and how
+the functionality is decomposed into units. The Component \& connector
+viewpoint describes the runtime relations between the units and the
+Allocation viewpoint describes the environment of the running
+system.
+
+
+XXX: Udv鎙g views og lav figurer:
+
+- Layered model (refer to figure 1) and decomposition of the server?
+- Sequence diagram
+- Deployment view 
+
+
 \fixme{Answer question 2.2}
+
+
+
 
 \subsection{Architectural Description - Question 3}
 
