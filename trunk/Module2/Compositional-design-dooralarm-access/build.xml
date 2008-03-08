@@ -31,8 +31,18 @@
   <target name="help">
     <echo message="Ant build system for DoorAlarm Exercise"/>
     <echo message="  Targets are:"/>
-    <echo message="    dk: Operate Danish version"/>
-    <echo message="    us: Operate United States version"/>
+    <echo message="    dkSimNoLog: Operate Danish version with simple access control and no logging"/>
+    <echo message="    usSimNoLog: Operate United States version with simple access control and no logging"/>
+    <echo message="    dkLocalNoLog: Operate Danish version with local access control and no logging"/>
+    <echo message="    usLocalNoLog: Operate United States version with local access control and no logging"/>
+    <echo message="    dkCentralNoLog: Operate Danish version with central access control and no logging"/>
+    <echo message="    usCentralNoLog: Operate United States version with central access control and no logging"/>
+    <echo message="    dkSimLog: Operate Danish version with simple access control and logging"/>
+    <echo message="    usSimLog: Operate United States version with simple access control and logging"/>
+    <echo message="    dkLocalLog: Operate Danish version with local access control and logging"/>
+    <echo message="    usLocalLog: Operate United States version with local access control and logging"/>
+    <echo message="    dkCentralLog: Operate Danish version with central access control and logging"/>
+    <echo message="    usCentralLog: Operate United States version with central access control and logging"/>
     <echo message=""/>
     <echo message="    doc: Generate JavaDoc in doc directory"/>
     <echo message="    clean: Clean everything to prepare build from scratch"/>
@@ -69,22 +79,126 @@
     <delete dir="${doc}"></delete>
   </target>
 
-  <!-- Run Danish version -->
-  <target name="dk" depends="build_all">
+  <!-- Run Danish version wih simple access and no logging -->
+  <target name="dkSimNoLog" depends="build_all">
     <java fork="yes" classname="dooralarm.gui.DoorAlarm">
       <classpath> <path refid="_classpath"/> </classpath>
       <arg value="DK"/>
+	  <arg value="SIM"/>
+	  <arg value="NOLOG"/>
     </java>      
   </target>
   
-  <!-- Run US version -->
-  <target name="us" depends="build_all">
+  <!-- Run US version  wih simple access and no logging -->
+  <target name="usSimNoLog" depends="build_all">
     <java fork="yes" classname="dooralarm.gui.DoorAlarm">
       <classpath> <path refid="_classpath"/> </classpath>
       <arg value="US"/>
+	  <arg value="SIM"/>
+	  <arg value="NOLOG"/>
     </java>      
   </target>
- 
+
+  <!-- Run Danish version wih local access and no logging -->
+  <target name="dkLocalNoLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="DK"/>
+	  <arg value="LOCAL"/>
+	  <arg value="NOLOG"/>
+    </java>      
+  </target>
+  
+  <!-- Run US version  wih local access and no logging -->
+  <target name="usLocalNoLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="US"/>
+	  <arg value="LOCAL"/>
+	  <arg value="NOLOG"/>
+    </java>      
+  </target>
+
+  <!-- Run Danish version wih local access and no logging -->
+  <target name="dkCentralNoLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="DK"/>
+	  <arg value="CENTRAL"/>
+	  <arg value="NOLOG"/>
+    </java>      
+  </target>
+  
+  <!-- Run US version  wih local access and no logging -->
+  <target name="usCentralNoLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="US"/>
+	  <arg value="CENTRAL"/>
+	  <arg value="NOLOG"/>
+    </java>      
+  </target>
+  
+  <!-- Run Danish version wih simple access and logging -->
+  <target name="dkSimLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="DK"/>
+	  <arg value="SIM"/>
+	  <arg value="LOG"/>
+    </java>      
+  </target>
+
+  <!-- Run US version  wih simple access and logging -->
+  <target name="usSimLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="US"/>
+	  <arg value="SIM"/>
+	  <arg value="LOG"/>
+    </java>      
+  </target>
+
+  <!-- Run Danish version wih local access and no logging -->
+  <target name="dkLocalLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="DK"/>
+	  <arg value="LOCAL"/>
+	  <arg value="LOG"/>
+    </java>      
+  </target>
+  
+  <!-- Run US version  wih local access and no logging -->
+  <target name="usLocalLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="US"/>
+	  <arg value="LOCAL"/>
+	  <arg value="LOG"/>
+    </java>      
+  </target>
+
+  <!-- Run Danish version wih local access and no logging -->
+  <target name="dkCentralLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="DK"/>
+	  <arg value="CENTRAL"/>
+	  <arg value="LOG"/>
+    </java>      
+  </target>
+  
+  <!-- Run US version  wih local access and no logging -->
+  <target name="usCentralLog" depends="build_all">
+    <java fork="yes" classname="dooralarm.gui.DoorAlarm">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="US"/>
+	  <arg value="CENTRAL"/>
+	  <arg value="LOG"/>
+    </java>      
+  </target>
+  
   <!-- Make JavaDoc : run your web browser on doc/index.html !-->
   <target name="mkdoc">
     <mkdir dir="${doc}"></mkdir>
