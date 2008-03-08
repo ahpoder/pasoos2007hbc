@@ -21,15 +21,84 @@ public class DoorAlarm extends JFrame {
   MessageDatabase language;
 
   public static void main(String[] args) {
-    System.out.println( "Country code: "+args[0] );
+    if (args.length < 3)
+	{
+		System.out.println("Invalid argument count");
+		return;
+	}
+	System.out.println( "Country code: "+args[0] );
     
 	if (args[0].equals("US"))
 	{
-		new DoorAlarm(new SimpleAccess(), new UsDoorAlarmFactory() );
+		if (args[1].equals("SIM"))
+		{
+			if (args[2].equals("NOLOG"))
+			{
+				new DoorAlarm(new UsSimpleNoLoggingDoorAlarmFactory());
+			}
+			else
+			{
+				new DoorAlarm(new UsSimpleLoggingDoorAlarmFactory());
+			}
+		}
+		else if (args[1].equals("LOCAL"))
+		{
+			if (args[2].equals("NOLOG"))
+			{
+				new DoorAlarm(new UsLocalNoLoggingDoorAlarmFactory());
+			}
+			else
+			{
+				new DoorAlarm(new UsLocalLoggingDoorAlarmFactory());
+			}
+		}
+		else
+		{
+			if (args[2].equals("NOLOG"))
+			{
+				new DoorAlarm(new UsCentralNoLoggingDoorAlarmFactory());
+			}
+			else
+			{
+				new DoorAlarm(new UsCentralLoggingDoorAlarmFactory());
+			}
+		}
 	}
 	else
 	{
-		new DoorAlarm(new SimpleAccess(), new DkDoorAlarmFactory() );
+		if (args[1].equals("SIM"))
+		{
+			if (args[2].equals("NOLOG"))
+			{
+				new DoorAlarm(new DkSimpleNoLoggingDoorAlarmFactory());
+			}
+			else
+			{
+				new DoorAlarm(new DkSimpleLoggingDoorAlarmFactory());
+			}
+		}
+		else if (args[1].equals("LOCAL"))
+		{
+			if (args[2].equals("NOLOG"))
+			{
+				new DoorAlarm(new DkLocalNoLoggingDoorAlarmFactory());
+			}
+			else
+			{
+				new DoorAlarm(new DkLocalLoggingDoorAlarmFactory());
+			}
+		}
+		else
+		{
+			if (args[2].equals("NOLOG"))
+			{
+				new DoorAlarm(new DkCentralNoLoggingDoorAlarmFactory());
+			}
+			else
+			{
+				new DoorAlarm(new DkCentralLoggingDoorAlarmFactory());
+			}
+		}
 	}
   }
 
@@ -42,10 +111,10 @@ public class DoorAlarm extends JFrame {
   /** The access system that determines whether a key is ok or not */
   private Access access;
 
-  public DoorAlarm(Access access, DoorAlarmFactory factory) {
+  public DoorAlarm(DoorAlarmFactory factory) {
 //    super( language.getFrameTitle() );
     this.language = factory.createMessageDatabase();
-    this.access = access;
+    this.access = factory.createAccessControl();
 	this.factory = factory;
 	this.setTitle(language.getFrameTitle());
 
@@ -66,13 +135,7 @@ public class DoorAlarm extends JFrame {
     // initialize the global listener on the keyboard panel.
     keyCodeListener = new KeyCodeListener();
 
-	// ********** Solution 1 **************** //
-    JPanel keyboard = factory.createKeyboardPanel(keyCodeListener);
-	// ********** End Solution 1 **************** //
-
-	// ********** Solution 2 **************** //
-//    JPanel keyboard = createKeyboardPanel();
-	// ********** End Solution 2 **************** //
+	JPanel keyboard = createKeyboardPanel();
 
     panel.add( keyboard );
  
@@ -95,7 +158,6 @@ public class DoorAlarm extends JFrame {
   
   DoorAlarmFactory factory;
 
-  // ********** Solution 2 ****************** //  
   public JPanel createKeyboardPanel()
   {
 	JPanel numericalPanel = new JPanel();
@@ -116,8 +178,6 @@ public class DoorAlarm extends JFrame {
     b.setActionCommand( label );
     return b;
   }
-  
-  // ********** End Solution 2 ****************** //  
   
   private class KeyCodeListener implements ActionListener {
     public void actionPerformed( ActionEvent e ) {
