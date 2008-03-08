@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- Marker-Figure build file -->
+<!-- (c) Henrik Bærbak Christensen 2008 -->
+
+<project name="paystation" default="help" basedir=".">
+  
+  <property name="src" value="src"></property>
+  <property name="test" value="test"></property>
+  <property name="resource" value="resource"></property>
+
+  <property name="build" value="build"></property>
+  
+  <!-- Jar Files -->
+  <property name="minidraw" value="lib/minidraw.jar"/>
+
+  <!-- Classpath -->
+  <path id="_classpath">
+    <pathelement location="${minidraw}"/>
+    <pathelement path="${build}"/>
+  </path>
+
+  <path id="_srcpath">
+    <pathelement path="${src}"/>
+  </path>
+  
+  <path id="_testsrcpath">
+    <pathelement path="${test}"/>
+  </path>
+  
+  <target name="prepare">
+    <mkdir dir="${build}"></mkdir>
+  </target>
+
+  <!-- Help -->
+  <target name="help">
+    <echo>
+Ant build system for Puzzle.
+Targets are:
+  clean: clean up to prepare for build from scratch.
+  marker: run the tracking marker application.
+    </echo>
+  </target>
+  
+  <!-- CLEAN -->
+  <target name="clean">
+    <delete dir="${build}"></delete>
+    <delete dir="${doc}"></delete>
+  </target>
+
+
+  <!-- Core classes -->
+  <target name="build_src" depends="prepare">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="build_test" depends="build_src">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_testsrcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+
+  <target name="copy_resource" depends="prepare">
+    <copy todir="${build}\${resource}" >
+      <fileset dir="${resource}">
+	<include name="*.gif"/>
+	<include name="*.lst"/>
+      </fileset>
+    </copy>
+  </target>
+   
+  <!-- BUILD ALL -->
+  <target name="build-all" depends="build_src,build_test,copy_resource">
+  </target>
+
+
+  <target name="marker" depends="build-all">
+    <java fork="yes" classname="marker.MarkerFigure">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>      
+  </target>
+  
+  
+
+</project>
+
+
