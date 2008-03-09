@@ -18,6 +18,6 @@ public class UsCentralLoggingDoorAlarmFactory implements DoorAlarmFactory {
   }
   public Access createAccessControl()
   {
-    return new AccessLoggingDecorator(new CentralAccess());
+    return new AccessLoggingDecorator(new CentralAccess(), new FileLogging());
   }
 }

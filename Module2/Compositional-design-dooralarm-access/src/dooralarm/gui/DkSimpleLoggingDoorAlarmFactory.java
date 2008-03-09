@@ -18,6 +18,6 @@ public class DkSimpleLoggingDoorAlarmFactory implements DoorAlarmFactory {
   }
   public Access createAccessControl()
   {
-    return new AccessLoggingDecorator(new SimpleAccess());
+    return new AccessLoggingDecorator(new SimpleAccess(), new FileLogging());
   }
 }
