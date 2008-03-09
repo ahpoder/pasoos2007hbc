@@ -28,76 +28,48 @@ public class DoorAlarm extends JFrame {
 	}
 	System.out.println( "Country code: "+args[0] );
     
-	if (args[0].equals("US"))
-	{
-		if (args[1].equals("SIM"))
-		{
-			if (args[2].equals("NOLOG"))
-			{
+	if (args[0].equals("US")) {
+		if (args[1].equals("SIM")) {
+			if (args[2].equals("NOLOG")) {
 				new DoorAlarm(new UsSimpleNoLoggingDoorAlarmFactory());
 			}
-			else
-			{
-				new DoorAlarm(new UsSimpleLoggingDoorAlarmFactory());
+			else {
+				// Not implemented
 			}
 		}
-		else if (args[1].equals("LOCAL"))
-		{
-			if (args[2].equals("NOLOG"))
-			{
-				new DoorAlarm(new UsLocalNoLoggingDoorAlarmFactory());
-			}
-			else
-			{
-				new DoorAlarm(new UsLocalLoggingDoorAlarmFactory());
-			}
+		else if (args[1].equals("LOCAL")) {
+			// Not implemented
 		}
-		else
+		else // CENTRAL
 		{
-			if (args[2].equals("NOLOG"))
-			{
-				new DoorAlarm(new UsCentralNoLoggingDoorAlarmFactory());
+			if (args[2].equals("NOLOG")) {
+				// Not implemented
 			}
-			else
-			{
+			else {
 				new DoorAlarm(new UsCentralLoggingDoorAlarmFactory());
 			}
 		}
 	}
-	else
-	{
-		if (args[1].equals("SIM"))
-		{
-			if (args[2].equals("NOLOG"))
-			{
+	else {
+		if (args[1].equals("SIM")) {
+			if (args[2].equals("NOLOG")) {
 				new DoorAlarm(new DkSimpleNoLoggingDoorAlarmFactory());
 			}
-			else
-			{
-				new DoorAlarm(new DkSimpleLoggingDoorAlarmFactory());
+			else {
+				// Not implemented
 			}
 		}
-		else if (args[1].equals("LOCAL"))
-		{
-			if (args[2].equals("NOLOG"))
-			{
+		else if (args[1].equals("LOCAL")) {
+			if (args[2].equals("NOLOG")) {
 				new DoorAlarm(new DkLocalNoLoggingDoorAlarmFactory());
 			}
-			else
-			{
-				new DoorAlarm(new DkLocalLoggingDoorAlarmFactory());
+			else {
+				// Not implemented
 			}
 		}
-		else
+		else // CENTRAL
 		{
-			if (args[2].equals("NOLOG"))
-			{
-				new DoorAlarm(new DkCentralNoLoggingDoorAlarmFactory());
-			}
-			else
-			{
-				new DoorAlarm(new DkCentralLoggingDoorAlarmFactory());
-			}
+			// Not implemented
 		}
 	}
   }
