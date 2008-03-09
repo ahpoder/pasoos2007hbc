@@ -7,24 +7,20 @@ package dooralarm.domain;
     Author: Henrik Bærbak Christensen
 */
 
-import java.io.*;
-
 public class AccessLoggingDecorator implements Access {
-  public AccessLoggingDecorator(Access decoratee)
+  public AccessLoggingDecorator(Access decoratee, Logging log)
   {
     this.decoratee = decoratee;
+	this.log = log;
   }
   public boolean accept(String keycode) {
 	boolean result = decoratee.accept(keycode);
 	if (result)
 	{
-		try {
-	        BufferedWriter out = new BufferedWriter(new FileWriter("log.txt", true));
-	        out.write("Access granted: " + keycode + "\r\n");
-	        out.close();
-	    } catch (IOException e) { }
+	  log.log(keycode);
 	}
 	return result;
   }
   private Access decoratee;
+  private Logging log;
 }
