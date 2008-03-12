@@ -108,29 +108,37 @@ may be vital to the design and others may be gold-plating. These properties are 
 
 A software architecture is a selection and description of architectual choices. These choices are, however, difficult to convay without including the reason for the choices made, for the elemenents and form not chosen and for choices not made due to lack of information or because they were deemed irrelevant.
 
-When the above is applied to the information present for the Beer Web Store three processing elements, one data element and two connecting elements may be defined. These are as follow:
+When the above is applied to the information present for the Beer Web Store three processing elements, one data element and two connecting elements may be defined.
+
+\subsubsection{Elements in Beer Web Store}
 
 \begin{itemize}
     \item Processing elements.
 	 \begin{itemize}
-	    \item[Client]
-	    \item[Server]
-	    \item[DatabaseFacade]
+	    \item[Client] Receive user entries and process them into http requests
+	    \item[Server] Receive http requests and transform them into high level database lookup
+	    \item[DatabaseFacade] Transform high level database lookup into proprietary database lookup
 	 \end{itemize}
     \item Data elements.
 	 \begin{itemize}
-	    \item[Request data]
+	    \item[Request data] The packets of data flowing from the client to the server and form the server to the database, e.g. Beer type, Credit card information, search refinement parameter, etc.
 	 \end{itemize}
     \item Connecting elements.
 	 \begin{itemize}
-	    \item[HTTP]
-	    \item[Database facade methods]
+	    \item[HTTP] Protocol for connecting the server and client (loose coupling).
+	    \item[Database facade methods] Protocol for connecting the server to the database (medium-loose coupling).
 	 \end{itemize}
 \end{itemize}
 
+\subsubsection{Form in Beer Web Store}
+\begin{itemize}
+    \item[Properties] The Server and the database, hidden behind the Facade, is the backbone of the Beer Web Store. If either is unavailable then the other is irrelevant. Multiple instances of both Server and Database may be running simultaniously in order to supply hot-swapping. The importance of up-time (availability), security (payment), usability (transmission abilities), etc. must be defined here.
+    \item[Relationship] The Client may only see the server through its HTTP interface, and the Server may only access the database through the Database Facade. Other demands to the relationship (certain commands to the database may only be accessed when using https).
+\end{itemize}
 
+\subsubsection{Rational in Beer Web Store}
 
-\fixme{Answer question 1.3}
+Finally it is important to describe the decisions made when defining the form - why is availability important? Why is it OK to sacrifice availability for some (security) functionality.
 
 \subsection{Software Architecture - Question 4}
 
@@ -139,6 +147,8 @@ Reflect on what happens if the words ``software'' and
 ``computing'' are removed from the definition of 'software
 architecture' in [Bass et al., 2003]
 \end{question}
+
+
 
 \fixme{Answer question 1.4}
 
