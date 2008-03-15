@@ -108,7 +108,11 @@ Argue for benefits and liabilities of describing software
 architecture via a box-and-line drawing such as the above
 \end{question}
 
-The benifits of a box-and-line drawing is that it can be written and "understood" by almost anyone. 
+The benifits of a box-and-line drawing is that it can be written and "understood" by almost anyone, and in the initial phases of the architectual design they may be fine. They are fast to draw and can be shown to non-technical stakeholders. It is kind of like simple signlanguage - everyone understands nodding and shaking ones head or indicating a direction as long as it is for general information.
+
+Unfortunately the general information is where the advantages stop. For simple sign-language, it may quickly come to an argument if one wishes to know if the indication of "this way" means "a short way that way" or "a long way that way", and the same is true for box-and-line drawings. "How many clients does the system support?". "How strong is the binding indicated by the line - do all lines mean the same?" There is merely a line, so what does that line mean?
+
+Working as an developer/tester/engineer means that everything must be quantifiable in some way, and box-and-line drawings do not offer this unambigious quantifiability. For this a clearly defined modeling language, without ambiguaty as to the meaning of the model, is needed. An example of such a language is Unified Modelling Language(UML), which would allow the box-and-line drawing to be represented as one or more diagrams solving all the ambiguaty of the box-and-line drawing with only a single requirement; one must know the language, which is in deed one of the reasons while box-and-line drawings are still widely used - there is no single unambigious modelling language know by all stakeholders, and when that is the case it may be more confusing then benificial to spend time making sure the diagram is clear and unambigious, if that clarity is derived from symbolic notation that the readers (stakeholders) do not understand.
 
 \subsection{Architectural Description - Question 4}
 
@@ -116,5 +120,7 @@ The benifits of a box-and-line drawing is that it can be written and "understood
 Discuss what architectural description would be needed if
 the system was to be realized as a Service-Oriented Architecture
 \end{question}
+
+
 
 \fixme{Answer question 2.4}
