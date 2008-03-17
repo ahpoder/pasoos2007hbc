@@ -3,7 +3,7 @@
 %%%
 \section{Software Architecture -- Beer Web Store}
 
-A new Beer Web Store for specialty beers has the following main use
+A new Beer Web Store for speciality beers has the following main use
 case:
 \begin{quote}
   The customer browses the beer catalogue for descriptions and
@@ -27,15 +27,15 @@ would you takes and in which order?
 Naturally there are many ways to create an architecture, yet as the focus is on the architecture then ADD (Architecture Driven Design) is an obvious choice. ADD is merely a method that employs many of the techniques related to Software Architecture in a predefined structure.
 
 \subsubsection{Choose the module to decompose}
-As this is the beginning of the architectual design then the module is the entire system. In later iterations the sub-components (the layers, the components in the layers, etc.) will be decomposed.
+As this is the beginning of the architectural design then the module is the entire system. In later iterations the sub-components (the layers, the components in the layers, etc.) will be decomposed.
 
 \subsubsection{Refine the module according to the following steps}
 
 \begin{description}
-    \item[a. Choose the architectual drivers]
-  Here the quality attributes of the system would be defined by the stakeholders of the system and then a vote would be used to determine which of the quality attributes are architectual drivers. The quality attributes would be expressed as quality attribute scenarios.
-    \item[b. Choose an architectual pattern]
-  Based on the architectual drivers selected in 1, use the mapping in Bass et al. as well as other literature and experience to determine some tactics for achieving the architectual drivers for the system. Then select some architectual patterns to realize the tactics.
+    \item[a. Choose the architectural drivers]
+  Here the quality attributes of the system would be defined by the stakeholders of the system and then a vote would be used to determine which of the quality attributes are architectural drivers. The quality attributes would be expressed as quality attribute scenarios.
+    \item[b. Choose an architectural pattern]
+  Based on the architectural drivers selected in 1, use the mapping in Bass et al. as well as other literature and experience to determine some tactics for achieving the architectural drivers for the system. Then select some architectural patterns to realize the tactics.
     \item[c. Instantiate modules using multiple views]
   Based on the tactics and patterns found above the architecture for the system may be expressed using UML. It is \emph{always} required to use multiple views in order to properly describe the architecture. A good approach is the "3 + 1" structure, which uses three viewpoints; Module viewpoint, Component \& Connector viewpoint and Allocation viewpoint. These three viewpoints are expressed in UML using Package diagrams, Object and sequence diagrams, and deployment diagrams respectively. These diagrams should in the first iteration only look at relations and interactions between the main components (the layers).
     \item[d. Define interfaces]
@@ -44,7 +44,7 @@ As this is the beginning of the architectual design then the module is the entir
   Make sure that the steps a - d covered all the parts of the scenarios. If not include the missing parts and updates the scenarios/architecture is inconsistencies are found.
 \end{description}
 \subsubsection{Repeat the steps above for every module that needs further decomposition}
-The first iteration only look at the overall architecture (the leation and communication between layers). The following iterations will decompose the individual layers and as needed the individual components in the layers.
+The first iteration only look at the overall architecture (the location and communication between layers). The following iterations will decompose the individual layers and as needed the individual components in the layers.
 
 \subsection{Software Architecture - Question 2}
 
@@ -68,7 +68,7 @@ The above is quickly sketched in the box-and-line drawing below, where the layer
 \clearpage
 
 \subsubsection{Relations}
-The figure xx shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure yy. In these it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
+The figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In these it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/sequence,scale=1.0 }}
@@ -94,19 +94,19 @@ Apply \cite{perrywolf1992}'s model of software architecture as
 to the Beer Web System
 \end{question}
 
-Perry and Wolf suggest seperating the model of the architecture into three components, as mentioned in the question. The components relate in the sense that the \emph{elements} has a particular \emph{form} and them and their relations are chosen based on a \emph{rational}.
+Perry and Wolf suggest separating the model of the architecture into three components, as mentioned in the question. The components relate in the sense that the \emph{elements} has a particular \emph{form} and them and their relations are chosen based on a \emph{rational}.
 
-There are three class of architectual elements defined.
+There are three class of architectural elements defined.
 \begin{itemize}
     \item[Processing elements] Transforms data elements.
     \item[Data elements] Information to be transformed or used.
     \item[Connecting elements] The \emph{glue} that hold the architecture together. May at times be \emph{Data elements}, \emph{Connecting elements} or both. The connecting elements are the relations between the different elements, e.g. procedure calls or message parsing.
 \end{itemize}
 
-The architectual form describe the architectual properties and the relationships and their relative importance. This is important as some architectual properties
-may be vital to the design and others may be gold-plating. These properties are used to put constraints on the elements and also define the relative importanse of these constraints. The relationships are similar to the properties except they are used to put constraints and relative priority on the relations between elements.
+The architectural form describe the architectural properties and the relationships and their relative importance. This is important as some architectural properties
+may be vital to the design and others may be gold-plating. These properties are used to put constraints on the elements and also define the relative importance of these constraints. The relationships are similar to the properties except they are used to put constraints and relative priority on the relations between elements.
 
-A software architecture is a selection and description of architectual choices. These choices are, however, difficult to convay without including the reason for the choices made, for the elemenents and form not chosen and for choices not made due to lack of information or because they were deemed irrelevant.
+A software architecture is a selection and description of architectural choices. These choices are, however, difficult to convey without including the reason for the choices made, for the elements and form not chosen and for choices not made due to lack of information or because they were deemed irrelevant.
 
 When the above is applied to the information present for the Beer Web Store three processing elements, one data element and two connecting elements may be defined.
 
@@ -126,14 +126,15 @@ When the above is applied to the information present for the Beer Web Store thre
     \item Connecting elements.
 	 \begin{itemize}
 	    \item[HTTP] Protocol for connecting the server and client (loose coupling).
-	    \item[Database facade methods] Protocol for connecting the server to the database (medium-loose coupling).
+	    \item[Database fa\c ade methods] Protocol for connecting the server to the database (medium-loose coupling).
 	 \end{itemize}
 \end{itemize}
 
 \subsubsection{Form in Beer Web Store}
 \begin{itemize}
-    \item[Properties] The Server and the database, hidden behind the Facade, is the backbone of the Beer Web Store. If either is unavailable then the other is irrelevant. Multiple instances of both Server and Database may be running simultaniously in order to supply hot-swapping. The importance of up-time (availability), security (payment), usability (transmission abilities), etc. must be defined here.
-    \item[Relationship] The Client may only see the server through its HTTP interface, and the Server may only access the database through the Database Facade. Other demands to the relationship (certain commands to the database may only be accessed when using https).
+    \item[Properties] The Server and the database, hidden behind the Fa\c ade, is the backbone of the Beer Web Store. If either is unavailable then the other is irrelevant. Multiple instances of both Server and Database may be running simultaneously in order to supply hot-swapping. The importance of up-time (availability), security (payment), usability (transmission abilities), etc. must be defined here.
+    \item[Relationship] The Client may only see the server through its
+ HTTP interface, and the Server may only access the database through the Database Fa\c ade. Other demands to the relationship (certain commands to the database may only be accessed when using https).
 \end{itemize}
 
 \subsubsection{Rational in Beer Web Store}
@@ -148,9 +149,9 @@ Reflect on what happens if the words ``software'' and
 architecture' in [Bass et al., 2003]
 \end{question}
 
-If the references to software and computing is removed the definition talks about elements, structures and properties, and their relations. This definition may be used about anything which may be broken down into generalised components. As an example could be used the construction of a rifle. Describing the elements that goes into making a rifle (hammer, barrol, ...), the structures that comes from putting them together, and the individual relationships that must be met (form fit, etc.). The elements may fit together in different ways and multiple structures may be required to complete the description. (the hammer up, the hammer down, etc.). The properties are in fact only the externally visible to the given element, as those are the only properties that are relevant to the architecture. These details include things like the strength of the metal, which may be different for the hammer and the pipe, the price range, produktion time, etc. while things like the cheak-pad may be optional.
+If the references to software and computing is removed the definition talks about elements, structures and properties, and their relations. This definition may be used about anything which may be broken down into generalised components. As an example could be used the construction of a rifle. Describing the elements that goes into making a rifle (hammer, barrol, ...), the structures that comes from putting them together, and the individual relationships that must be met (form fit, etc.). The elements may fit together in different ways and multiple structures may be required to complete the description. (the hammer up, the hammer down, etc.). The properties are in fact only the externally visible to the given element, as those are the only properties that are relevant to the architecture. These details include things like the strength of the metal, which may be different for the hammer and the pipe, the price range, production time, etc. while things like the cheek-pad may be optional.
 
-The description of an architecture, as defined by Bass et. al. is therefore very general and apart from the use of words like "software" and "computer", may apply to any architecture, be it a building, a produktion line for a rifle, or a embedded software system.
+The description of an architecture, as defined by Bass et. al. is therefore very general and apart from the use of words like "software" and "computer", may apply to any architecture, be it a building, a production line for a rifle, or a embedded software system.
 
 \subsection{Software Architecture - Question 5}
 
@@ -162,13 +163,13 @@ system. Discuss pros and cons of taking that approach
 
 There are generally two approaches to creating an architecture, as defined by Bass et. al. and that is to define it in advance, and only define the overall structure and then let it grow from the following implementations. 
 
-There are also two reasons for creating an architecture; in order to create a product that exhibits some of the quality attributes defined in the architecture (modifiability, usability, ...) and in order to reuse the architecture (or part of the architecture) as a product line for creating other products. This latter reason is described in section yy.
+There are also two reasons for creating an architecture; in order to create a product that exhibits some of the quality attributes defined in the architecture (modifiability, usability, ...) and in order to reuse the architecture (or part of the architecture) as a product line for creating other products. This latter reason is described in section \ref{sec:pl_q2}.
 
-Creating an architecture up front allows for the definition of all properties of the architecture; the quality attributes and their individual priorities, the individual elements/components and how they interconnect both at runtime and statically, etc. This has the benifit that when the design and implementation phase is begun it may easily be broken down into parallel activities and integrated later, as everyone has a clear picture of what is important and what the interfaces are.
+Creating an architecture up front allows for the definition of all properties of the architecture; the quality attributes and their individual priorities, the individual elements/components and how they interconnect both at runtime and statically, etc. This has the benefit that when the design and implementation phase is begun it may easily be broken down into parallel activities and integrated later, as everyone has a clear picture of what is important and what the interfaces are.
 
-Unfortunately defining the architecture fully up front only makes sense if there is enough information in advance to create the architecture form. Very often there are "dark horses", things that do not become apparent until the design and implementation phase. If it is not believed that sufficient information exist to fully define the architecture, then doing so may not only be a waste, it may lead to the very dangerous loose-loose principle, where e.g. an overhead is introduced to service modifiability, only to be hacked in order to service a performance issue that was not apparent at the architectual design pahse. This means that part of the overhead is preserved (in memory-footprint if nowhere else), without preserving any of the modifiability advantages.
+Unfortunately defining the architecture fully up front only makes sense if there is enough information in advance to create the architecture form. Very often there are "dark horses", things that do not become apparent until the design and implementation phase. If it is not believed that sufficient information exist to fully define the architecture, then doing so may not only be a waste, it may lead to the very dangerous loose-loose principle, where e.g. an overhead is introduced to service modifiability, only to be hacked in order to service a performance issue that was not apparent at the architectural design phase. This means that part of the overhead is preserved (in memory-footprint if nowhere else), without preserving any of the modifiability advantages.
 
 Another requirement to defining the architecture fully up front has to do with the organization. It may be good and dandy to create a fully defined architecture with focus on parallel implementation, if there is only one in-house developer to implement the product.
-Based on this the Beer Web Store architect must have decided that there are sufficient information to fully define the architecture and also that there is a reason (parallel implementation, out-sourceing of the design/implementation, etc.).
+Based on this the Beer Web Store architect must have decided that there are sufficient information to fully define the architecture and also that there is a reason (parallel implementation, out-sourcing of the design/implementation, etc.).
 
-Asuming that the architect in question has followed the course Software Architecture in Practice, he has obviously looked at the architectual properties, the stake holders, the organization and the requirement and deemed that there is sufficient grounds to fully specify the architecture in advance, with the risks and possible gains that it has.
+Assuming that the architect in question has followed the course Software Architecture in Practice, he has obviously looked at the architectural properties, the stake holders, the organization and the requirement and deemed that there is sufficient grounds to fully specify the architecture in advance, with the risks and possible gains that it has.
