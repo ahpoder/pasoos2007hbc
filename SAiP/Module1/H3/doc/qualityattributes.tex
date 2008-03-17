@@ -37,7 +37,7 @@ Once the scenarios are clarified and voted on, then the top priority scenarios m
 
 \fixme{Insert table with quality attribute breakdown}
 
-As it may be seen, the scenario(s) focus primarily on \emph{Availability} (how rare should it be that a user experience non-resonsiveness), \emph{Usability} (how easy should it be for the user to cancel a transaction halfway through and how easy should it be to pick up a previous transaction), \emph{Performance} (how big a delay can the user expect when performing an operation like a lookup in the database), \emph{Security} (how to avoid someone using stolen credit cards and also prevent a "hacker" from stealing the credit card information either durig the transaction or from the Beer Web Store's database.
+As it may be seen, the scenario(s) focus primarily on \emph{Availability} (how rare should it be that a user experience non-resonsiveness and how many simultanious users can the system support), \emph{Usability} (how easy should it be for the user to cancel a transaction halfway through and how easy should it be to pick up a previous transaction), \emph{Performance} (how big a delay can the user expect when performing an operation like a lookup in the database), \emph{Security} (how to avoid someone using stolen credit cards and also prevent a "hacker" from stealing the credit card information either durig the transaction or from the Beer Web Store's database.
 
 The scenario does not include all aspects of the architecture, though. Another scenario may deal with how long it may take to alter a product built on the architecture (\emph{Modifiability}) - this may be particularly interesting to the owner. Another quality that has not been dealt with in the mentioned scenario(s), is how easy it is to check a product developed based on the architecture for faults (\emph{Testability}), which is of great interest to the owner and the developers.
 
@@ -66,6 +66,26 @@ The customer selects appropriate beers for purchase and these are added to his s
 \begin{question}
 Argue how tactics and/or styles may be used to resolve the requirements
 \end{question}
+
+As we have only defined the Availability and Performance requirements, only these will be dealt with here, yet naturally requirements concerning the other quality attributes must also be handled.
+
+\subsubsection{Availability}
+Availability has two main concerns; finding out that a resource is unavailable and if it is, then restart or switch to another resource. 
+
+Finding out if a resource is down may be done using one of the fault detection tactice; ping/echo, heartbeat or exception. Due to the loose coupling between the client (browser) and the server, the exception solution is not benificial. Since it may be assumed that the supervising process (remotely deployed) (the process monitoring if the server is down) is stable, then a heartbeat is sufficient to ensure availability, meaning that the web-server will issue a heart-beat every e.g. 1 second to a maintance process on the same or another machine, and if one (or perhaps more) heartbeats is missed then the maintanance service can act.
+
+The proper response to a faulty server may be many things, as defined by the tactics group \emph{fault recovery}. As the requirement for availability stipulated a three stage fault recovery, the server or servers (as it may be required to have multiple serves to do load-balancing, depending on how many users must be supported) can service the 5 second requirement, and tehn if an error occur (as detected by the heartbeat) then restart or swap to another server/database in 30 seconds. As 30 seconds is insufficient to bott a webserver and a database, the Spare tactic would be insufficient. At the same tiem having Active redundancy would be over-kill, as a this kind of immidiat switch-over is not required. For these reasons Passive Redundancy is sufficient.
+
+As it is an internet system, it will also be sufficient to simply restart the session, and no \emph{Shadow}, \emph{State resynchronization} or \emph{Rollback} is needed in the main web server. The user may experience beeing thrown back to the main page, yet this is deemed acceptable, under availability and performance, yet it may not be in Usability. During a payment transaction, however, it must be ensured that the purchase is either completed or not-completed - halfway completed is not acceptable. for this it will be benificial to use the \emph{Rollback} tactic on the \emph{Basket} component.
+
+Finally a web-server may be deployed multiple times on teh same machine, allowing for the recovery or prevention of the lesser faults, by simply re-spawning the process that has become non-responsive, utilizing the \emph{Process Monitor} tactic. This is e.g. done by the Apache-server.
+
+As it is not only the web server which may become non-responsive, it is also the database, it is also required to monitor the database. However, as a non-responsive data-base may be discovered by a non-responsive server, it is possible to use the ping-echo tactic with the database, and only perform the ping-echo if the server becomes non-responsive, to find out how much must be restarted (only the server or both the server and the database). 
+Depending on the binding between teh database and the server, it may also be possibel to use the exceptions tactic between teh server and the database, so the server itself can restart the database, if an exception occur in a call to the database. 
+
+\subsubsection{Performance}
+
+
 
 \fixme{Answer question 3.3}
 
