@@ -59,16 +59,15 @@ Based on the present decomposition the elements that are know are the layers, wh
     \item[Server] The server is accessed by the clients and when needed access the database via its Fa\c cade pattern.
     \item[Database] The database exposes its interface to the server via a Fa\c cade pattern.
 \end{itemize}
-The above is quickly sketched in the box-and-line drawing below, where the layering may also be seen. 
+The above is quickly sketched in the box-and-line drawing below in figure \ref{fig:module_view}, where the layering may also be seen. 
 \begin{figure}[!htb]
-\centerline{\epsfig{figure=figures/module_view,scale=1.0 }}
+\centerline{\epsfig{figure=figures/module_view,scale=0.9 }}
 \caption{Element overview}
 \label{fig:module_view}
 \end{figure}
-\clearpage
 
 \subsubsection{Relations}
-The figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In this it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
+Figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In this it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/sequence,scale=1.0 }}
