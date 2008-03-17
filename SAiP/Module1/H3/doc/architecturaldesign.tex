@@ -30,7 +30,23 @@ tactics that may be applied to the scenario. What are the consequences
 of applying these tactics?
 \end{question}
 
-\fixme{Answer question 4.1}
+This topic has already been breached in Section \ref{sec:qa_q3}, so this section may be seen as a continuation of that.
+
+Asuming that the 10 seconds is an increase in the requirements to the performance, and that the payment service is one that we can actually control (if it is a web-service supplied by a third party (e.g. PBS) then we may have no influence on its performance). 
+
+If this is the case then the performance tactics which may be employed here could be \emph{introduce concurrency}, as some of the validations may be done in parallel, e.g. validate the credit card, prepare shipping information, access logistics system. Naturally this will require a roll-back system if it turns out that the payment did not go through. This approach is acceptable as the performance requirement is only valid in the instance where the payment is valid - how long it takes if the user enteres invalid information is less important. 
+
+As there is no clarification of the response measure, it it could be asumed that the requirement must be met 100\% of the time, yet naturally this is not possible. It may however be requried that multiple instance of the payment service or validating server are running in order to servcie multiple purchases simultanious, as required by the \emph{Availability}.
+
+If the payment is considered of higher priority (\emph{Scheduling Policy} tactic), so that other functionality (e.g. browsing) may be handled slower while the payment is performed, then handling the scheduling of these tasks may also help to meet the 10 second requirement.
+
+Naturally implementing these tactics do not come for free; increasing hardware performance and bandwidth cost money, controlling the scheduling adds complexity and thereby reduce readability and modifiability.
+
+The second scenario focuses mainly on Availability, and actually goes against some of the previos scenarios by stating that the payment service is allowed to be "down" for a longer period of time, pending an administrator. This approach has one big benefit; it is simple. No hot- or cold-swapping of payment services, and the tactic \emph{Spare} may be employed.
+
+If the failure is part of an attack, it is easier to prevent by simply degrading the system and waiting for an administrator (may increase \emph{Security}).
+
+The second scenario does include requirements to fault detection, yet these are already described in Section \ref{sec:qa_q3}, and the price of fault detection is also increased cost of hardware and readability/modifiability.
 
 \subsection{Architectural Design - Question 2}
 
