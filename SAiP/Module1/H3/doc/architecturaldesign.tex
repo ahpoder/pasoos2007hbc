@@ -75,7 +75,7 @@ There are four major structures in Component-and-Connector:
 \begin{itemize}
   \item Process or communicating processes.
 	\begin{itemize}
-	  \item This structure shows the execution path through a system, and is used to give the engineer an understand about the dynamic behaviour of the system. These structures may help ingeneers increase Performance and Availability.
+	  \item This structure shows the execution path through a system, and is used to give the engineer an understand about the dynamic behaviour of the system. These structures may help engineers increase Performance and Availability.
 	\end{itemize}
   \item Concurrency.
 	\begin{itemize}
@@ -83,12 +83,18 @@ There are four major structures in Component-and-Connector:
 	\end{itemize}
   \item Shared data or Repository
 	\begin{itemize}
-	  \item This is a very good structure to use to illustarte how the data is processed and consumed to/from the database (Database Facade). When a system, or part of a system, is build around this structure it promotes performance and data entegrity. 
+	  \item This is a very good structure to use to illustarte how the data is processed and consumed to/from the database (Server to/from Database Facade). When a system, or part of a system, is build around this structure it promotes performance and data entegrity. 
 	\end{itemize}
   \item Client-server
 	\begin{itemize}
-  		\item This is a very good structure to see the protocols used between the clients and the server, and the messages they communicate. When a system, or part of a system, is build around this structure it promotes seperation of concern (i.e. Modifiability) and allows for Availability tactics like Load balancing.
+  		\item This is a very good structure to see the protocols used between the Clients and the Server, and the messages they communicate. When a system, or part of a system, is build around this structure it promotes seperation of concern (i.e. Modifiability) and allows for Availability tactics like Load balancing.
 	\end{itemize}
 \end{itemize}
 
-\fixme{Insert diagrams for C&C}
+In the Beer Web Store has two clear C\&C structures, the Shared data structure between the Server and the Database Facade and the Client-server between the Client and Server (see Figure \ref{fig:module_view}).
+
+The Process or Communicating processes is a more fine-grained structure, and an example of this may be seen in Figure \ref{fig:ad_sequence}.
+
+The Concurrency structure is not used in the overall elements, yet may be employed in a given element to achieve more performance.
+
+\fixme{Possible extention - insert diagrams}
