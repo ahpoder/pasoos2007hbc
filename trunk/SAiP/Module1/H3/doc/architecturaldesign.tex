@@ -55,7 +55,13 @@ The software architect decides to use a layered architectural
 style for the system. Discuss quality implications of this choice
 \end{question}
 
-\fixme{Answer question 4.2}
+Layerd styles come in two variants; the strictly layerd and the layered. The strictly layered means that the components in a layer may only access otyher components in the same layer or the layer directly below it. The Layered may access components in the same layer or any layer beneath it.
+
+When a system is Strictly Layered it gives rise to high \emph{Portability} (a for of \emph{Modifiability}), as it is possible to abstract all dependencies of a given layer by simply abstracting the layer directly beneath it, and if anything in a layer changes then only the layer directly above it must be updated.
+
+This also enables simpler \emph{Testability}, as the introduction of test doubles (fake objects, stubs, spys and/or mocks) must only be performed on the in a single layer; the one directly below the one under test.
+
+It may however be difficult to adher to a Strictly Layered approach, as some functionality may be required on all levels, e.g. the Java Collections, and very often vertical "layers" are introduced to support this all-layer access, which reduces \emph{Modifiability} if the change is in the veritcal "layer".
 
 \subsection{Architectural Design - Question 3}
 
