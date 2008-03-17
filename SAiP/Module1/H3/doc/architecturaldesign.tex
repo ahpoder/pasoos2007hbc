@@ -2,7 +2,7 @@
 % Architectural Design
 %%%
 \section{Architectural Design -- Beer Web Store}
-Consider the following main use case for a Beer Web Store for specialty
+Consider the following main use case for a Beer Web Store for speciality
 beers:
 \begin{quote}
   The customer browses the beer catalogue for descriptions and
@@ -32,11 +32,11 @@ of applying these tactics?
 
 This topic has already been breached in Section \ref{sec:qa_q3}, so this section may be seen as a continuation of that.
 
-Asuming that the 10 seconds is an increase in the requirements to the performance, and that the payment service is one that we can actually control (if it is a web-service supplied by a third party (e.g. PBS) then we may have no influence on its performance). 
+Assuming that the 10 seconds is an increase in the requirements to the performance, and that the payment service is one that we can actually control (if it is a web-service supplied by a third party (e.g. PBS) then we may have no influence on its performance). 
 
-If this is the case then the performance tactics which may be employed here could be \emph{introduce concurrency}, as some of the validations may be done in parallel, e.g. validate the credit card, prepare shipping information, access logistics system. Naturally this will require a roll-back system if it turns out that the payment did not go through. This approach is acceptable as the performance requirement is only valid in the instance where the payment is valid - how long it takes if the user enteres invalid information is less important. 
+If this is the case then the performance tactics which may be employed here could be \emph{introduce concurrency}, as some of the validations may be done in parallel, e.g. validate the credit card, prepare shipping information, access logistics system. Naturally this will require a roll-back system if it turns out that the payment did not go through. This approach is acceptable as the performance requirement is only valid in the instance where the payment is valid - how long it takes if the user enters invalid information is less important. 
 
-As there is no clarification of the response measure, it it could be asumed that the requirement must be met 100\% of the time, yet naturally this is not possible. It may however be requried that multiple instance of the payment service or validating server are running in order to servcie multiple purchases simultanious, as required by the \emph{Availability}.
+As there is no clarification of the response measure, it it could be assumed that the requirement must be met 100\% of the time, yet naturally this is not possible. It may however be required that multiple instance of the payment service or validating server are running in order to service multiple purchases simultaneous, as required by the \emph{Availability}.
 
 If the payment is considered of higher priority (\emph{Scheduling Policy} tactic), so that other functionality (e.g. browsing) may be handled slower while the payment is performed, then handling the scheduling of these tasks may also help to meet the 10 second requirement.
 
@@ -55,13 +55,13 @@ The software architect decides to use a layered architectural
 style for the system. Discuss quality implications of this choice
 \end{question}
 
-Layerd styles come in two variants; the strictly layerd and the layered. The strictly layered means that the components in a layer may only access otyher components in the same layer or the layer directly below it. The Layered may access components in the same layer or any layer beneath it.
+Layered styles come in two variants; the strictly layered and the layered. The strictly layered means that the components in a layer may only access other components in the same layer or the layer directly below it. The Layered may access components in the same layer or any layer beneath it.
 
 When a system is Strictly Layered it gives rise to high \emph{Portability} (a for of \emph{Modifiability}), as it is possible to abstract all dependencies of a given layer by simply abstracting the layer directly beneath it, and if anything in a layer changes then only the layer directly above it must be updated.
 
 This also enables simpler \emph{Testability}, as the introduction of test doubles (fake objects, stubs, spys and/or mocks) must only be performed on the in a single layer; the one directly below the one under test.
 
-It may however be difficult to adher to a Strictly Layered approach, as some functionality may be required on all levels, e.g. the Java Collections, and very often vertical "layers" are introduced to support this all-layer access, which reduces \emph{Modifiability} if the change is in the veritcal "layer".
+It may however be difficult to adhere to a Strictly Layered approach, as some functionality may be required on all levels, e.g. the Java Collections, and very often vertical "layers" are introduced to support this all-layer access, which reduces \emph{Modifiability} if the change is in the vertical "layer".
 
 \subsection{Architectural Design - Question 3}
 
@@ -83,18 +83,18 @@ There are four major structures in Component-and-Connector:
 	\end{itemize}
   \item Shared data or Repository
 	\begin{itemize}
-	  \item This is a very good structure to use to illustarte how the data is processed and consumed to/from the database (Server to/from Database Facade). When a system, or part of a system, is build around this structure it promotes performance and data entegrity. 
+	  \item This is a very good structure to use to illustrate how the data is processed and consumed to/from the database (Server to/from Database Fa\c ade). When a system, or part of a system, is build around this structure it promotes performance and data integrity. 
 	\end{itemize}
   \item Client-server
 	\begin{itemize}
-  		\item This is a very good structure to see the protocols used between the Clients and the Server, and the messages they communicate. When a system, or part of a system, is build around this structure it promotes seperation of concern (i.e. Modifiability) and allows for Availability tactics like Load balancing.
+  		\item This is a very good structure to see the protocols used between the Clients and the Server, and the messages they communicate. When a system, or part of a system, is build around this structure it promotes separation of concern (i.e. Modifiability) and allows for Availability tactics like Load balancing.
 	\end{itemize}
 \end{itemize}
 
-In the Beer Web Store has two clear C\&C structures, the Shared data structure between the Server and the Database Facade and the Client-server between the Client and Server (see Figure \ref{fig:module_view}).
+In the Beer Web Store has two clear C\&C structures, the Shared data structure between the Server and the Database Fa\c ade and the Client-server between the Client and Server (see Figure \ref{fig:module_view}).
 
 The Process or Communicating processes is a more fine-grained structure, and an example of this may be seen in Figure \ref{fig:ad_sequence}.
 
 The Concurrency structure is not used in the overall elements, yet may be employed in a given element to achieve more performance.
 
-\fixme{Possible extention - insert diagrams}
+\fixme{Possible extension - insert diagrams}
