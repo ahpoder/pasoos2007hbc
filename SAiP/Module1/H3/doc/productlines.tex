@@ -2,7 +2,7 @@
 % Product Lines and Frameworks
 %%%
 \section{Product Lines -- Beer Web Store}
-Consider a Beer Web Store for buying speciality beers. The software
+Consider a Beer Web Store for buying specialty beers. The software
 architect has designed a deployment structure of the system as shown
 below:
 \begin{figure}[h!]
@@ -30,22 +30,53 @@ How will the choice of a product line approach affect the
 architecture of the beer web store?
 \end{question}
 
-When considering a product line approach for our Beer Web Store, we first need to identify the scope of our product line. In this case the product line is defined to have a narrow scope. The product line supports a web enabled store that sells quantifiable products (i.e. not services). The products may however have different details associated, e.g. beers have a alcohol volume, stamps do not. The web stores must support different user interfaces (but all web based) and online payment methods.
+When considering a product line approach for our Beer Web Store, we first need to identify the scope of our product line. In this case the product line is defined to have a narrow scope. The product line supports a web enabled store that sells quantifiable products (i.e. not services). The products may however have different details associated, e.g. beers have a alcohol volume, stamps do not. The web stores must support different user interfaces (but all web based) and on line payment methods.
 
-All these variations and commonalities needs to be identified. The variations needs to be seperated so that they either can be created specifically for the actual web store, or so that a common component can be configured to handle the specific product.
+All these variations and commonalities needs to be identified. The variations needs to be separated so that they either can be created specifically for the actual web store, or so that a common component can be configured to handle the specific product.
 
 The following variation points can be identified from the description above:
 
 \begin{description}
 	\item[Products:] The products of the web stores are the main variation point when creating this product line. Some product details will be relevant to all stores, e.g. a product price, and others will be specific to the type of product sold, e.g. alcohol volume as stated above.
-	\item[User interface:] It must be possible to vary the user interface layout with regard to colors and structure of the web page in order to sell the specific product the best possible way. Futhermore the user interface must be decoupled from the handling of products in order to support several types of web interfaces such as regular browsers and mobile devices.
-	\item[Payment form:] Online payment methods must be supported, but all stores may not want to support all types of credit cards. The supported payment forms must therefore be a variation point in the product line.
+	\item[User interface:] It must be possible to vary the user interface layout with regard to colors and structure of the web page in order to sell the specific product the best possible way. Furthermore the user interface must be decoupled from the handling of products in order to support several types of web interfaces such as regular browsers and mobile devices.
+	\item[Payment form:] On line payment methods must be supported, but all stores may not want to support all types of credit cards. The supported payment forms must therefore be a variation point in the product line.
 \end{description}
 
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/pl_package_overview,scale=0.6 }}
+\caption{Package diagram for the web store product line}
+\label{fig:pl_package_overview}
+\end{figure}
 
+Figure \ref{fig:pl_package_overview} shows an example of a package diagram for a web
+store product line. It shows that the user interface and the product information has
+been separated from the product handling and put in separate packages. The user
+interface may be entirely specific to each web store or the package may contain
+predefined user interfaces that can be configured e.g. using style sheets. A reactive
+approach can be used to develop more web interfaces when the need for more features
+arises. The user interface depends on the product handling package that can handle
+all kinds of products. The products package can provide an interface that the user
+interfaces and product handling module can depend on. There need to be some way to
+define product specific information that can be retrieved from and searched for in
+the database and presented on the user interface. This concept is not defined any
+further in this report.
 
+The dependencies to from the user interface and product handling to the products package can e.g. be solved at compile time.
 
-\fixme{Answer question 5.1}
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/pl_package_ph,scale=0.6 }}
+\caption{Decomposition of the Product Handling Package for the web store product line}
+\label{fig:pl_package_ph}
+\end{figure}
+
+In figure \ref{fig:pl_package_ph} the Product Handling package has been decomposed
+into smaller components. The ``Basket'', ``Overview'' and ``Domain Model'' from the
+original Beer Web Store has been generalized so that they do not contain any product
+specific handling. A ``Payment'' package has been created that shall support all
+needed payment methods. When need for a new payment method arises, this must be added
+to the package. The supported payment methods for a specific web store must be
+configured, e.g. at compile time.
+
 
 \subsection{Product Lines - Question 2}
 \label{sec:pl_q2}
@@ -62,10 +93,8 @@ Letting the product line evolve means that only the basics are defined up front,
 
 The above two approaches are defined as Heavyweight and Lightweight, respectively. A statistical analysis of these two approaches, compared to simply building the products from scratch, can be shown in Figure \ref{fig:product-line}.
 
-\clearpage
-
 \begin{figure}[!htb]
-\centerline{\epsfig{figure=figures/product-line,scale=1.0 }}
+\centerline{\epsfig{figure=figures/product-line,scale=0.9 }}
 \caption{Heavy-weight vs. Light-weight}
 \label{fig:product-line}
 \end{figure}
@@ -84,6 +113,6 @@ As mentioned in Section \ref{sec:qa_q4} part of SOA is about generalization, jus
 
 The requirement that other product's such as other stamps or soda-pop should be supported, means that the server's domain model and database must support general elements as opposed to just beer elements.
 
-This generalization fits well with SOA, as it is not that clever to make a "Beer purchasing Service", but far better to create a "Purchasing service", which operate on elements. This will allow any company, who has products they wish to sell, to use this service. This is the same generalization requirement that apply to the Product line architecture, where the architecture must handle the purchase of an arbitrary product, be it stamps, soda-pop or beer. It is possible that the architecture requires that it is a quantifiable product, yet this is not an unlikely requirement for a service either.
+This generalization fits well with SOA, as it is not that clever to make a ``Beer purchasing Service'', but far better to create a ``Purchasing service'', which operate on elements. This will allow any company, who has products they wish to sell, to use this service. This is the same generalization requirement that apply to the Product line architecture, where the architecture must handle the purchase of an arbitrary product, be it stamps, soda-pop or beer. It is possible that the architecture requires that it is a quantifiable product, yet this is not an unlikely requirement for a service either.
 
-It may now seem like SOA is the answer to creating a product line, yet this is not the case. It is very possible to create very specific services, like the "Beer look-up service", and this may be just fine for a Beer Web Store based on SOA, yet this is not a product line. The same architectural consideration must be done when creating the elements of a product line and define their interrelations, must also be done when defining the services and their interrelations. The only "structure" that SOA imposes by definition is the loose coupling between the user and the service.
+It may now seem like SOA is the answer to creating a product line, yet this is not the case. It is very possible to create very specific services, like the ``Beer look-up service'', and this may be just fine for a Beer Web Store based on SOA, yet this is not a product line. The same architectural consideration must be done when creating the elements of a product line and define their interrelations, must also be done when defining the services and their interrelations. The only ``structure'' that SOA imposes by definition is the loose coupling between the user and the service.
