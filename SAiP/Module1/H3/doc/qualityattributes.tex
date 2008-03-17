@@ -51,15 +51,72 @@ and performance for the Beer Web Store using such techniques (at
 least one for each quality attribute)
 \end{question}
 
-The scenarios may be further clarified in order to include the aspects of availability and performance, as shown below. 
+The scenarios may be further clarified in order to include the aspects of availability and performance, as shown in tables \ref{tab:availability} and \ref{tab:performance} below:
 
-\begin{quote}
-The customer browses the beer catalogue for descriptions and reviews and receives the result within 5 seconds 99\% of the time, 30 seconds 0,9\% of the time and more than 30 seconds 0,1\% of the time. 
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & The customer browses the beer catalogue for descriptions and reviews and receives a timely response \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Availability, (Performance) \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} & The user \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} & Browsing the beer catalogue \\
+  \cline{2-3}
+  & {\bfseries Artifact} & The system \\
+  \cline{2-3}
+  & {\bfseries Environment:} & During normal operation \\
+  \cline{2-3}
+  & {\bfseries Response:} & Web page presented to user \\
+  \cline{2-3}
+  & {\bfseries Response Measure:} & The result is presented within 5 seconds 99\% of the time, 30 seconds 0,9\% of the time and more than 30 seconds 0,1\% of the time \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} & The response measure is also dependent on the speed of the users internet connection and computer hardware. \\
+  \hline
+\end{tabular}
+\caption{Availability scenario for the Beer Web Store}
+\label{tab:availability}
+\end{center}
+\end{table}
 
-The customer selects appropriate beers for purchase and these are added to his shopping basket. When the customer checks out, payment is validated through the payment service within 30 seconds.
-\end{quote}
 
-\fixme{Answer question 2.2}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|p{0.3cm}|p{2.5cm}|p{8cm}|}
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Scenario(s):} & When the customer checks out, payment is validated through the payment service within 30 seconds. \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Relevant Quality Attributes:} & Performance, (Availability) \\
+  \hline
+  \multirow{6}{*}{\begin{sideways}{\bfseries Scenario Parts}\end{sideways}}
+  & {\bfseries Source:} & The user \\
+  \cline{2-3}
+  & {\bfseries Stimulus:} & The customer checks out \\
+  \cline{2-3}
+  & {\bfseries Artifact} & The system \\
+  \cline{2-3}
+  & {\bfseries Environment:} & During normal operation \\
+  \cline{2-3}
+  & {\bfseries Response:} & Result of payment validation if presented to the user \\
+  \cline{2-3}
+  & {\bfseries Response Measure:} & Payment is validated through the payment service within 30 seconds \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Questions:} & \\
+  \hline
+  \multicolumn{2}{|p{3cm}|}{\bfseries Issues:} & The response measure is also dependent on the performance of the payment service. \\
+  \hline
+\end{tabular}
+\caption{Performance scenario for the Beer Web Store}
+\label{tab:performance}
+\end{center}
+\end{table}
+
+\fixme{Answer question 3.2}
 
 \subsection{Quality Attributes - Question 3}
 \label{sec:qa_q3}
