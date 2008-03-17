@@ -30,6 +30,21 @@ How will the choice of a product line approach affect the
 architecture of the beer web store?
 \end{question}
 
+When considering a product line approach for our Beer Web Store, we first need to identify the scope of our product line. In this case the product line is defined to have a narrow scope. The product line supports a web enabled store that sells quantifiable products (i.e. not services). The products may however have different details associated, e.g. beers have a alcohol volume, stamps do not. The web stores must support different user interfaces (but all web based) and online payment methods.
+
+All these variations and commonalities needs to be identified. The variations needs to be seperated so that they either can be created specifically for the actual web store, or so that a common component can be configured to handle the specific product.
+
+The following variation points can be identified from the description above:
+
+\begin{description}
+	\item[Products:] The products of the web stores are the main variation point when creating this product line. Some product details will be relevant to all stores, e.g. a product price, and others will be specific to the type of product sold, e.g. alcohol volume as stated above.
+	\item[User interface:] It must be possible to vary the user interface layout with regard to colors and structure of the web page in order to sell the specific product the best possible way. Futhermore the user interface must be decoupled from the handling of products in order to support several types of web interfaces such as regular browsers and mobile devices.
+	\item[Payment form:] Online payment methods must be supported, but all stores may not want to support all types of credit cards. The supported payment forms must therefore be a variation point in the product line.
+\end{description}
+
+
+
+
 \fixme{Answer question 5.1}
 
 \subsection{Product Lines - Question 2}
