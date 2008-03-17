@@ -91,8 +91,6 @@ Due to the lowing price of hardware and the increasing price of developement tim
 
 There are many other tactics which may be employed, yet given the nature to the application, it is not believed that the biggest resource consumers are under developement control, for building the web-server from scratch to support better concurrency or using non-standard performance tweaking algorithms for the database-lookup, will most likely become inconcivably expensive compare to simply increasing the computational resources.
 
-\fixme{Answer question 3.3}
-
 \subsection{Quality Attributes - Question 4}
 
 \begin{question}
@@ -100,7 +98,15 @@ Discuss where Service-Oriented Architecture can play a role
 with respect to the Beer Web Store? Consider the quality implications
 \end{question}
 
-\fixme{Answer question 3.4}
+As SOA is all about standardised interfaces supplying a functionality which may be used by many different products, the areas where SOA makes sens is naturally between teh components. 
+
+Instead of creating a web-server which access a database through a specific facade, one may argue whether the desired functionality may not be generalised. "Look-up in database". This may easily be hidden behind a standardised service, e.g. a web-service, meaning that anyone on the WWW who supplies a batabase service may be used to host the beer database, and if one becomes dissatisfied with the database provider, it is transparent to simply switch to another. 
+
+Taking this one step further, perhaps the database service may be extended with a data-base type, meaning that the Beer Web Store's domain model is exposed in a service, which would allow for not only displaying ones own brands of beer, but through a discovery service, also beer-brands by other brewers on the net who implement this service. This will also point the way for a more standardised lookk-and-feel when shopping for beer.
+
+Naturally just because a web-service (or other service) is used it does not mean that it has to be public, jet it does have some advabtages.
+
+Finally the WS-Security web-service may be used to handle payment, and also possibly, if the database or Beer Web Store Domain model is exposed through a web-service, it may also be benificial that not everyone may have the ability to update the domain model or database, so here the WS-Security service may also come in handy.
 
 \subsection{Quality Attributes - Question 5}
 
