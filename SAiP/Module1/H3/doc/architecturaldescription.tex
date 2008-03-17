@@ -3,7 +3,7 @@
 %%%
 \section{Architectural Description -- Beer Web Store}
 
-The architect for a new Beer Web Store for specialty beers has drawn
+The architect for a new Beer Web Store for speciality beers has drawn
 the following figure of the architecture together with his customers.
 \begin{figure}[h!]
   \centerline{\epsfig{figure=figures/beerstore,scale=0.30,clip=true}}
@@ -37,9 +37,9 @@ replaced without affecting them.
 
 \subsubsection{Layered}
 
-Another perspective is that the users, the webserver and the
+Another perspective is that the users, the web server and the
 database are elements where the relations show that the users
-use the webserver and the webserver uses the database. This
+use the web server and the web server uses the database. This
 also shows the that the architecture is a
 \emph{strictly layered structure} where the users cannot
 access the database directly.
@@ -49,16 +49,16 @@ access the database directly.
 As there are several users, the elements of the
 \emph{strictly layered structure} can also be seen as a
 \emph{client-server structure}, where the users are clients
-and the webserver is a server. The webserver can also be
+and the web server is a server. The web server can also be
 seen as a client to the database server. This would make it
-possible to archieve better performance if several webservers
+possible to achieve better performance if several web servers
 are used to make load balancing of the user requests.
 
 \subsubsection{Deployment}
 
 With regard to a \emph{deployment structure}, the figure shows
 that the overview page, the basket and the domain model (elements)
-are allocated to (relations) on the webserver and the database is
+are allocated to (relations) on the web server and the database is
 allocated to its own server.
 
 \subsection{Architectural Description - Question 2}
@@ -82,7 +82,7 @@ connector viewpoint (client-server) and an allocation viewpoint
 \cite{christensen2004archdesc}.
 
 These viewpoints are all relevant to the Beer Web Store example.
-The Module viewpoint describes the internals of the webserver and how
+The Module viewpoint describes the internals of the web server and how
 the functionality is decomposed into units. The Component \& connector
 viewpoint describes the runtime relations between the units and the
 Allocation viewpoint describes the environment of the running
@@ -97,8 +97,8 @@ Figure \ref{fig:ad_package} shows a package diagram of the Beer Web
 Store and a decomposition of the web package. The Web package
 contains the elements used for the web interface, 
 the Overview page, the basket and the domain model. The domain model
-depends on a Database package that contains the database facade and the
-database facade uses some database package library, e.g. MySQL.
+depends on a Database package that contains the database fa\c ade and the
+database fa\c ade uses some database package library, e.g. MySQL.
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/ad_package,scale=0.8 }}
@@ -121,7 +121,7 @@ for a an item ``tuborg'' and adds one of the search results to his basket.
 \label{fig:ad_sequence}
 \end{figure}
 
-The domain model accesses the database through the database facade
+The domain model accesses the database through the database fa\c ade
 when needed. This can be expressed in another sequence diagram.
 Sequence diagrams showing the checkout including payment should
 also be made.
@@ -140,7 +140,7 @@ are connected through a local area network.
 \label{fig:ad_allocation}
 \end{figure}
 
-The application code (Beer Web) and the database facade are
+The application code (Beer Web) and the database fa\c ade are
 both deployed on the web server.
 
 \subsection{Architectural Description - Question 3}
@@ -150,11 +150,11 @@ Argue for benefits and liabilities of describing software
 architecture via a box-and-line drawing such as the above
 \end{question}
 
-The benifits of a box-and-line drawing is that it can be written and "understood" by almost anyone, and in the initial phases of the architectual design they may be fine. They are fast to draw and can be shown to non-technical stakeholders. It is kind of like simple sign-language - everyone understands nodding and shaking ones head or indicating a direction as long as it is for general information.
+The benefits of a box-and-line drawing is that it can be written and "understood" by almost anyone, and in the initial phases of the architectural design they may be fine. They are fast to draw and can be shown to non-technical stakeholders. It is kind of like simple sign-language - everyone understands nodding and shaking ones head or indicating a direction as long as it is for general information.
 
 Unfortunately the general information is where the advantages stop. For simple sign-language, it may quickly come to an argument if one wishes to know if the indication of "this way" means "a short way that way" or "a long way that way", and the same is true for box-and-line drawings. "How many clients does the system support?". "How strong is the binding indicated by the line - do all lines mean the same?" There is merely a line, so what does that line mean?
 
-Working as an developer/tester/engineer means that everything must be quantifiable in some way, and box-and-line drawings do not offer this unambigious quantifiability. For this a clearly defined modeling language, without ambiguity as to the meaning of the model, is needed. An example of such a language is Unified Modelling Language(UML), which would allow the box-and-line drawing to be represented as one or more diagrams solving all the ambiguaty of the box-and-line drawing with only a single requirement; one must know the language, which is indeed one of the reasons while box-and-line drawings are still widely used - there is no single unambigious modelling language known by all stakeholders, and when that is the case it may be more confusing then benificial to spend time making sure the diagram is clear and unambigious, if that clarity is derived from symbolic notation that the readers (stakeholders) do not understand.
+Working as an developer/tester/engineer means that everything must be quantifiable in some way, and box-and-line drawings do not offer this unambiguous quantifiable. For this a clearly defined modelling language, without ambiguity as to the meaning of the model, is needed. An example of such a language is Unified Modelling Language(UML), which would allow the box-and-line drawing to be represented as one or more diagrams solving all the ambiguity of the box-and-line drawing with only a single requirement; one must know the language, which is indeed one of the reasons while box-and-line drawings are still widely used - there is no single unambiguous modelling language known by all stakeholders, and when that is the case it may be more confusing then beneficial to spend time making sure the diagram is clear and unambiguous, if that clarity is derived from symbolic notation that the readers (stakeholders) do not understand.
 
 \subsection{Architectural Description - Question 4}
 \label{sec:ad_q4}
@@ -165,7 +165,7 @@ the system was to be realized as a Service-Oriented Architecture
 
 In a sense there are already aspects of SOA in the architecture, as the validation of the credit card information is most likely performed using a service on the internet - not that web services and SOA is equivalent, but they do complement each other nicely.
 
-As SOA consists of a collection of (preferrably stateless) well-defined services what needs to be described is, which existing (external) services are needed and which new services has to be created. This may be done using the MacKenzie Topic maps, which describe the static dependencies between the services.
+As SOA consists of a collection of (preferably stateless) well-defined services what needs to be described is, which existing (external) services are needed and which new services has to be created. This may be done using the MacKenzie Topic maps, which describe the static dependencies between the services.
 
 The static description is naturally not sufficient, and two other views may be presented to show the Dynamic interrelations for the services that are provided; Visibility and Interaction. The visibility view describes the awareness, willingness and reachability of a service and the interaction view describes how the service can be used (behaviour model) and the structure and semantics of the information that is provided (information model).
 
