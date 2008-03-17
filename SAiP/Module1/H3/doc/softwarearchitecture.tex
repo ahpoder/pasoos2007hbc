@@ -35,13 +35,13 @@ As this is the beginning of the architectural design then the module is the enti
     \item[a. Choose the architectural drivers]
   Here the quality attributes of the system would be defined by the stakeholders of the system and then a vote would be used to determine which of the quality attributes are architectural drivers. The quality attributes would be expressed as quality attribute scenarios.
     \item[b. Choose an architectural pattern]
-  Based on the architectural drivers selected in 1, use the mapping in Bass et al. as well as other literature and experience to determine some tactics for achieving the architectural drivers for the system. Then select some architectural patterns to realize the tactics.
+  Based on the architectural drivers selected in a, use the mapping in Bass et al. as well as other literature and experience to determine some tactics for achieving the architectural drivers for the system. Then select some architectural patterns to realize the tactics.
     \item[c. Instantiate modules using multiple views]
   Based on the tactics and patterns found above the architecture for the system may be expressed using UML. It is \emph{always} required to use multiple views in order to properly describe the architecture. A good approach is the "3 + 1" structure, which uses three viewpoints; Module viewpoint, Component \& Connector viewpoint and Allocation viewpoint. These three viewpoints are expressed in UML using Package diagrams, Object and sequence diagrams, and deployment diagrams respectively. These diagrams should in the first iteration only look at relations and interactions between the main components (the layers).
     \item[d. Define interfaces]
   Define the interfaces between the main components (the layers).
     \item[e. Verify scenarios and use cases]
-  Make sure that the steps a - d covered all the parts of the scenarios. If not include the missing parts and updates the scenarios/architecture is inconsistencies are found.
+  Make sure that the steps a - d covered all the parts of the scenarios. If not, include the missing parts and updates the scenarios/architecture if inconsistencies are found.
 \end{description}
 \subsubsection{Repeat the steps above for every module that needs further decomposition}
 The first iteration only look at the overall architecture (the location and communication between layers). The following iterations will decompose the individual layers and as needed the individual components in the layers.
@@ -68,7 +68,7 @@ The above is quickly sketched in the box-and-line drawing below, where the layer
 \clearpage
 
 \subsubsection{Relations}
-The figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In these it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
+The figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In this it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/sequence,scale=1.0 }}
@@ -78,7 +78,7 @@ The figure \ref{fig:module_view} shows some of the relations, namely the statica
 
 \subsubsection{Structures}
 
-There are many structures which may be used to model a software system. Common for all of them is that they present a certain view of the system. Very rarely is a single structure sufficient to sufficiently express the architecture of a system. For this reason many structures are combined, each structure being represented by one or more views, to create a sufficient representation of the software system.
+There are many structures which may be used to model a software system. Common for all of them is that they present a certain view of the system. Very rarely is a single structure sufficient to express the architecture of a system. For this reason many structures are combined, each structure being represented by one or more views, to create a sufficient representation of the software system.
 
 The most popular combination of structures are the Module, the Component-and-Connector and the Allocation. Each of these three structures focus on a specific aspect of the software architecture; the static elements and their relation, the elements dynamic relations and the elements deployment on hardware, respectively. 
 
@@ -94,7 +94,7 @@ Apply \cite{perrywolf1992}'s model of software architecture as
 to the Beer Web System
 \end{question}
 
-Perry and Wolf suggest separating the model of the architecture into three components, as mentioned in the question. The components relate in the sense that the \emph{elements} has a particular \emph{form} and them and their relations are chosen based on a \emph{rational}.
+Perry and Wolf suggest separating the model of the architecture into three components, as mentioned in the question. The components relate in the sense that the \emph{elements} has a particular \emph{form} and the elements and their relations are chosen based on a \emph{rational}.
 
 There are three class of architectural elements defined.
 \begin{itemize}
@@ -103,10 +103,9 @@ There are three class of architectural elements defined.
     \item[Connecting elements] The \emph{glue} that hold the architecture together. May at times be \emph{Data elements}, \emph{Connecting elements} or both. The connecting elements are the relations between the different elements, e.g. procedure calls or message parsing.
 \end{itemize}
 
-The architectural form describe the architectural properties and the relationships and their relative importance. This is important as some architectural properties
-may be vital to the design and others may be gold-plating. These properties are used to put constraints on the elements and also define the relative importance of these constraints. The relationships are similar to the properties except they are used to put constraints and relative priority on the relations between elements.
+The architectural form describe the architectural properties and the relationships and their relative importance. This is important as some architectural properties may be vital to the design and others may be gold-plating. These properties are used to put constraints on the elements and also define the relative importance of these constraints. The relationships are similar to the properties except they are used to put constraints and relative priority on the relations between elements.
 
-A software architecture is a selection and description of architectural choices. These choices are, however, difficult to convey without including the reason for the choices made, for the elements and form not chosen and for choices not made due to lack of information or because they were deemed irrelevant.
+A software architecture is a selection and description of architectural choices. These choices are, however, difficult to convey without including the reason for the choices made, for the elements and form not chosen and for choices not made due to lack of information or because they were deemed irrelevant. This information is kept in the Rational.
 
 When the above is applied to the information present for the Beer Web Store three processing elements, one data element and two connecting elements may be defined.
 
@@ -126,15 +125,15 @@ When the above is applied to the information present for the Beer Web Store thre
     \item Connecting elements.
 	 \begin{itemize}
 	    \item[HTTP] Protocol for connecting the server and client (loose coupling).
-	    \item[Database fa\c ade methods] Protocol for connecting the server to the database (medium-loose coupling).
+	    \item[Database fa\c cade methods] Protocol for connecting the server to the database (medium-loose coupling).
 	 \end{itemize}
 \end{itemize}
 
 \subsubsection{Form in Beer Web Store}
 \begin{itemize}
-    \item[Properties] The Server and the database, hidden behind the Fa\c ade, is the backbone of the Beer Web Store. If either is unavailable then the other is irrelevant. Multiple instances of both Server and Database may be running simultaneously in order to supply hot-swapping. The importance of up-time (availability), security (payment), usability (transmission abilities), etc. must be defined here.
+    \item[Properties] The Server and the database, hidden behind the Fa\c cade, is the backbone of the Beer Web Store. If either is unavailable then the other is irrelevant. Multiple instances of both Server and Database may be running simultaneously in order to supply hot-swapping. The importance of up-time (availability), security (payment), usability (transmission abilities), etc. must be defined here.
     \item[Relationship] The Client may only see the server through its
- HTTP interface, and the Server may only access the database through the Database Fa\c ade. Other demands to the relationship (certain commands to the database may only be accessed when using https).
+ HTTP interface, and the Server may only access the database through the Database Fa\c cade. Other demands to the relationship (certain commands to the database may only be accessed when using https).
 \end{itemize}
 
 \subsubsection{Rational in Beer Web Store}
