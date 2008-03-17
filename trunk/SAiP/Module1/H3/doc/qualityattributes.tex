@@ -108,6 +108,8 @@ Naturally just because a web-service (or other service) is used it does not mean
 
 Finally the WS-Security web-service may be used to handle payment, and also possibly, if the database or Beer Web Store Domain model is exposed through a web-service, it may also be benificial that not everyone may have the ability to update the domain model or database, so here the WS-Security service may also come in handy.
 
+Naturally this generality do not necesarrliy come free. A look-up in a database behind a service, especially a web-service, is far slower than a direct look-up in a local database, thereby influencing Performance poorly. On the other hand the use of web-services may increase Availability, as the functionality is deployed on multiple servers, thereby redusing the chance of the system becomming fully non-responsive. Naturally the critical path must be evaluated, as if a link on the critical path chain become non-responsive then the entire system becomes non-responsive.
+
 \subsection{Quality Attributes - Question 5}
 
 \begin{question}
