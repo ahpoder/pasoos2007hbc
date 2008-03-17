@@ -2,7 +2,7 @@
 % Architectural Design
 %%%
 \section{Architectural Design -- Beer Web Store}
-Consider the following main use case for a Beer Web Store for speciality
+Consider the following main use case for a Beer Web Store for specialty
 beers:
 \begin{quote}
   The customer browses the beer catalogue for descriptions and
@@ -57,9 +57,9 @@ style for the system. Discuss quality implications of this choice
 
 Layered styles come in two variants; the strictly layered and the layered. The strictly layered means that the components in a layer may only access other components in the same layer or the layer directly below it. The Layered may access components in the same layer or any layer beneath it.
 
-When a system is Strictly Layered it gives rise to high \emph{Portability} (a for of \emph{Modifiability}), as it is possible to abstract all dependencies of a given layer by simply abstracting the layer directly beneath it, and if anything in a layer changes then only the layer directly above it must be updated.
+When a system is Strictly Layered it gives rise to high \emph{Portability} (a form of \emph{Modifiability}), as it is possible to abstract all dependencies of a given layer by simply abstracting the layer directly beneath it, and if anything in a layer changes then only the layer directly above it must be updated.
 
-This also enables simpler \emph{Testability}, as the introduction of test doubles (fake objects, stubs, spys and/or mocks) must only be performed on the in a single layer; the one directly below the one under test.
+This also enables simpler \emph{Testability}, as the introduction of test doubles (fake objects, stubs, spys and/or mocks) must only be performed in a single layer; the one directly below the layer under test.
 
 It may however be difficult to adhere to a Strictly Layered approach, as some functionality may be required on all levels, e.g. the Java Collections, and very often vertical "layers" are introduced to support this all-layer access, which reduces \emph{Modifiability} if the change is in the vertical "layer".
 
@@ -75,7 +75,7 @@ There are four major structures in Component-and-Connector:
 \begin{itemize}
   \item Process or communicating processes.
 	\begin{itemize}
-	  \item This structure shows the execution path through a system, and is used to give the engineer an understand about the dynamic behaviour of the system. These structures may help engineers increase Performance and Availability.
+	  \item This structure shows the execution path through a system, and is used to give the engineer an understanding about the dynamic behavior of the system. These structures may help engineers increase Performance and Availability.
 	\end{itemize}
   \item Concurrency.
 	\begin{itemize}
@@ -91,7 +91,7 @@ There are four major structures in Component-and-Connector:
 	\end{itemize}
 \end{itemize}
 
-In the Beer Web Store has two clear C\&C structures, the Shared data structure between the Server and the Database Fa\c cade and the Client-server between the Client and Server (see Figure \ref{fig:module_view}).
+The Beer Web Store has two clear C\&C structures, the Shared data structure between the Server and the Database Fa\c cade and the Client-server between the Client and Server (see Figure \ref{fig:module_view}).
 
 The Process or Communicating processes is a more fine-grained structure, and an example of this may be seen in Figure \ref{fig:ad_sequence}.
 

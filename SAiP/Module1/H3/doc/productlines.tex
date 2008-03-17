@@ -91,17 +91,17 @@ Defining the product line architecture fully up front means a big investment in 
 
 Letting the product line evolve means that only the basics are defined up front, only causing a small initial investment, before building the first product. When the second product is to be created more of the product line is defined based on the parts of the first product, which may be used in the second. Naturally the second product is faster to build than the first, due to reuse, yet not as fast as the second product when the entire product line was defined in advance. As more products come along the amount of reuse grow, and would eventually reach the same as the one where everything was defined in advance.
 
-The above two approaches are defined as Heavyweight and Lightweight, respectively. A statistical analysis of these two approaches, compared to simply building the products from scratch, can be shown in Figure \ref{fig:product-line}.
+The above two approaches are defined as Heavyweight and Lightweight, respectively. A statistical analysis of these two approaches, compared to simply building the products from scratch, is shown in Figure \ref{fig:product-line}.
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/product-line,scale=0.9 }}
-\caption{Heavy-weight vs. Light-weight}
+\caption{Heavy-weight vs. Light-weight \cite{mcgregor2002}}
 \label{fig:product-line}
 \end{figure}
 
 Deciding which approach to use, is more than just a matter of choosing between Heavyweight and Lightweight (or fully defined or evolutionary) based on the number of expected products, it is also a matter of how well the common architecture of the future products can be predicted, for if the architecture needs to be changed from product to product then all the advantage is lost.
 
-Based on this the Beer Web Store architect must have decided that the products in the pipe-line and the Beer Web Store share a common architecture and that the future products are so well know that the architecture can be fully specified in advance.
+Based on this the Beer Web Store architect must have decided that the products in the pipe-line and the Beer Web Store share a common architecture and that the future products are so well known that the architecture can be fully specified in advance.
 
 \subsection{Product Lines - Question 3}
 
@@ -115,4 +115,4 @@ The requirement that other product's such as other stamps or soda-pop should be 
 
 This generalization fits well with SOA, as it is not that clever to make a ``Beer purchasing Service'', but far better to create a ``Purchasing service'', which operate on elements. This will allow any company, who has products they wish to sell, to use this service. This is the same generalization requirement that apply to the Product line architecture, where the architecture must handle the purchase of an arbitrary product, be it stamps, soda-pop or beer. It is possible that the architecture requires that it is a quantifiable product, yet this is not an unlikely requirement for a service either.
 
-It may now seem like SOA is the answer to creating a product line, yet this is not the case. It is very possible to create very specific services, like the ``Beer look-up service'', and this may be just fine for a Beer Web Store based on SOA, yet this is not a product line. The same architectural consideration must be done when creating the elements of a product line and define their interrelations, must also be done when defining the services and their interrelations. The only ``structure'' that SOA imposes by definition is the loose coupling between the user and the service.
+It may now seem like SOA is the answer to creating a product line, yet this is not the case. It is very possible to create very specific services, like the ``Beer look-up service'', and this may be just fine for a Beer Web Store based on SOA, yet this is not a product line. The same architectural consideration must be done when creating the elements of a product line and define their interrelations, as when defining the services and their interrelations. The only ``structure'' that SOA imposes by definition is the loose coupling between the user and the service.
