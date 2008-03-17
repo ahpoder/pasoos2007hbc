@@ -85,7 +85,11 @@ Depending on the binding between teh database and the server, it may also be pos
 
 \subsubsection{Performance}
 
+As we have all experience the irritation of a slow web-site, and as the competition on the internet is growing, it is important to achieve propper performance.
 
+Due to the lowing price of hardware and the increasing price of developement time, it is often cheapest and certainly simper to use the tactic \emph{Increase available resourcez}; introduce load balancing with multiple parallel servers thereby increase performance during heavy-load situations, ensure that the serves have sufficient network bandwidth, RAM and CPU strength to handle many simultanious database look-ups - here the tactic of \emph{Maintain multiple copies of data or computations} may be used to speed up database-look-up by caching the most popular searches, or cach the entire result in preperation for a search refinement. If the database is remotely located the caching of results becomes even more important.
+
+There are many other tactics which may be employed, yet given the nature to the application, it is not believed that the biggest resource consumers are under developement control, for building the web-server from scratch to support better concurrency or using non-standard performance tweaking algorithms for the database-lookup, will most likely become inconcivably expensive compare to simply increasing the computational resources.
 
 \fixme{Answer question 3.3}
 
