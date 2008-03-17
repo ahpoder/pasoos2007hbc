@@ -75,28 +75,73 @@ models that provide a number of views that are often useful,
 e.g. the ``4+1'' model \cite{kruchten1995} and the ``3+1''
 model \cite{christensen2004archdesc} and many others.
 
-As described in \ref{sec:arch_desc_q1} the figure shows parts
-of a module viewpoint (uses, layered), component \& connector
-viewpoint (client-server) and an allocation viewpoint
+As described in section \ref{sec:arch_desc_q1} the figure shows
+parts of a module viewpoint (uses, layered), component \&
+connector viewpoint (client-server) and an allocation viewpoint
 (deployment) which are the recommended viewpoints in
 \cite{christensen2004archdesc}.
 
 These viewpoints are all relevant to the Beer Web Store example.
-The Module view describes the internals of the webserver and how
+The Module viewpoint describes the internals of the webserver and how
 the functionality is decomposed into units. The Component \& connector
 viewpoint describes the runtime relations between the units and the
 Allocation viewpoint describes the environment of the running
 system.
 
+In the following sections we will give examples on views for each
+of the three viewpoints.
 
-XXX: Udvælg views og lav figurer:
+\subsubsection{Module Viewpoint}
 
-- Layered model (refer to figure 1) and decomposition of the server?
-- Sequence diagram
-- Deployment view 
+Figure \ref{fig:ad_package} shows a package diagram of the Beer Web
+Store and a decomposition of the web package. The Web package
+contains the elements used for the web interface, 
+the Overview page, the basket and the domain model. The domain model
+depends on a Database package that contains the database facade and the
+database facade uses some database package library, e.g. MySQL.
 
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/ad_package,scale=0.8 }}
+\caption{Package diagram for the Beer Web Store}
+\label{fig:ad_package}
+\end{figure}
 
-\fixme{Finish question 2.2}
+\subsubsection{Component \& Connector Viewpoint}
+
+There are only two active components in the Beer Web Store, a web server,
+e.g. Apache, and a database server. An active objects diagram will
+not be included here.
+
+Figure \ref{fig:ad_sequence} shows a sequence diagram where a user searches
+for a an item ``tuborg'' and adds one of the search results to his basket.
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/ad_sequence,scale=0.6 }}
+\caption{Sequence diagram showing a search and adding of an item}
+\label{fig:ad_sequence}
+\end{figure}
+
+The domain model accesses the database through the database facade
+when needed. This can be expressed in another sequence diagram.
+Sequence diagrams showing the checkout including payment should
+also be made.
+
+\subsubsection{Allocation Viewpoint}
+
+Figure \ref{fig:ad_allocation} shows a deployment view of the Beer
+Web Store where the web server and the database is located on two
+different servers. Clients can connect to the Beer Web Server
+using a http web browser. The web server and database server
+are connected through a local area network.
+
+\begin{figure}[!htb]
+\centerline{\epsfig{figure=figures/ad_allocation,scale=0.6 }}
+\caption{Deployment view of the Beer Web Store}
+\label{fig:ad_allocation}
+\end{figure}
+
+\fixme{Skal vi tilføje applikationen til Web serveren? Den indeholder
+ikke nogen aktive komponenter.}
 
 
 
