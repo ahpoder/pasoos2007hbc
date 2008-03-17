@@ -29,16 +29,16 @@ software structures of the Beer Web Store to some extent.
 
 The \emph{uses structure} shows how elements are related with regard
 to usage. One perspective of the uses structure is that the
-elements in the figure are ``Overview'', ``Basket'' and ``Data''
-which are all related and the database which is only related
+elements in the figure are ``Overview'', ``Basket'' and ``Data'',
+which are all related and the database, which is only related
 to ``Data''. This shows that the overview page and the basket
-has been decoupled from the database which therefore can be
+has been decoupled from the database, which therefore can be
 replaced without affecting them.
 
 \subsubsection{Layered}
 
 Another perspective is that the users, the web server and the
-database are elements where the relations show that the users
+database, are elements where the relations show that the users
 use the web server and the web server uses the database. This
 also shows the that the architecture is a
 \emph{strictly layered structure} where the users cannot
@@ -83,12 +83,12 @@ connector viewpoint (client-server) and an allocation viewpoint
 
 These viewpoints are all relevant to the Beer Web Store example.
 The Module viewpoint describes the internals of the web server and how
-the functionality is decomposed into units. The Component \& connector
+the functionality is decomposed into units. The Component \& Connector
 viewpoint describes the runtime relations between the units and the
 Allocation viewpoint describes the environment of the running
 system.
 
-In the following sections we will give examples on views for each
+In the following sections we will give examples of views for each
 of the three viewpoints.
 
 \subsubsection{Module Viewpoint}
@@ -154,7 +154,7 @@ The benefits of a box-and-line drawing is that it can be written and "understood
 
 Unfortunately the general information is where the advantages stop. For simple sign-language, it may quickly come to an argument if one wishes to know if the indication of "this way" means "a short way that way" or "a long way that way", and the same is true for box-and-line drawings. "How many clients does the system support?". "How strong is the binding indicated by the line - do all lines mean the same?" There is merely a line, so what does that line mean?
 
-Working as an developer/tester/engineer means that everything must be quantifiable in some way, and box-and-line drawings do not offer this unambiguous quantifiable. For this a clearly defined modelling language, without ambiguity as to the meaning of the model, is needed. An example of such a language is Unified Modelling Language(UML), which would allow the box-and-line drawing to be represented as one or more diagrams solving all the ambiguity of the box-and-line drawing with only a single requirement; one must know the language, which is indeed one of the reasons while box-and-line drawings are still widely used - there is no single unambiguous modelling language known by all stakeholders, and when that is the case it may be more confusing then beneficial to spend time making sure the diagram is clear and unambiguous, if that clarity is derived from symbolic notation that the readers (stakeholders) do not understand.
+Working as a developer/tester/engineer means that everything must be quantifiable in some way, and box-and-line drawings do not offer this unambiguous quantifiability. For this a clearly defined modelling language, without ambiguity as to the meaning of the model, is needed. An example of such a language is Unified Modelling Language (UML), which would allow the box-and-line drawing to be represented as one or more diagrams solving all the ambiguity of the box-and-line drawing with only a single requirement; one must know the language, which is indeed one of the reasons while box-and-line drawings are still widely used - there is no single unambiguous modelling language known by all stakeholders, and when that is the case it may be more confusing then beneficial to spend time making sure the diagram is clear and unambiguous, if that clarity is derived from symbolic notation that the readers (stakeholders) do not understand.
 
 \subsection{Architectural Description - Question 4}
 \label{sec:ad_q4}
