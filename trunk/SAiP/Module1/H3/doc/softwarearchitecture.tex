@@ -35,7 +35,7 @@ As this is the beginning of the architectural design then the module is the enti
     \item[a. Choose the architectural drivers]
   Here the quality attributes of the system would be defined by the stakeholders of the system and then a vote would be used to determine which of the quality attributes are architectural drivers. The quality attributes would be expressed as quality attribute scenarios.
     \item[b. Choose an architectural pattern]
-  Based on the architectural drivers selected in a, use the mapping in Bass et al. as well as other literature and experience to determine some tactics for achieving the architectural drivers for the system. Then select some architectural patterns to realize the tactics.
+  Based on the architectural drivers selected in \emph{a}, use the mapping in \cite{bass2003sa} as well as other literature and experience to determine some tactics for achieving the architectural drivers for the system. Then select some architectural patterns to realize the tactics.
     \item[c. Instantiate modules using multiple views]
   Based on the tactics and patterns found above the architecture for the system may be expressed using UML. It is \emph{always} required to use multiple views in order to properly describe the architecture. A good approach is the "3 + 1" structure, which uses three viewpoints; Module viewpoint, Component \& Connector viewpoint and Allocation viewpoint. These three viewpoints are expressed in UML using Package diagrams, Object and sequence diagrams, and deployment diagrams respectively. These diagrams should in the first iteration only look at relations and interactions between the main components (the layers).
     \item[d. Define interfaces]
@@ -53,7 +53,7 @@ Give concrete examples of what elements, relations, and structures as defined in
 \end{question}
 
 \subsubsection{Elements}
-Based on the present decomposition the elements that are know are the layers, where each layer is an element as described below.
+Based on the present decomposition the elements that are known are the layers, where each layer is an element as described below.
 \begin{itemize}
     \item[Clients] The clients access the server in order to perform some action.
     \item[Server] The server is accessed by the clients and when needed access the database via its Fa\c cade pattern.
@@ -67,7 +67,7 @@ The above is quickly sketched in the box-and-line drawing below in figure \ref{f
 \end{figure}
 
 \subsubsection{Relations}
-Figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behaviour. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In this it may be seen that the Client and Server has a week semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
+Figure \ref{fig:module_view} shows some of the relations, namely the statical, yet it is also important to know the dynamical behavior. These may be expressed by e.g. a sequence diagram, as shown in Figure \ref{fig:sequence}. In this it may be seen that the Client and Server has a weak semantic relation through the http protocol, and the Server and Database has a strong syntactic relation from a compiled compatibility. 
 
 \begin{figure}[!htb]
 \centerline{\epsfig{figure=figures/sequence,scale=1.0 }}
@@ -95,7 +95,7 @@ to the Beer Web System
 
 Perry and Wolf suggest separating the model of the architecture into three components, as mentioned in the question. The components relate in the sense that the \emph{elements} has a particular \emph{form} and the elements and their relations are chosen based on a \emph{rational}.
 
-There are three class of architectural elements defined.
+There are three classes of architectural elements defined.
 \begin{itemize}
     \item[Processing elements] Transforms data elements.
     \item[Data elements] Information to be transformed or used.
@@ -144,12 +144,12 @@ Finally it is important to describe the decisions made when defining the form - 
 \begin{question}
 Reflect on what happens if the words ``software'' and
 ``computing'' are removed from the definition of 'software
-architecture' in [Bass et al., 2003]
+architecture' in \cite{bass2003sa}
 \end{question}
 
-If the references to software and computing is removed the definition talks about elements, structures and properties, and their relations. This definition may be used about anything which may be broken down into generalised components. As an example could be used the construction of a rifle. Describing the elements that goes into making a rifle (hammer, barrol, ...), the structures that comes from putting them together, and the individual relationships that must be met (form fit, etc.). The elements may fit together in different ways and multiple structures may be required to complete the description. (the hammer up, the hammer down, etc.). The properties are in fact only the externally visible to the given element, as those are the only properties that are relevant to the architecture. These details include things like the strength of the metal, which may be different for the hammer and the pipe, the price range, production time, etc. while things like the cheek-pad may be optional.
+If the references to software and computing is removed the definition talks about elements, structures and properties, and their relations. This definition may be used about anything which may be broken down into generalised components. As an example could be used the construction of a rifle. Describing the elements that goes into making a rifle (hammer, barrel, ...), the structures that comes from putting them together, and the individual relationships that must be met (form fit, etc.). The elements may fit together in different ways and multiple structures may be required to complete the description. (the hammer up, the hammer down, etc.). The properties are in fact only the externally visible to the given element, as those are the only properties that are relevant to the architecture. These details include things like the strength of the metal, which may be different for the hammer and the pipe, the price range, production time, etc. while things like the cheek-pad may be optional.
 
-The description of an architecture, as defined by Bass et. al. is therefore very general and apart from the use of words like "software" and "computer", may apply to any architecture, be it a building, a production line for a rifle, or a embedded software system.
+The description of an architecture, as defined by \cite{bass2003sa} is therefore very general and apart from the use of words like "software" and "computer", may apply to any architecture, be it a building, a production line for a rifle, or a embedded software system.
 
 \subsection{Software Architecture - Question 5}
 
@@ -169,4 +169,4 @@ Unfortunately defining the architecture fully up front only makes sense if there
 
 Another requirement to defining the architecture fully up front has to do with the organization. It is a waste to create a fully defined architecture with focus on parallel implementation, if there is only one in-house developer to implement the product.
 
-Assuming that the architect in question has followed the course Software Architecture in Practice, he has obviously looked at the architectural properties, the stake holders, the organization and the requirement and deemed that there is sufficient grounds to fully specify the architecture in advance, with the risks and possible gains that it has (parallel implementation,   out-sourcing of the design/implementation, etc.).
+Assuming that the architect in question has followed the course Software Architecture in Practice, he has obviously looked at the architectural properties, the stake holders, the organization and the requirement and deemed that there is sufficient grounds to fully specify the architecture in advance, with the risks and possible gains that it has (parallel implementation, out-sourcing of the design/implementation, etc.).
