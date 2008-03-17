@@ -70,5 +70,25 @@ Outline major elements of a possible component and connector
 structure of the Beer Web Store system
 \end{question}
 
-\fixme{Answer question 4.3}
+There are four major structures in Component-and-Connector:
 
+\begin{itemize}
+  \item Process or communicating processes.
+	\begin{itemize}
+	  \item This structure shows the execution path through a system, and is used to give the engineer an understand about the dynamic behaviour of the system. These structures may help ingeneers increase Performance and Availability.
+	\end{itemize}
+  \item Concurrency.
+	\begin{itemize}
+	  \item This structure is used to see the parallelism in the system, or part of the system, and when a system, or part of a system, is build around this structure it promotes performance. 
+	\end{itemize}
+  \item Shared data or Repository
+	\begin{itemize}
+	  \item This is a very good structure to use to illustarte how the data is processed and consumed to/from the database (Database Facade). When a system, or part of a system, is build around this structure it promotes performance and data entegrity. 
+	\end{itemize}
+  \item Client-server
+	\begin{itemize}
+  		\item This is a very good structure to see the protocols used between the clients and the server, and the messages they communicate. When a system, or part of a system, is build around this structure it promotes seperation of concern (i.e. Modifiability) and allows for Availability tactics like Load balancing.
+	\end{itemize}
+\end{itemize}
+
+\fixme{Insert diagrams for C&C}
