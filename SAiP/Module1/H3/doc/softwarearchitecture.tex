@@ -138,7 +138,7 @@ When the above is applied to the information present for the Beer Web Store thre
 
 \subsubsection{Rational in Beer Web Store}
 
-Finally it is important to describe the decisions made when defining the form - why is availability important? Why is it OK to sacrifice availability for some (security) functionality.
+Finally it is important to describe the decisions made when defining the form - why is availability important? Why is it OK to sacrifice availability for some (security) functionality?
 
 \subsection{Software Architecture - Question 4}
 
@@ -166,9 +166,8 @@ There are also two reasons for creating an architecture; in order to create a pr
 
 Creating an architecture up front allows for the definition of all properties of the architecture; the quality attributes and their individual priorities, the individual elements/components and how they interconnect both at runtime and statically, etc. This has the benefit that when the design and implementation phase is begun it may easily be broken down into parallel activities and integrated later, as everyone has a clear picture of what is important and what the interfaces are.
 
-Unfortunately defining the architecture fully up front only makes sense if there is enough information in advance to create the architecture form. Very often there are "dark horses", things that do not become apparent until the design and implementation phase. If it is not believed that sufficient information exist to fully define the architecture, then doing so may not only be a waste, it may lead to the very dangerous loose-loose principle, where e.g. an overhead is introduced to service modifiability, only to be hacked in order to service a performance issue that was not apparent at the architectural design phase. This means that part of the overhead is preserved (in memory-footprint if nowhere else), without preserving any of the modifiability advantages.
+Unfortunately defining the architecture fully up front only makes sense if there is enough information in advance to create the architecture from. Very often there are "dark horses"; things that do not become apparent until the design and implementation phase. If it is not believed that sufficient information exist to fully define the architecture, then doing so may not only be a waste, it may lead to the very dangerous loose-loose principle, where e.g. an overhead is introduced to service modifiability, only to be hacked in order to service a performance issue that was not apparent at the architectural design phase. This means that part of the overhead is preserved (in memory-footprint if nowhere else), without preserving any of the modifiability advantages.
 
-Another requirement to defining the architecture fully up front has to do with the organization. It may be good and dandy to create a fully defined architecture with focus on parallel implementation, if there is only one in-house developer to implement the product.
-Based on this the Beer Web Store architect must have decided that there are sufficient information to fully define the architecture and also that there is a reason (parallel implementation, out-sourcing of the design/implementation, etc.).
+Another requirement to defining the architecture fully up front has to do with the organization. It is a waste to create a fully defined architecture with focus on parallel implementation, if there is only one in-house developer to implement the product.
 
-Assuming that the architect in question has followed the course Software Architecture in Practice, he has obviously looked at the architectural properties, the stake holders, the organization and the requirement and deemed that there is sufficient grounds to fully specify the architecture in advance, with the risks and possible gains that it has.
+Assuming that the architect in question has followed the course Software Architecture in Practice, he has obviously looked at the architectural properties, the stake holders, the organization and the requirement and deemed that there is sufficient grounds to fully specify the architecture in advance, with the risks and possible gains that it has (parallel implementation,   out-sourcing of the design/implementation, etc.).
