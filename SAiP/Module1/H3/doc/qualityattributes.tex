@@ -27,17 +27,15 @@ Describe technique(s) for architectural requirements capture
 that are applicable to the above case
 \end{question}
 
-Defining an architectures requirements is not like defining the functional requirements; actually many software professionals believe that they are indeed orthogonal. This is supported by the fact that a set of functional requirements may be implemented by a number of different architectures.
+Defining requirements for an architecture is not like defining the functional requirements; actually many software professionals believe that they are indeed orthogonal. This is supported by the fact that a set of functional requirements may be implemented by a number of different architectures.
 
 Finding out the requirements for the architecture is therefore more a matter of finding out what is important, more than it is to define what the product must do. The people who are able to define what is important to the architecture is naturally the stakeholders that the architecture affects, i.e. the owner, the user, the developer, the special interest groups, etc. Getting all of these peoples, often conflicting, requirements assembled and, even more importantly, prioritised, can be a difficult task. One way of doing so is to define scenarios, like the one mentioned above, and then having the stakeholders vote at the importance of the scenario. 
 
-Naturally in order for the scenarios to be able to be used to clarify the architecture it must be possible quantify them, and place them in different categories. This requires that the above scenario(s) are extended with e.g. response time, how many times the user should be able to perform an operation before experiencing a fault (down-town). 
+Naturally in order for the scenarios to be able to be used to clarify the architecture it must be possible to quantify them, and place them in different categories. This requires that the above scenario(s) are extended with e.g. response time, how many times the user should be able to perform an operation before experiencing a fault (down-time). 
 
 Once the scenarios are clarified and voted on, then the top priority scenarios may be formalized and it may be determined which quality attribute(s) they involve. For examples sake lets asume that the above scenario was selected as top priority.
 
-\fixme{Insert table with quality attribute breakdown}
-
-As it may be seen, the scenario(s) focus primarily on \emph{Availability} (how rare should it be that a user experience non-resonsiveness and how many simultanious users can the system support), \emph{Usability} (how easy should it be for the user to cancel a transaction halfway through and how easy should it be to pick up a previous transaction), \emph{Performance} (how big a delay can the user expect when performing an operation like a lookup in the database), \emph{Security} (how to avoid someone using stolen credit cards and also prevent a "hacker" from stealing the credit card information either durig the transaction or from the Beer Web Store's database.
+As it may be seen, the scenario(s) focus primarily on \emph{Availability} (how rare should it be that a user experience non-resonsiveness and how many simultanious users can the system support), \emph{Usability} (how easy should it be for the user to cancel a transaction halfway through and how easy should it be to pick up a previous transaction), \emph{Performance} (how big a delay can the user expect when performing an operation like a lookup in the database), \emph{Security} (how to avoid someone using stolen credit cards and also prevent a "hacker" from stealing the credit card information either during the transaction or from the Beer Web Store's database.
 
 The scenario does not include all aspects of the architecture, though. Another scenario may deal with how long it may take to alter a product built on the architecture (\emph{Modifiability}) - this may be particularly interesting to the owner. Another quality that has not been dealt with in the mentioned scenario(s), is how easy it is to check a product developed based on the architecture for faults (\emph{Testability}), which is of great interest to the owner and the developers.
 
@@ -51,7 +49,7 @@ and performance for the Beer Web Store using such techniques (at
 least one for each quality attribute)
 \end{question}
 
-The scenarios may be further clarified in order to include the aspects of availability and performance, as shown in tables \ref{tab:availability} and \ref{tab:performance} below:
+The following scenarios (table \ref{tab:availability} and \ref{tab:performance}) is a possible outcome of prioritization and clarification of quality attribute scenarios as described above:
 
 \begin{table}[H]
 \begin{center}
@@ -116,7 +114,7 @@ The scenarios may be further clarified in order to include the aspects of availa
 \end{center}
 \end{table}
 
-\fixme{Answer question 3.2}
+In a real life system there will of course be many more scenarios to describe the architectural requirements.
 
 \subsection{Quality Attributes - Question 3}
 \label{sec:qa_q3}
