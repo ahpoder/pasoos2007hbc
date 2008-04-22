@@ -14,6 +14,7 @@ import java.util.*;
 public class AlphaGame implements Game {
 
   private Board board = null;
+  int roundsCompleted = 0;
   public AlphaGame() {
 	  board = new Board(new AlphaBoardFactory());
   }
@@ -79,7 +80,8 @@ public class AlphaGame implements Game {
   }
 
   public boolean buy(int count, Position deploy) {
-	if (getState() == State.buy)
+	// It is allwed to buy without having moved, but the turn goes to the next player
+	if (getState() == State.buy || getState() == State.move)
 	{
 	    Player p = getPlayerInTurn();
 	    Tile t = board.getTile(deploy);
@@ -166,6 +168,14 @@ public class AlphaGame implements Game {
 			  ((StandardPlayer)p).add(yellowRevenue);
 		  }
 	  }
+	  
+	++roundsCompleted;
+	if (roundsCompleted == 25)
+	{
+		currentState = State.newGame;
+		Tile t = board.getTile(new Position(3,3));
+		report("GAME OVER - " + t.getOwnerColor() + " WON");
+	}
   }
 
 	private int getEcconomicValue(Tile t) {
@@ -208,10 +218,18 @@ public PlayerColor turnCard() {
     return board.getBoardIterator();
   }
 
+  private ArrayList<GameListener> listeners = new ArrayList<GameListener>();
   public void addGameListener( GameListener observer ) {
+	  listeners.add(observer);
   }
 
   public void report(String s) {
+	  Iterator<GameListener> itt = listeners.iterator();
+	  while (itt.hasNext())
+	  {
+		  GameListener obs = itt.next();
+		  obs.report(s);
+	  }
   }
 }
 
