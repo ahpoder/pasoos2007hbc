@@ -4,5 +4,7 @@ package hottargui.framework;
 import java.util.Collection;
 
 public interface BoardFactory {
-	Collection<Tile> create();
+	Player[] createPlayers();
+
+	Collection<Tile> createTiles();
 }
