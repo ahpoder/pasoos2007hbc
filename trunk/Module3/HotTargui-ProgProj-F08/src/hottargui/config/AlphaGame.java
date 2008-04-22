@@ -103,27 +103,67 @@ public class AlphaGame implements Game {
   private void calculateRevenue() {
 	  Iterator<Tile> tiles = board.getBoardIterator();
 	  int redRevenue = 0;
+	  boolean redHasSettlement = false;
 	  int greenRevenue = 0;
+	  boolean greenHasSettlement = false;
 	  int blueRevenue = 0;
+	  boolean blueHasSettlement = false;
 	  int yellowRevenue = 0;
+	  boolean yellowHasSettlement = false;
 	  while (tiles.hasNext())
 	  {
 		  Tile t = tiles.next();
 		  if (t.getOwnerColor() == PlayerColor.Red)
 		  {
+			  if (t.getType() == TileType.Settlement)
+			  {
+				  redHasSettlement = true;
+			  }
 			  redRevenue += getEcconomicValue(t);
 		  }
 		  else if (t.getOwnerColor() == PlayerColor.Green)
 		  {
+			  if (t.getType() == TileType.Settlement)
+			  {
+				  greenHasSettlement = true;
+			  }
 			  greenRevenue += getEcconomicValue(t);
 		  }
 		  else if (t.getOwnerColor() == PlayerColor.Blue)
 		  {
+			  if (t.getType() == TileType.Settlement)
+			  {
+				  blueHasSettlement = true;
+			  }
 			  blueRevenue += getEcconomicValue(t);
 		  }
-		  else // PlayerColor.Yellow
+		  else if (t.getOwnerColor() == PlayerColor.Yellow)
 		  {
+			  if (t.getType() == TileType.Settlement)
+			  {
+				  yellowHasSettlement = true;
+			  }
 			  yellowRevenue += getEcconomicValue(t);
+		  }
+	  }
+	  for (int i = 0; i < board.getPlayerCount(); ++i)
+	  {
+		  Player p = board.getPlayer(i);
+		  if (p.getColor() == PlayerColor.Red && redHasSettlement)
+		  {
+			  ((StandardPlayer)p).add(redRevenue);
+		  }
+		  else if (p.getColor() == PlayerColor.Green && greenHasSettlement)
+		  {
+			  ((StandardPlayer)p).add(greenRevenue);
+		  }
+		  else if (p.getColor() == PlayerColor.Blue && blueHasSettlement)
+		  {
+			  ((StandardPlayer)p).add(blueRevenue);
+		  }
+		  else if (p.getColor() == PlayerColor.Yellow && yellowHasSettlement)
+		  {
+			  ((StandardPlayer)p).add(yellowRevenue);
 		  }
 	  }
   }
