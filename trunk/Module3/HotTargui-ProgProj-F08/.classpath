@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="build" path="test"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
+	<classpathentry kind="lib" path="C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/minidraw.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
