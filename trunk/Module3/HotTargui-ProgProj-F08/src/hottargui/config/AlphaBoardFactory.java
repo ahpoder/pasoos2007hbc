@@ -6,7 +6,6 @@ import java.util.Collection;
 import hottargui.framework.BoardFactory;
 import hottargui.framework.Player;
 import hottargui.framework.PlayerColor;
-import hottargui.framework.Position;
 import hottargui.framework.Tile;
 import hottargui.framework.TileType;
 import hottargui.standard.StandardPlayer;

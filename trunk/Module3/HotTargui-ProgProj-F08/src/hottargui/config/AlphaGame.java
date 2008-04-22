@@ -72,6 +72,7 @@ public class AlphaGame implements Game {
 				((StandardTile)tTo).changeUnitCount(tTo.getUnitCount() - tFrom.getUnitCount());
 				((StandardTile)tFrom).changeUnitCount(0);
 			}
+			board.updateBoard();
 			currentState = State.buy;
 			return true;
 	    }
@@ -80,7 +81,7 @@ public class AlphaGame implements Game {
   }
 
   public boolean buy(int count, Position deploy) {
-	// It is allwed to buy without having moved, but the turn goes to the next player
+	// It is allowed to buy without having moved, but the turn goes to the next player
 	if (getState() == State.buy || getState() == State.move)
 	{
 	    Player p = getPlayerInTurn();
@@ -91,7 +92,7 @@ public class AlphaGame implements Game {
 	      ((StandardTile)t).changeUnitCount(t.getUnitCount() + count);
 	      currentState = State.move;
 	      currentPlayer++;
-	      if (currentPlayer > 3)
+	      if (currentPlayer >= board.getPlayerCount())
 	      {
 	    	  currentPlayer = 0;
 	    	  calculateRevenue();
