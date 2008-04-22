@@ -161,5 +161,87 @@ public class TestAlphaTargui {
   }
   
   // Calculate revenue
-  
+  @Test
+  public void testCalculateRevenueForFourPlayers() {
+		// Setup - Make sure all types of Tiles are represented
+		// Salt mine to Red = 5
+	    Tile t = game.getTile(new Position(3,3));
+		((StandardTile)t).changePlayerColor(PlayerColor.Red);
+		// Oasis to Green = 3
+		t = game.getTile(new Position(0,2));
+		((StandardTile)t).changePlayerColor(PlayerColor.Green);
+		// Erg to Blue = 1
+		t = game.getTile(new Position(6,5));
+		((StandardTile)t).changePlayerColor(PlayerColor.Blue);
+		// Reg to Yellow = 2
+		t = game.getTile(new Position(5,4));
+		((StandardTile)t).changePlayerColor(PlayerColor.Yellow);
+		// Fesh-fesh to Red = 0
+		t = game.getTile(new Position(6,3));
+		((StandardTile)t).changePlayerColor(PlayerColor.Red);
+		// Mountain to Green = 0
+		t = game.getTile(new Position(3,6));
+		((StandardTile)t).changePlayerColor(PlayerColor.Green);
+	
+		// Force revenue - this will also move some pieces, thereby changing the revenue.
+		// The changes are:
+		// Red ownes Erg = 1
+		// Green ownes Reg = 2
+		// Blue ownes Oasis = 3
+		// Yellow ownes Mountain = 0
+		performMoves(4);
+		
+		// Validate result Red = 10 (orriginal) + 4 (settlement) + 5 (Salt mine) + 0 (Fesh-fesh) + 1 (Erg) = 20
+		assertEquals(20, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Green = 10 (orriginal) + 4 (settlement) + 3 (Oasis) + 0 (Mountain) + 2 (Reg) = 19
+		assertEquals(19, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Blue = 10 (orriginal) + 4 (settlement) + 1 (Erg) + 3 (Oasis) = 18
+		assertEquals(18, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Yellow = 10 (orriginal) + 4 (settlement) + 2 (Reg) + 0 (Mountain) = 16
+		assertEquals(16, game.getPlayerInTurn().getCoins());
+  }
+
+  @Test
+  public void testCalculateRevenueForThreePlayers() {
+	  // Setup - Kill yellow player
+	  // TODO implement	
+	  assertFalse(true);
+  }
+
+  @Test
+  public void testCalculateRevenueWithYellowMissingSettlement() {
+	  	// Setup - Take away Yellows Settlement and give it Oasis
+	  	Tile t = game.getTile(new Position(3,6)); // Oasis
+		((StandardTile)t).changePlayerColor(PlayerColor.Yellow);
+		((StandardTile)t).changeUnitCount(5);
+	    t = game.getTile(new Position(6,6));
+		((StandardTile)t).changePlayerColor(PlayerColor.Red);
+
+		// The changes are:
+		// Red ownes Erg = 1
+		// Green ownes Reg = 2
+		// Blue ownes Oasis = 3
+		performMoves(3);
+
+		// Yellow cannot move as normal and has to be given another tile
+		assertTrue(game.move(new Position(3, 6), new Position(2,6), 1));
+		assertTrue(game.buy(1, new Position(3, 6)));
+
+		// Force revenue - this will also move some pieces, thereby changing the revenue.
+		
+		// Validate result Red = 10 (orriginal) + 4 (settlement) + 4 (settlement) + 1 (Erg) = 19
+		assertEquals(19, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Green = 10 (orriginal) + 4 (settlement) + 2 (Reg) = 16
+		assertEquals(16, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Blue = 10 (orriginal) + 4 (settlement) + 3 (Oasis) = 17
+		assertEquals(17, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Yellow = 10 (orriginal) + 0 (No settlement) - 1 (purchase) = 9
+		assertEquals(9, game.getPlayerInTurn().getCoins());
+  }
 }
