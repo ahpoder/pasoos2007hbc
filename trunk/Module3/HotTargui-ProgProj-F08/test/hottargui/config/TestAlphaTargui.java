@@ -55,26 +55,21 @@ public class TestAlphaTargui {
 	  for (int i = 0; i < moves; ++i)
 	  {
 		  Player p = game.getPlayerInTurn();
-	      ((StandardPlayer)p).add(1);
 		  if (p.getColor() == PlayerColor.Red)
 		  {
-			  assertTrue(game.move(new Position(0, 0), new Position(0,1), 1));
-			  assertTrue(game.buy(1, new Position(0, 0)));
+			  assertTrue(game.buy(0, new Position(0, 0)));
 		  }
 		  else if (p.getColor() == PlayerColor.Green)
 		  {
-			  assertTrue(game.move(new Position(0, 6), new Position(1,6), 1));
-			  assertTrue(game.buy(1, new Position(0, 6)));
+			  assertTrue(game.buy(0, new Position(0, 6)));
 		  }
 		  else if (p.getColor() == PlayerColor.Blue)
 		  {
-			  assertTrue(game.move(new Position(6, 0), new Position(5,0), 1));
-			  assertTrue(game.buy(1, new Position(6, 0)));
+			  assertTrue(game.buy(0, new Position(6, 0)));
 		  }
 		  else // PlayerColor.Yellow
 		  {
-			  assertTrue(game.move(new Position(6, 6), new Position(5,6), 1));
-			  assertTrue(game.buy(1, new Position(6, 6)));
+			  assertTrue(game.buy(0, new Position(6, 6)));
 		  }
 	  }
   }
@@ -160,6 +155,16 @@ public class TestAlphaTargui {
 		assertEquals(0, t.getUnitCount());
   }
   
+  @Test
+  public void testPurchaseOnTileNotOwned() {
+      assertFalse(game.buy(5, new Position(1,0)));
+  }
+
+  @Test
+  public void testPurchaseOnTileOwnedByOther() {
+      assertFalse(game.buy(5, new Position(0,6)));
+  }
+
   // Calculate revenue
   @Test
   public void testCalculateRevenueForFourPlayers() {
@@ -183,24 +188,19 @@ public class TestAlphaTargui {
 		t = game.getTile(new Position(3,6));
 		((StandardTile)t).changePlayerColor(PlayerColor.Green);
 	
-		// Force revenue - this will also move some pieces, thereby changing the revenue.
-		// The changes are:
-		// Red ownes Erg = 1
-		// Green ownes Reg = 2
-		// Blue ownes Oasis = 3
-		// Yellow ownes Mountain = 0
+		// Force revenue - this will not alter the revenue, as nothing is moved
 		performMoves(4);
 		
-		// Validate result Red = 10 (orriginal) + 4 (settlement) + 5 (Salt mine) + 0 (Fesh-fesh) + 1 (Erg) = 20
-		assertEquals(20, game.getPlayerInTurn().getCoins());
-		performMoves(1);
-		// Validate result Green = 10 (orriginal) + 4 (settlement) + 3 (Oasis) + 0 (Mountain) + 2 (Reg) = 19
+		// Validate result Red = 10 (orriginal) + 4 (settlement) + 5 (Salt mine) + 0 (Fesh-fesh) = 19
 		assertEquals(19, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Blue = 10 (orriginal) + 4 (settlement) + 1 (Erg) + 3 (Oasis) = 18
-		assertEquals(18, game.getPlayerInTurn().getCoins());
+		// Validate result Green = 10 (orriginal) + 4 (settlement) + 3 (Oasis) + 0 (Mountain) = 17
+		assertEquals(17, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Yellow = 10 (orriginal) + 4 (settlement) + 2 (Reg) + 0 (Mountain) = 16
+		// Validate result Blue = 10 (orriginal) + 4 (settlement) + 1 (Erg) = 15
+		assertEquals(15, game.getPlayerInTurn().getCoins());
+		performMoves(1);
+		// Validate result Yellow = 10 (orriginal) + 4 (settlement) + 2 (Reg) = 16
 		assertEquals(16, game.getPlayerInTurn().getCoins());
   }
 
@@ -236,33 +236,27 @@ public class TestAlphaTargui {
 	  	// Setup - Take away Yellows Settlement and give it Oasis
 	  	Tile t = game.getTile(new Position(3,6)); // Oasis
 		((StandardTile)t).changePlayerColor(PlayerColor.Yellow);
-		((StandardTile)t).changeUnitCount(5);
 	    t = game.getTile(new Position(6,6));
 		((StandardTile)t).changePlayerColor(PlayerColor.Red);
 
-		// The changes are:
-		// Red ownes Erg = 1
-		// Green ownes Reg = 2
-		// Blue ownes Oasis = 3
 		performMoves(3);
 
-		// Yellow cannot move as normal and has to be given another tile
-		assertTrue(game.move(new Position(3, 6), new Position(2,6), 1));
-		assertTrue(game.buy(1, new Position(3, 6)));
+		// Yellow cannot buy as normal, as he/she does not own the Settlement where the purchase is normally placed.
+		assertTrue(game.buy(0, new Position(3, 6)));
 
 		// Force revenue - this will also move some pieces, thereby changing the revenue.
 		
-		// Validate result Red = 10 (orriginal) + 4 (settlement) + 4 (settlement) + 1 (Erg) = 19
-		assertEquals(19, game.getPlayerInTurn().getCoins());
+		// Validate result Red = 10 (orriginal) + 4 (settlement) + 4 (settlement) = 18
+		assertEquals(18, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Green = 10 (orriginal) + 4 (settlement) + 2 (Reg) = 16
-		assertEquals(16, game.getPlayerInTurn().getCoins());
+		// Validate result Green = 10 (orriginal) + 4 (settlement) = 14
+		assertEquals(14, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Blue = 10 (orriginal) + 4 (settlement) + 3 (Oasis) = 17
-		assertEquals(17, game.getPlayerInTurn().getCoins());
+		// Validate result Blue = 10 (orriginal) + 4 (settlement) = 14
+		assertEquals(14, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Yellow = 10 (orriginal) + 0 (No settlement) - 1 (purchase) = 9
-		assertEquals(9, game.getPlayerInTurn().getCoins());
+		// Validate result Yellow = 10 (orriginal) + 0 (No settlement)  = 10
+		assertEquals(10, game.getPlayerInTurn().getCoins());
   }
 
   @Test
