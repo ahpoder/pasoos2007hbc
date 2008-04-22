@@ -154,6 +154,8 @@ public class TestAlphaTargui {
 		assertEquals(PlayerColor.Red, t.getOwnerColor());
 		assertEquals(0, t.getUnitCount());
   }
+    
+  // Purchases
   
   @Test
   public void testPurchaseOnTileNotOwned() {
@@ -162,6 +164,16 @@ public class TestAlphaTargui {
 
   @Test
   public void testPurchaseOnTileOwnedByOther() {
+      assertFalse(game.buy(5, new Position(0,6)));
+  }
+
+  @Test
+  public void testPurchaseMoreThanOwned() {
+      assertFalse(game.buy(15, new Position(0,0)));
+  }
+
+  @Test
+  public void testPurchase() {
       assertFalse(game.buy(5, new Position(0,6)));
   }
 
@@ -191,24 +203,17 @@ public class TestAlphaTargui {
 		// Force revenue - this will not alter the revenue, as nothing is moved
 		performMoves(4);
 		
-		// Validate result Red = 10 (orriginal) + 4 (settlement) + 5 (Salt mine) + 0 (Fesh-fesh) = 19
+		// Validate result Red = 10 (original) + 4 (settlement) + 5 (Salt mine) + 0 (Fesh-fesh) = 19
 		assertEquals(19, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Green = 10 (orriginal) + 4 (settlement) + 3 (Oasis) + 0 (Mountain) = 17
+		// Validate result Green = 10 (original) + 4 (settlement) + 3 (Oasis) + 0 (Mountain) = 17
 		assertEquals(17, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Blue = 10 (orriginal) + 4 (settlement) + 1 (Erg) = 15
+		// Validate result Blue = 10 (original) + 4 (settlement) + 1 (Erg) = 15
 		assertEquals(15, game.getPlayerInTurn().getCoins());
 		performMoves(1);
-		// Validate result Yellow = 10 (orriginal) + 4 (settlement) + 2 (Reg) = 16
+		// Validate result Yellow = 10 (original) + 4 (settlement) + 2 (Reg) = 16
 		assertEquals(16, game.getPlayerInTurn().getCoins());
-  }
-
-  @Test
-  public void testCalculateRevenueForThreePlayers() {
-	  // Setup - Kill yellow player
-	  // TODO implement	
-	  assertFalse(true);
   }
 
   class ResultListener implements GameListener
@@ -271,5 +276,44 @@ public class TestAlphaTargui {
 	// Finish game
 	performMoves(1);
 	assertEquals("GAME OVER - Yellow WON", res.result);
+  }
+
+  // Dead player
+  
+  @Test
+  public void testMoveAfterPlayerDead() {
+	  // Setup - Kill yellow player
+	  Tile t = game.getTile(new Position(6,5));
+	  ((StandardTile)t).changePlayerColor(PlayerColor.Red);
+	  ((StandardTile)t).changeUnitCount(10);
+	  game.move(new Position(6,5), new Position(6,6), 10);
+	  game.buy(0, new Position(0,0));
+
+	  // Yellow will never have a turn, and moving two times
+	  // will bring the turn back to Red.
+	  performMoves(2);
+	  assertEquals(PlayerColor.Red, game.getPlayerInTurn().getColor());
+  }
+
+  @Test
+  public void testCalculateRevenueForThreePlayers() {
+	// Setup - Kill yellow player
+	Tile t = game.getTile(new Position(6,5));
+	((StandardTile)t).changePlayerColor(PlayerColor.Red);
+	((StandardTile)t).changeUnitCount(10);
+	game.move(new Position(6,5), new Position(6,6), 10);
+	game.buy(1, new Position(0, 0));
+	  
+	// Only two moves required to end turn
+	performMoves(2);
+	  
+	// Validate result Red = 10 (original) + 4 (settlement) + 4 (settlement) = 18
+	assertEquals(18, game.getPlayerInTurn().getCoins());
+	performMoves(1);
+	// Validate result Green = 10 (original) + 4 (settlement) = 14
+	assertEquals(14, game.getPlayerInTurn().getCoins());
+	performMoves(1);
+	// Validate result Blue = 10 (original) + 4 (settlement) = 14
+	assertEquals(14, game.getPlayerInTurn().getCoins());
   }
 }
