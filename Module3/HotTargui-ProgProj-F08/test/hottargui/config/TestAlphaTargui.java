@@ -31,12 +31,12 @@ public class TestAlphaTargui {
   }
 
   @Test
-  public void testBuyFirstNotAllowed() {
+  public void testBuyWithoutMoveAllowed() {
     // Ensure that player has money
 	Player p = game.getPlayerInTurn();
     ((StandardPlayer)p).add(10);
     
-    assertFalse(game.buy(5, new Position(0, 0)));
+    assertTrue(game.buy(5, new Position(0, 0)));
   }
 
   @Test
@@ -211,6 +211,26 @@ public class TestAlphaTargui {
 	  assertFalse(true);
   }
 
+  class ResultListener implements GameListener
+  {
+	public String result;
+	public void report(String text) {
+		result = text;
+	}
+	
+	public void updateDie(int value) {
+		assertTrue(false);
+	}
+	
+	public void updatePlayer(PlayerColor color) {
+		assertTrue(false);
+	}
+	
+	public void updateTile(Tile t) {
+		assertTrue(false);
+	}
+  }
+  
   @Test
   public void testCalculateRevenueWithYellowMissingSettlement() {
 	  	// Setup - Take away Yellows Settlement and give it Oasis
@@ -243,5 +263,19 @@ public class TestAlphaTargui {
 		performMoves(1);
 		// Validate result Yellow = 10 (orriginal) + 0 (No settlement) - 1 (purchase) = 9
 		assertEquals(9, game.getPlayerInTurn().getCoins());
+  }
+
+  @Test
+  public void testGameOverRedYellow() {
+    performMoves(24 * 4 + 3);
+  	Tile t = game.getTile(new Position(3,3)); // Salt mine
+	((StandardTile)t).changePlayerColor(PlayerColor.Yellow);
+	((StandardTile)t).changeUnitCount(5);
+	// Setup listener
+	ResultListener res = new ResultListener();
+	game.addGameListener(res);
+	// Finish game
+	performMoves(1);
+	assertEquals("GAME OVER - Yellow WON", res.result);
   }
 }
