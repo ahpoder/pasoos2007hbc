@@ -18,17 +18,17 @@
 		<link>
 			<name>build</name>
 			<type>2</type>
-			<location>C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/build</location>
+			<location>C:/PaSOOS/Module3/HotTargui-ProgProj-F08/build</location>
 		</link>
 		<link>
 			<name>test</name>
 			<type>2</type>
-			<location>C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/test</location>
+			<location>C:/PaSOOS/Module3/HotTargui-ProgProj-F08/test</location>
 		</link>
 		<link>
 			<name>src</name>
 			<type>2</type>
-			<location>C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/src</location>
+			<location>C:/PaSOOS/Module3/HotTargui-ProgProj-F08/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
