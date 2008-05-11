@@ -13,7 +13,7 @@ public class TestAlphaTargui {
 
   @Before 
   public void setUp() {
-    game = new AlphaGame();
+    game = new StandardGame(new AlphaGameFactory());
     game.newGame();
   }
 
@@ -89,7 +89,7 @@ public class TestAlphaTargui {
   }
 
   @Test
-  public void testThirdPlayerYellow() {
+  public void testFourthPlayerYellow() {
 	performMoves(3);
     Player p = game.getPlayerInTurn();
     assertEquals( PlayerColor.Yellow, p.getColor() ); 

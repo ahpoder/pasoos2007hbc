@@ -1,7 +1,5 @@
 package hottargui.framework;
 
-import hottargui.config.*;
-
 /**
  * 
  * Create the products for the different game variants
@@ -12,6 +10,9 @@ public interface GameFactory {
 
 	// Create a board for the game   
 	Board createBoard();
+
+	// Creates the strategy for player turn
+	PlayerTurnStrategy createTurnStrategy();
 
 	// Create the rules for where the units can be put after they are bought   	
 	PutUnitsStrategy createPutUnitsStrategy();
