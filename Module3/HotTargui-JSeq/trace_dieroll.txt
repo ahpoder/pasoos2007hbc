@@ -1,0 +1,13 @@
+
+, hottargui.view.BoardView.drawOverlay
+, hottargui.view.RollDieTool.mouseDown
+
+// Domain
+    hottargui.view.StubGame1.rollDie
+        hottargui.view.StubGame1._notifyDie
+            hottargui.view.StubGame1.getDieValue       
+// View
+            hottargui.view.TarguiDrawing.updateDie       
+                hottargui.view.DieFigure.changeToValue
+                    hottargui.view.DieFigure.resetgraphics
+
