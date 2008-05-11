@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- HotTargui build file -->
+<!-- (c) Henrik Bærbak Christensen 2006-2008 -->
+
+<project name="HotTargui" default="help" basedir=".">
+  
+  <property name="src" value="src"></property>
+  <property name="test" value="test"></property>
+  <property name="resource" value="resource"></property>
+
+  <property name="build" value="build"></property>
+  <property name="doc" value="doc"></property>
+
+  <!-- Jar Files -->
+  <property name="junit" value="lib/junit-4.4.jar"/>
+  <property name="minidraw_jar" value="lib/minidraw.jar"/>
+  
+  <!-- Classpath -->
+  <path id="_classpath">
+    <pathelement path="${junit}"/>
+    <pathelement path="${minidraw_jar}"/>
+    <pathelement path="${build}"/>
+  </path>
+  
+  <path id="_srcpath">
+    <pathelement path="${src}"/>
+  </path>
+  
+  <path id="_testsrcpath">
+    <pathelement path="${test}"/>
+  </path>
+  
+  <!-- Help -->
+  <target name="help">
+<echo>
+
+    Ant build system for HotTargui.
+      Targets are:
+    
+      Testing: 
+        clean: Delete the build output directory.
+        test: run all JUnit test cases.
+        doc: Generate documentation in doc dir.
+    
+
+      Gui Testing targets:
+        sbc: Show computed graphics for the board.
+        sbu: Show board updates reflected on GUI.
+        mu: Move Units and see change in game instance.
+        sm: Show message boxes.
+        rd: Roll die tool.
+        ttc: Turn tribe card tool.
+        mv: Multi view of the game board.
+
+      JSeq Tracking:
+        make_trace: Generate text trace in trace.txt    
+
+    Henrik B Christensen 2006-2008
+    </echo>
+  </target>
+  
+  <!-- Core tasks: compiling ect -->
+  <target name="prepare">
+    <mkdir dir="${build}"></mkdir>
+  </target>
+
+  <target name="build_src" depends="prepare">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="build_test" depends="build_src">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_testsrcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="copy_resource" depends="prepare">
+    <copy todir="${build}\${resource}" >
+      <fileset dir="${resource}">
+	<include name="*.gif"/>
+	<include name="*.lst"/>
+      </fileset>
+    </copy>
+  </target>
+ 
+  <target name="clean">
+    <delete dir="${md_build}"></delete>
+    <delete dir="${build}"></delete>
+    <!-- <delete file="${minidraw_jar}"></delete> -->
+  </target>
+ 
+  <!-- BUILD ALL -->
+  <target name="build_all" depends="build_src,build_test,copy_resource">
+  </target>
+
+  <!-- JUNIT TESTING -->
+  <target name="test" depends="build_all">
+    <java 
+      fork="yes"
+      classname="org.junit.runner.JUnitCore">
+      <classpath> <path refid="_classpath"/> </classpath>
+      <arg value="hottargui.TestAll"/>
+    </java>      
+  </target>
+
+  
+  <!-- == GUI Testing == -->
+
+  <target name="run-gui-test" depends="build_all">
+    <java fork="yes" classname="hottargui.view.${className}">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+  
+  <target name="sbc">
+    <antcall target="run-gui-test">
+      <param name="className" value="ShowBoardComputed"/>
+    </antcall>
+  </target>
+
+  <target name="sbu">
+    <antcall target="run-gui-test">
+      <param name="className" value="ShowBoardUpdate"/>
+    </antcall>
+  </target>
+
+  <target name="mu" depends="build_all">
+    <antcall target="run-gui-test">
+      <param name="className" value="MoveUnit"/>
+    </antcall>
+  </target>
+
+  <target name="sm" depends="build_all">
+    <antcall target="run-gui-test">
+      <param name="className" value="ShowMessage"/>
+    </antcall>
+  </target>
+
+  <target name="rd" depends="build_all">
+    <antcall target="run-gui-test">
+      <param name="className" value="RollDie"/>
+    </antcall>
+  </target>
+
+  <target name="ttc" depends="build_all">
+    <antcall target="run-gui-test">
+      <param name="className" value="TurnTribeCard"/>
+    </antcall>
+  </target>
+
+  <target name="mv" depends="build_all">
+    <antcall target="run-gui-test">
+      <param name="className" value="MultiView"/>
+    </antcall>
+  </target>
+
+  <!-- === Documentation === -->
+  <target name="mkdirdoc">
+    <mkdir dir="${doc}"></mkdir>
+  </target>
+
+  <target name="copy_doc_resource">
+    <copy todir="${doc}" >
+      <fileset dir="${src}">
+	<include name="**/*.gif"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="doc" depends="clean,build_src,mkdirdoc,copy_doc_resource">
+    <javadoc
+      source = "1.5"
+      packagenames=
+      "hottargui.*"
+      sourcepath="${src}"
+      destdir="${doc}"
+      package="true"
+      doctitle="&lt;b&gt;HotTargui&lt;/b&gt;"
+      bottom="&lt;b&gt;Partly authored by Henrik Bærbak &lt;/b&gt;"
+      windowtitle="HotTargui"
+      >
+      <sourcepath> 
+	<path refid="_srcpath"/> 
+      </sourcepath>
+      <classpath> 
+	<path refid="_classpath"/> 
+      </classpath>
+    </javadoc>
+  </target>
+
+
+  <!-- === JSeq tracing example usage === -->
+  <property environment="env"/>
+  <property name="jseq" value="lib/jseq.jar"/>
+  <property name="jdi" value="${env.JAVA_HOME}\lib\tools.jar"/>
+
+  <!-- run this to ensure that the JDI is set properly, if
+  the path is not expanded then you have a setup problem -->
+  <target name="test-jseq-setup">
+    <echo message="jdi property is set to: ${jdi}"/>
+  </target>
+  
+  <!-- make a JSeq trace from the ShowBoardUpdate test driver.
+  Output is stored in trace.txt -->
+  <target name="make_trace" depends="build_all">
+    <java fork="yes" 
+      classname="th.co.edge.jseq.Main"
+      taskname="JSeq" 
+      failonerror="true">
+      <arg line="-format text"/>
+      <arg line="-out trace.txt"/>
+<!--      <arg line="-start hottargui.view.BoardUpdateTool.mouseDown"/> -->
+      <arg line="-exclude minidraw.*"/>
+      <arg line="hottargui.view.RollDie"/>
+      <classpath> 
+	<pathelement path="${jdi}"/>
+	<pathelement path="${jseq}"/>
+	<path refid="_classpath"/> 
+      </classpath>
+    </java>
+  </target>
+
+
+</project>
+
+
