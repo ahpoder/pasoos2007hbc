@@ -1,5 +1,6 @@
 package	hottargui.config;
 
+import hottargui.config.*;
 import hottargui.framework.*;
 import hottargui.standard.StandardPlayer;
 import hottargui.standard.StandardTile;
@@ -11,22 +12,33 @@ import java.util.*;
     by a test-driven process.
  */
 
-public class AlphaGame implements Game {
+public class StandardGame implements Game {
 	// The factory that defines the game strategies
-	private AlphaGameFactory factory;
+	private GameFactory factory;
+	// The strategy for player turn
+	private PlayerTurnStrategy turnStrategy;
+	// The strategy for putting units after buy
+	private PutUnitsStrategy putUnitsStrategy;
+	// The strategy for attack
+	private AttackStrategy attackStrategy;
+	// The strategy for finding the winner
+	private WinnerStrategy winnerStrategy;
 	
   private Board board = null;
   int roundsCompleted = 0;
   
-  public AlphaGame(AlphaGameFactory factory) {
+  public StandardGame(GameFactory factory) {
 		this.factory = factory;
+		this.turnStrategy = factory.createTurnStrategy();
+		this.putUnitsStrategy = factory.createPutUnitsStrategy();
+		this.attackStrategy = factory.createAttackStrategy();
+		this.winnerStrategy = factory.createWinnerStrategy();
+		
 		board = factory.createBoard();	
-//EC	  board = new Board(new AlphaBoardFactory());
   }
 
   public void newGame() {
 		board = factory.createBoard();	
-//EC	  board = new Board(new AlphaBoardFactory());
 	  currentPlayer = 0;
 	  currentState = State.move;
   }

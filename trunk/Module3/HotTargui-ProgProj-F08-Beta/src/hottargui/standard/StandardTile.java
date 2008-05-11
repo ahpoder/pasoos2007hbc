@@ -35,4 +35,8 @@ public class StandardTile implements Tile {
     return "Tile ("+position.getRow()+","+position.getColumn()+") "+
 	   "units="+ unit;
   }
+	
+  public int getStrategicValue(){
+	return 0; //fake it
+  };
 }
