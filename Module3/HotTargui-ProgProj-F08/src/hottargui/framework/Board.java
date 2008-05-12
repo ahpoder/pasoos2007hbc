@@ -6,7 +6,7 @@ public interface Board {
 	public int getPlayerCount();
 	public boolean hasPlayer(PlayerColor pc);
 	public Player getPlayer(PlayerColor pc);
-	public Iterator<? extends Player> getPlayers();
+	public Iterator<PlayerColor> getPlayers();
 	public Iterator<? extends Tile> getBoardIterator();
 	public Tile getTile( Position p );
 	Tile updateOwnership(Tile t, PlayerColor pc);

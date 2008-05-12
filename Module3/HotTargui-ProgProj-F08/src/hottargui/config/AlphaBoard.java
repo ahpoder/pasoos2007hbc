@@ -33,6 +33,7 @@ public class AlphaBoard implements Board {
 	private BoardFactory boardFactory;
 	public AlphaBoard(BoardFactory boardFactory)
 	{
+		this.boardFactory = boardFactory;
 		tiles = boardFactory.createTiles();
 		players = new HashMap<PlayerColor, Player>();
 		Player[] ps = boardFactory.createPlayers();
@@ -75,7 +76,8 @@ public class AlphaBoard implements Board {
 	@Override
 	public Tile updateOwnership(Tile t, PlayerColor pc) {
 		Position p = t.getPosition();
-		tiles[p.getRow()][p.getColumn()] = boardFactory.createTile(t.getType(), pc, p.getRow(), p.getColumn(), t.getUnitCount());
+		Tile tt = boardFactory.createTile(t.getType(), pc, p.getRow(), p.getColumn(), t.getUnitCount());
+		tiles[p.getRow()][p.getColumn()] = tt;
 		updateBoard();
 		return tiles[p.getRow()][p.getColumn()];
 	}
@@ -83,7 +85,8 @@ public class AlphaBoard implements Board {
 	@Override
 	public Tile updateUnitsOnTile(Tile t, int newCount) {
 		Position p = t.getPosition();
-		tiles[p.getRow()][p.getColumn()] = boardFactory.createTile(t.getType(), t.getOwnerColor(), p.getRow(), p.getColumn(), newCount);
+		Tile tt = boardFactory.createTile(t.getType(), t.getOwnerColor(), p.getRow(), p.getColumn(), newCount);
+		tiles[p.getRow()][p.getColumn()] = tt;
 		return tiles[p.getRow()][p.getColumn()];
 	}
 
@@ -93,8 +96,10 @@ public class AlphaBoard implements Board {
 		return getPlayer(p.getColor());
 	}
 
-	public Iterator<? extends Player> getPlayers() {
-		return players.values().iterator();
+	public Iterator<PlayerColor> getPlayers() {
+		ArrayList<PlayerColor> l = new ArrayList<PlayerColor>();
+		l.addAll(players.keySet());
+		return l.iterator();
 	}
 }
 

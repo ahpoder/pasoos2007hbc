@@ -6,7 +6,7 @@ import hottargui.standard.*;
 public class AlphaBoardFactory implements BoardFactory {
 
 	public Tile[][] createTiles() {
-		Tile[][] tiles = new Tile[6][6];
+		Tile[][] tiles = new Tile[7][7];
 
 		tiles[0][0] = createTile(TileType.Settlement, PlayerColor.Red, 0, 0, 10);
 		tiles[0][1] = createTile(TileType.Erg, PlayerColor.None, 0,1, 0);

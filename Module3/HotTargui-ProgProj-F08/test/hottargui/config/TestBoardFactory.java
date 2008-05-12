@@ -5,14 +5,14 @@ import hottargui.standard.*;
 
 public class TestBoardFactory implements BoardFactory {
 	public AlphaBoardFactory abf = new AlphaBoardFactory();
-	public StandardTile[][] tiles;
+	public StandardTile[][] tiles = new StandardTile[7][7];
 	public TestBoardFactory(TileType tileType)
 	{
 		for (int i = 0; i < 7; ++i)
 		{
 			for (int ii = 0; ii < 7; ++ii)
 			{
-				tiles[i][ii] = new StandardTile(tileType, PlayerColor.None, 0, 1);
+				tiles[i][ii] = new StandardTile(tileType, PlayerColor.None, i, ii);
 			}
 		}
 		
@@ -20,9 +20,9 @@ public class TestBoardFactory implements BoardFactory {
 		tiles[0][0].changeUnitCount(10);
 		tiles[0][6] = new StandardTile(TileType.Settlement, PlayerColor.Green, 0, 6);
 		tiles[0][6].changeUnitCount(10);
-		tiles[6][0] = new StandardTile(TileType.Settlement, PlayerColor.Blue, 0, 6);
+		tiles[6][0] = new StandardTile(TileType.Settlement, PlayerColor.Blue, 6, 0);
 		tiles[6][0].changeUnitCount(10);
-		tiles[6][6] = new StandardTile(TileType.Settlement, PlayerColor.Yellow, 0, 6);
+		tiles[6][6] = new StandardTile(TileType.Settlement, PlayerColor.Yellow, 6, 6);
 		tiles[6][6].changeUnitCount(10);
 	}
 	@Override

@@ -13,7 +13,7 @@ public class AlphaGame implements Game, RoundObserver {
 
   private Board board = null;
   private GameFactory gameFactory;
-  private PlayerTurnStrategy turnStrategy;
+  private PlayerTurnStrategy turnStrategy = null;
   private MoveValidationStrategy moveValidationStrategy;
   int roundsCompleted = 0;
   public AlphaGame() { }
@@ -24,11 +24,15 @@ public class AlphaGame implements Game, RoundObserver {
   }
   
   public void newGame() {
-	  board = new AlphaBoard(new AlphaBoardFactory());
+	  if (turnStrategy != null)
+	  {
+		  turnStrategy.removeRoundDoneObserver(this);
+	  }
+	  board = gameFactory.createBoard();
 	  moveValidationStrategy = gameFactory.createMoveValidationStrategy();
 	  turnStrategy = gameFactory.createTurnStrategy();
 	  currentPlayer = turnStrategy.nextPlayer();
-	  turnStrategy.AddRoundDoneObserver(this);
+	  turnStrategy.addRoundDoneObserver(this);
 	  currentState = State.move;
   }
 
@@ -54,9 +58,9 @@ public class AlphaGame implements Game, RoundObserver {
     	// Perform move
 		Tile tFrom = board.getTile(from);
 		Tile tTo = board.getTile(to);
-		board.updateUnitsOnTile(tFrom, tFrom.getUnitCount() - count);
-		board.updateUnitsOnTile(tTo, tFrom.getUnitCount() + count);
-		board.updateOwnership(tTo, tFrom.getOwnerColor());
+		tFrom = board.updateUnitsOnTile(tFrom, tFrom.getUnitCount() - count);
+		tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() + count);
+		tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
 		currentState = State.buy;
 		return true;
     }
@@ -67,14 +71,14 @@ public class AlphaGame implements Game, RoundObserver {
 		Tile tTo = board.getTile(to);
 		if (tFrom.getUnitCount() > tTo.getUnitCount())
 		{
-			board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());
-			board.updateUnitsOnTile(tFrom, 0);
-			board.updateOwnership(tTo, tFrom.getOwnerColor());
+			tTo = board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());
+			tFrom = board.updateUnitsOnTile(tFrom, 0);
+			tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
 		}
 		else
 		{
-			board.updateUnitsOnTile(tTo, tTo.getUnitCount() - tFrom.getUnitCount());
-			board.updateUnitsOnTile(tFrom, 0);
+			tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() - tFrom.getUnitCount());
+			tFrom = board.updateUnitsOnTile(tFrom, 0);
 		}
 		currentState = State.buy;
 		return true;
@@ -90,8 +94,8 @@ public boolean buy(int count, Position deploy) {
 	    Tile t = board.getTile(deploy);
 	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor())
 	    {
-	      board.updatePlayerUnits(p, p.getCoins() - count);
-	      board.updateUnitsOnTile(t, t.getUnitCount() + count);
+	      p = board.updatePlayerUnits(p, p.getCoins() - count);
+	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
 	      currentState = State.move;
 	      currentPlayer = this.turnStrategy.nextPlayer();
 	  	  return true;
@@ -101,17 +105,17 @@ public boolean buy(int count, Position deploy) {
   }
 
   private void calculateRevenue() {
-	  Iterator<? extends Player> playerItt = board.getPlayers();
+	  Iterator<PlayerColor> playerItt = board.getPlayers();
 	  while (playerItt.hasNext())
 	  {
-		  Player p = playerItt.next();
+		  PlayerColor pc = playerItt.next();
 		  Iterator<? extends Tile> tiles = board.getBoardIterator();
 		  boolean hasSettlement = false;
 		  int revenue = 0;
 		  while (tiles.hasNext())
 		  {
 			  Tile t = tiles.next();
-			  if (t.getOwnerColor() == p.getColor())
+			  if (t.getOwnerColor() == pc)
 			  {
 				  if (t.getType() == TileType.Settlement)
 				  {
@@ -122,7 +126,8 @@ public boolean buy(int count, Position deploy) {
 		  }
 		  if (hasSettlement)
 		  {
-			  board.updatePlayerUnits(p, p.getCoins() + revenue);
+			  Player p = board.getPlayer(pc);
+			  p = board.updatePlayerUnits(p, p.getCoins() + revenue);
 		  }
 	  }
   }
