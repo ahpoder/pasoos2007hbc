@@ -30,4 +30,6 @@ public interface Tile {
    * @return tile type.
    */
   public TileType getType();
+  
+  public int getEcconomicValue();
 }
