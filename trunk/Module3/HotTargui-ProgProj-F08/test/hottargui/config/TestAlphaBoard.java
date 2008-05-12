@@ -1,31 +1,72 @@
 package hottargui.config;
 
-import java.util.Iterator;
-
 import hottargui.framework.*;
-import hottargui.standard.StandardTile;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class TestBoard {
+public class TestAlphaBoard {
 
   Board board;
-  AlphaBoardFactory boardFactory;
+  BoardFactory boardFactory;
 
   @Before 
   public void setUp() {
 	boardFactory = new AlphaBoardFactory();
-    board = new Board(boardFactory);
+    board = new AlphaBoard(boardFactory);
   }
 
   @Test 
-  public void testPlayersCount() {
+  public void playerCountEqualsFour() {
     assertEquals( 4, board.getPlayerCount() );
   }
 
   @Test 
-  public void testTileIterationCount() {
+  public void redPlayerExistInGame()
+  {
+// Test case before refactoring during revenue calculation.
+//	  assertNotNull(board.getPlayer(PlayerColor.Red));
+	  assertTrue(board.hasPlayer(PlayerColor.Red));
+  }
+  
+  @Test 
+  public void redPlayerHasRedPlayerColour()
+  {
+	  assertEquals(PlayerColor.Red, board.getPlayer(PlayerColor.Red));
+  }
+  
+  @Test 
+  public void greenPlayerHasGreenPlayerColour()
+  {
+	  assertEquals(PlayerColor.Green, board.getPlayer(PlayerColor.Green));
+  }
+  
+  @Test 
+  public void tiler0c0EqualsSettlement()
+  {
+	  assertEquals(TileType.Settlement, board.getTile(new Position(0, 0)).getType());
+  }
+  
+  @Test 
+  public void tiler0c0OwnedByRed()
+  {
+	  assertEquals(PlayerColor.Red, board.getTile(new Position(0, 0)).getOwnerColor());
+  }
+  
+  @Test 
+  public void tiler0c0Has10Units()
+  {
+	  assertEquals(10, board.getTile(new Position(0, 0)).getUnitCount());
+  }
+
+/*
+  
+  
+  
+  
+  
+  @Test 
+  public void iterateTilesCountEqualsSevenTimesSeven() {
 	  Iterator<? extends Tile> itt = board.getBoardIterator();
 	  int count = 0;
 	  while (itt.hasNext())
@@ -36,6 +77,14 @@ public class TestBoard {
 	  
 	  assertEquals( 7 * 7, count);
   }
+  
+  void tiler1c1EqualsSettlement()
+  {
+	  assertEquals(TileType.Settlement, board.getTile(new Position(0,0)).getType());
+  }
+  
+  
+  
   
   void testTile(int r, int c, PlayerColor colour, TileType type, int unitCount) {
 	  Tile t = board.getTile(new Position(r,c));
@@ -128,22 +177,22 @@ public class TestBoard {
   
   @Test
   public void testMoveOwnColor() {
-	  assertEquals(Board.MoveAttemptResult.MOVE_VALID, board.validateMove(new Position(0, 0), new Position(0, 1), PlayerColor.Red));
+	  assertEquals(AlphaBoard.MoveAttemptResult.MOVE_VALID, board.validateMove(new Position(0, 0), new Position(0, 1), PlayerColor.Red));
   }
 
   @Test
   public void testMoveOtherColor() {
-	  assertEquals(Board.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 0), new Position(1, 6), PlayerColor.Blue));
+	  assertEquals(AlphaBoard.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 0), new Position(1, 6), PlayerColor.Blue));
   }
 
   @Test
   public void testMoveUnownedTile() {
-	  assertEquals(Board.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 1), new Position(0, 2), PlayerColor.Red));
+	  assertEquals(AlphaBoard.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 1), new Position(0, 2), PlayerColor.Red));
   }
 
   @Test
   public void testMoveToSaltLake() {
-	  assertEquals(Board.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(6, 1), new Position(6, 0), PlayerColor.Blue));
+	  assertEquals(AlphaBoard.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(6, 1), new Position(6, 0), PlayerColor.Blue));
   }
 
   @Test
@@ -152,7 +201,7 @@ public class TestBoard {
 	  StandardTile t = (StandardTile)board.getTile(new Position(0, 2));
 	  t.changePlayerColor(PlayerColor.Red);
 	  
-	  assertEquals(Board.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 2), new Position(0, 3), PlayerColor.Red));
+	  assertEquals(AlphaBoard.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 2), new Position(0, 3), PlayerColor.Red));
   }
 
   @Test
@@ -161,7 +210,7 @@ public class TestBoard {
 	  StandardTile t = (StandardTile)board.getTile(new Position(0, 1));
 	  t.changePlayerColor(PlayerColor.Blue);
 	  
-	  assertEquals(Board.MoveAttemptResult.MOVE_VALID, board.validateMove(new Position(0, 0), new Position(0, 1), PlayerColor.Red));
+	  assertEquals(AlphaBoard.MoveAttemptResult.MOVE_VALID, board.validateMove(new Position(0, 0), new Position(0, 1), PlayerColor.Red));
   }
 
   @Test
@@ -171,15 +220,18 @@ public class TestBoard {
 	  t.changePlayerColor(PlayerColor.Blue);
 	  t.changeUnitCount(10);
 	  
-	  assertEquals(Board.MoveAttemptResult.ATTACK_NEEDED, board.validateMove(new Position(0, 0), new Position(0, 1), PlayerColor.Red));
+	  assertEquals(AlphaBoard.MoveAttemptResult.ATTACK_NEEDED, board.validateMove(new Position(0, 0), new Position(0, 1), PlayerColor.Red));
   }
   
   @Test
   public void testMoveToUnadjoiningTile() {
-	  assertEquals(Board.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 0), new Position(0, 2), PlayerColor.Red));
+	  assertEquals(AlphaBoard.MoveAttemptResult.INVALID_MOVE, board.validateMove(new Position(0, 0), new Position(0, 2), PlayerColor.Red));
   }
   
   // TODO As there are a specific collection of tiles one should test that the players may move onto each of them in turn
   // et least that is what the EQ classes state, yet due to White-box consurns it is known that there is tested for 
   // difference from salt-lake, and it is therefore not necesarry.
+   
+   
+*/
 }
