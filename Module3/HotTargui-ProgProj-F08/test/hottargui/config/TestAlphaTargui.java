@@ -187,6 +187,124 @@ public class TestAlphaTargui {
 	  assertFalse(game.move(new Position(0,0), new Position(1,0), 2));
   }
   
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithEightCamlesValid()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(8);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  assertTrue(game.move(new Position(0,0), new Position(1,0), 2));
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithEightCamlesResultsInRedOwnershipOfErg()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(8);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(PlayerColor.Red, game.getTile(new Position(1,0)).getOwnerColor());
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithEightCamlesResultsInTwoCamelsOnErg()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(8);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(2, game.getTile(new Position(1,0)).getUnitCount());
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithEightCamlesResultsInZeroCamelsOnOrriginalRedTile()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(8);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(0, game.getTile(new Position(0,0)).getUnitCount());
+  }
+
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithElevenCamlesValid()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(11);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  assertTrue(game.move(new Position(0,0), new Position(1,0), 2));
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWitElevenCamlesResultsInYellowOwnershipOfErg()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(11);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(PlayerColor.Yellow, game.getTile(new Position(1,0)).getOwnerColor());
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithElevenCamlesResultsInOneCamelsOnErg()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(11);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(1, game.getTile(new Position(1,0)).getUnitCount());
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithElevenCamlesResultsInZeroCamelsOnRedTile()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(11);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(0, game.getTile(new Position(0,0)).getUnitCount());
+  }
+  
+  @Test
+  public void redMoveTwoCamelsFromRedOwnedTileWithTenCamelsToBoarderingYellowOwnedErgWithElevenCamlesResultsInYellowOwnershipOfErg()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[1][0].changeUnitCount(11);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  game.move(new Position(0,0), new Position(1,0), 2);
+	  assertEquals(PlayerColor.Yellow, game.getTile(new Position(1,0)).getOwnerColor());
+  }
+  
+  @Test
+  public void redMoveTwoCamelsToBoarderingRedOwnedTileWithTwoUnitsResultsInFourCamelsOnTo_Tile()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Red);
+	  tbf.tiles[1][0].changeUnitCount(2);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  assertTrue(game.move(new Position(0,0), new Position(1,0), 2));
+	  assertEquals(4, game.getTile(new Position(1,0)).getUnitCount());
+  }
+  
   
   
   

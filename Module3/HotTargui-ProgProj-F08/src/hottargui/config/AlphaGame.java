@@ -69,7 +69,7 @@ public class AlphaGame implements Game, RoundObserver {
     	// Perform attack
 		Tile tFrom = board.getTile(from);
 		Tile tTo = board.getTile(to);
-		if (tFrom.getUnitCount() > tTo.getUnitCount())
+		if (isAttackValid(tFrom, tTo))
 		{
 			tTo = board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());
 			tFrom = board.updateUnitsOnTile(tFrom, 0);
@@ -85,6 +85,10 @@ public class AlphaGame implements Game, RoundObserver {
     }
 	return false;
   }
+
+private boolean isAttackValid(Tile from, Tile to) {
+	return from.getUnitCount() > to.getUnitCount();
+}
 
 public boolean buy(int count, Position deploy) {
 	// It is allowed to buy without having moved, but the turn goes to the next player
