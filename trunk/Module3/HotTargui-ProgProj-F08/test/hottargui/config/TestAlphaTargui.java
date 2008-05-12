@@ -46,7 +46,7 @@ public class TestAlphaTargui {
   private void goToBlueTurn()
   {
 	  goToGreenTurn();
-	  assertTrue(game.buy(0, new Position(6,0)));
+	  assertTrue(game.buy(0, new Position(0,6)));
   }
 
   @Test
@@ -60,7 +60,7 @@ public class TestAlphaTargui {
   private void goToYellowTurn()
   {
 	  goToBlueTurn();
-	  assertTrue(game.buy(0, new Position(0,6)));
+	  assertTrue(game.buy(0, new Position(6,0)));
   }
 
   @Test
@@ -89,7 +89,7 @@ public class TestAlphaTargui {
   public void buyBuyAllowed()
   {
 	  assertTrue(game.buy(0, new Position(0,0)));
-	  assertTrue(game.buy(0, new Position(6,0)));
+	  assertTrue(game.buy(0, new Position(0,6)));
   }
   
   @Test
@@ -152,8 +152,7 @@ public class TestAlphaTargui {
   @Test
   public void redMoveTwoCamelsFromSettlementWithTenCamelsToSaltLakeInvalid()
   {
-	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
-	  tbf.tiles[1][0] = new StandardTile(TileType.Saltlake, PlayerColor.None, 1, 0);
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Saltlake);
 	  gameFactory = new TestGameFactory(game, tbf);
 	  initialize();
 	  assertFalse(game.move(new Position(0,0), new Position(1,0), 2));
@@ -187,6 +186,7 @@ public class TestAlphaTargui {
 	  initialize();
 	  assertFalse(game.move(new Position(0,0), new Position(1,0), 2));
   }
+  
   
   
   

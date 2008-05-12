@@ -32,13 +32,13 @@ public class TestAlphaBoard {
   @Test 
   public void redPlayerHasRedPlayerColour()
   {
-	  assertEquals(PlayerColor.Red, board.getPlayer(PlayerColor.Red));
+	  assertEquals(PlayerColor.Red, board.getPlayer(PlayerColor.Red).getColor());
   }
   
   @Test 
   public void greenPlayerHasGreenPlayerColour()
   {
-	  assertEquals(PlayerColor.Green, board.getPlayer(PlayerColor.Green));
+	  assertEquals(PlayerColor.Green, board.getPlayer(PlayerColor.Green).getColor());
   }
   
   @Test 

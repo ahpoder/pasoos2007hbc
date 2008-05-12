@@ -23,7 +23,6 @@ public class SimpleTurnStrategy implements PlayerTurnStrategy{
 	int playerTurn = 0;
 	PlayerColor[] players;
 	public PlayerColor nextPlayer() {
-		PlayerColor currentTurn = players[playerTurn++];
 		if (playerTurn >= players.length)
 		{
 			Iterator<RoundObserver> itt = observers.iterator();
@@ -34,12 +33,17 @@ public class SimpleTurnStrategy implements PlayerTurnStrategy{
 			roundsCompleted = 0;
 			playerTurn = 0;
 		}
+		PlayerColor currentTurn = players[playerTurn++];
 		return currentTurn;
 	}
 
 	List<RoundObserver> observers = new ArrayList<RoundObserver>();
-	public void AddRoundDoneObserver(RoundObserver observer) {
+	public void addRoundDoneObserver(RoundObserver observer) {
 		observers.add(observer);
+	}
+
+	public void removeRoundDoneObserver(RoundObserver observer) {
+		observers.remove(observer);
 	}
 }
 
