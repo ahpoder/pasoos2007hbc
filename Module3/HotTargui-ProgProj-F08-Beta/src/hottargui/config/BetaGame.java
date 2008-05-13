@@ -1,179 +1,193 @@
-package	hottargui.view;
+package	hottargui.config;
 
 import hottargui.framework.*;
-import hottargui.standard.*;
 
 import java.util.*;
 
-/** Fake-it implementation of Game interface. This implementation does
-    not represent any valid implementation at all; it merely provides
-    minimal implemenation, just enough to demonstrate that
-    state changes are properly reflected on the GUI via the
-    GameListener attached. As such, it serves as a stub to facilitate
-    GUI testing.
-
-    Characteristics:
-    There are two players, red, and green and turns alternate between them.
-    No statemachine is implemented. The board is all Erg except for
-    a saltmine, settlement and an oasis. Rolling die simply go over
-    1-2-3-4-5-6 and over again. All moves are legel no matter the
-    distance or who owns the tile EXCEPT (4,4).
-    
-    Author: Henrik Bærbak Christensen.
+/** BetaGame implementation.
+    Presently simply a temporary test stub to be expanded
+    by a test-driven process.
  */
 
-public class BetaGame implements Game {
+public class BetaGame implements Game, RoundObserver {
 
-  StandardTile settlement, saltmine;
-  StandardPlayer pRed, pGreen, inTurn;
-  List<Tile> l;
+  private Board board = null;
+  private GameFactory gameFactory;
+  private PlayerTurnStrategy turnStrategy = null;
+  private MoveValidationStrategy moveValidationStrategy;
+  int roundsCompleted = 0;
+  public BetaGame() { }
   
-  public BetaGame() {
-    settlement = new StandardTile(TileType.Settlement, PlayerColor.Red,
-                                  0,0 );
-    settlement.changeUnitCount(23);
-    saltmine = new StandardTile(TileType.Saltmine, PlayerColor.Blue,
-                                3,3 );
-    saltmine.changeUnitCount(43);
-    pRed = new StandardPlayer(PlayerColor.Red);
-    pGreen = new StandardPlayer(PlayerColor.Green);
-    // Give green a lot in treasury
-    pGreen.add(25);
-    inTurn = pRed;
-
-    defineList();
-  }
-
-  public void fakeMove(int r1, int c1, PlayerColor col1, int u1,
-                  int r2, int c2, PlayerColor col2, int u2 ) {
-    
-    changeTile(r1,c1, col1, u1);
-    changeTile(r2,c2, col2, u2);
+  public void setGameFactory(GameFactory gameFactory)
+  {
+	  this.gameFactory = gameFactory;
   }
   
-  private void changeTile(int r, int c, PlayerColor col, int u) {
-    StandardTile t = (StandardTile) l.get(r*7+c);
-    t.changeUnitCount(u);
-    t.changePlayerColor(col);
-    _notifyTileChange(t);
-  }
-
-  /** fake-it move; position to == (4,4) is illegal to test illegal
-      moves. */
-  public boolean move(Position from, Position to, int count) {
-    if ( to.getRow() == 4 && to.getColumn() == 4 ) {
-      _notifyMessage( "(4,4) is an illegal move" );
-      return false;
-    } 
-    
-    _notifyMessage("Move made from "+from+" to "+ to );
-    Tile f = getTile(from);
-    Tile t = getTile(to);
-    int source = f.getUnitCount();
-    int dest = t.getUnitCount();
-    changeTile( f.getPosition().getRow(), f.getPosition().getColumn(),
-                f.getOwnerColor(), source-count );
-    changeTile( t.getPosition().getRow(), t.getPosition().getColumn(),
-                f.getOwnerColor(), dest+count );
-    return true;
-  }
-
-  public boolean buy(int count, Position deploy) {
-    Tile t = getTile(deploy);
-    int source = t.getUnitCount();
-    changeTile(t.getPosition().getRow(), t.getPosition().getColumn(),
-               t.getOwnerColor(), source+count ); 
-    inTurn.withdraw(count);
-    _notifyMessage("Buy made of "+count+" units for player "+
-                   inTurn.getColor() + " Treasury now: "+ inTurn.getCoins() );
-    _notifyPlayer();
-    return true;
-  }
-
-  int dieValue = 1;
-  public void rollDie() {
-    dieValue++;
-    if (dieValue==6) dieValue = 1;
-    _notifyDie();
-    _notifyMessage("Die rolled, new dieValue: "+dieValue );
-  }
-
   public void newGame() {
+	  if (turnStrategy != null)
+	  {
+		  turnStrategy.removeRoundDoneObserver(this);
+	  }
+	  board = gameFactory.createBoard();
+	  moveValidationStrategy = gameFactory.createMoveValidationStrategy();
+	  turnStrategy = gameFactory.createTurnStrategy();
+	  currentPlayer = turnStrategy.nextPlayer();
+	  turnStrategy.addRoundDoneObserver(this);
+	  currentState = State.move;
   }
 
   /** return a specific tile */
   public Tile getTile( Position p ) {
-    return l.get(p.getRow()*7+p.getColumn());
-  }
-  
-  public Player getPlayerInTurn() {
-    return inTurn;
+    return board.getTile(p);
   }
 
+  private PlayerColor currentPlayer = PlayerColor.Red;
+  public Player getPlayerInTurn() {
+    return board.getPlayer(currentPlayer);
+  }
+
+  State currentState = State.move;
   public State getState() {
-    return State.move;
+    return currentState;
+  }
+
+  public boolean move(Position from, Position to, int count) {
+	MoveAttemptResult res = moveValidationStrategy.validateMove(from, to, getPlayerInTurn().getColor());
+	if (res == MoveAttemptResult.MOVE_VALID)
+    {
+    	// Perform move
+		Tile tFrom = board.getTile(from);
+		Tile tTo = board.getTile(to);
+		tFrom = board.updateUnitsOnTile(tFrom, tFrom.getUnitCount() - count);
+		tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() + count);
+		tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
+		currentState = State.buy;
+		return true;
+    }
+    else if (res == MoveAttemptResult.ATTACK_NEEDED)
+    {
+    	// Perform attack
+		Tile tFrom = board.getTile(from);
+		Tile tTo = board.getTile(to);
+		if (isAttackValid(tFrom, tTo))
+		{
+			tTo = board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());
+			tFrom = board.updateUnitsOnTile(tFrom, 0);
+			tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
+		}
+		else
+		{
+			tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() - tFrom.getUnitCount());
+			tFrom = board.updateUnitsOnTile(tFrom, 0);
+		}
+		currentState = State.buy;
+		return true;
+    }
+	return false;
+  }
+
+private boolean isAttackValid(Tile from, Tile to) {
+	return from.getUnitCount() > to.getUnitCount();
+}
+
+public boolean buy(int count, Position deploy) {
+	// It is allowed to buy without having moved, but the turn goes to the next player
+	if (getState() == State.buy || getState() == State.move)
+	{
+	    Player p = getPlayerInTurn();
+	    Tile t = board.getTile(deploy);
+	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor())
+	    {
+	      p = board.updatePlayerUnits(p, p.getCoins() - count);
+	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
+	      currentState = State.move;
+	      do
+	      {
+	    	  currentPlayer = this.turnStrategy.nextPlayer();
+	      }
+	      while (!board.hasPlayer(currentPlayer));
+	  	  return true;
+	    }
+	}
+    return false;
+  }
+
+  private void calculateRevenue() {
+	  Iterator<PlayerColor> playerItt = board.getPlayers();
+	  while (playerItt.hasNext())
+	  {
+		  PlayerColor pc = playerItt.next();
+		  Iterator<? extends Tile> tiles = board.getBoardIterator();
+		  boolean hasSettlement = false;
+		  int revenue = 0;
+		  while (tiles.hasNext())
+		  {
+			  Tile t = tiles.next();
+			  if (t.getOwnerColor() == pc)
+			  {
+				  if (t.getType() == TileType.Settlement)
+				  {
+					  hasSettlement = true;
+				  }
+				  revenue += t.getEcconomicValue();
+			  }
+		  }
+		  if (hasSettlement)
+		  {
+			  Player p = board.getPlayer(pc);
+			  p = board.updatePlayerUnits(p, p.getCoins() + revenue);
+		  }
+	  }
+  }
+
+public PlayerColor turnCard() {
+    return PlayerColor.None;
+  }
+
+  public void rollDie() {
   }
 
   public int getDieValue() {
-    return dieValue;
-  }
-
-  public PlayerColor turnCard() {
-    if (inTurn == pRed) {
-      inTurn = pGreen;
-    } else {
-      inTurn = pRed;
-    }
-    _notifyPlayer();
-    return inTurn.getColor();
-  }
-
-  public Iterator<Tile> getBoardIterator() {
-    return l.iterator();
-  }
-
-  public GameListener listener = null;
-  public void addGameListener( GameListener observer ) {
-    if ( listener != null ) 
-      throw new RuntimeException("AlphaGame only supports one listener." );
-    listener = observer;
+    return 1;
   }
   
-  private void _notifyTileChange(Tile t) {
-    listener.updateTile(t);
+  public Iterator<? extends Tile> getBoardIterator() {
+    return board.getBoardIterator();
   }
 
-  private void _notifyMessage(String s ) {
-    listener.report(s);
+  private ArrayList<GameListener> listeners = new ArrayList<GameListener>();
+  public void addGameListener( GameListener observer ) {
+	  listeners.add(observer);
   }
 
-  private void _notifyDie() {
-    listener.updateDie( getDieValue() );
+  public void report(String s) {
+	  Iterator<GameListener> itt = listeners.iterator();
+	  while (itt.hasNext())
+	  {
+		  GameListener obs = itt.next();
+		  obs.report(s);
+	  }
   }
 
-  private void _notifyPlayer() {
-    listener.updatePlayer( inTurn.getColor() );
-  }
+	public PlayerColor getWinner() {
+		if (turnStrategy.getRoundCount() >= 25)
+		{
+			currentState = State.newGame;
+			Iterator<? extends Tile> itt = board.getBoardIterator();
+			while (itt.hasNext())
+			{
+				Tile t = itt.next();
+				if (t.getType() == TileType.Saltmine)
+				{
+					return t.getOwnerColor();
+				}
+			}
+		}
+		return PlayerColor.None;
+	}
 
-  private void defineList() {
-    l = new ArrayList<Tile>();
-    for ( int r = 0; r < 7; r++ ) {
-      for ( int c = 0; c < 7; c++ ) {
-        if ( r ==0 && c == 0 ) {
-          l.add( settlement );
-        } else if ( r == 3 && c == 3 ) {
-          l.add( saltmine );
-         } else if ( r == 4 && c == 4 ) {
-          l.add(  new StandardTile(TileType.Saltlake, PlayerColor.None,
-                                   r, c) );
-        } else if( r == 5 && c == 2 ) {
-          l.add( new StandardTile(TileType.Oasis, PlayerColor.None,
-                                  r, c) );
-        } else { 
-          l.add( new StandardTile(TileType.Erg, PlayerColor.None,
-                                  r, c) );
-        }
-      }
-    }
-  }
+	public void roundDone() {
+		calculateRevenue();
+	}
 }
+

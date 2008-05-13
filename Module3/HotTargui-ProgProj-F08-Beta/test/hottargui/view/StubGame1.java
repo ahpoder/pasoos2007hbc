@@ -176,4 +176,9 @@ public class StubGame1 implements Game {
       }
     }
   }
+
+public PlayerColor getWinner() {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

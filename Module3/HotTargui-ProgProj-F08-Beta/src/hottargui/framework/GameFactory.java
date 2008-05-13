@@ -13,13 +13,7 @@ public interface GameFactory {
 
 	// Creates the strategy for player turn
 	PlayerTurnStrategy createTurnStrategy();
-
-	// Create the rules for where the units can be put after they are bought   	
-	PutUnitsStrategy createPutUnitsStrategy();
-
-	// Create the rules for how attacks are carried out.   
-	AttackStrategy createAttackStrategy();
-
-	// Create the rules for how to find the winner of the game.    
-	WinnerStrategy createWinnerStrategy();
+	
+	// Creates the strategy for evaluating move validity
+	MoveValidationStrategy createMoveValidationStrategy();
 }
