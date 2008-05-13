@@ -84,6 +84,7 @@ public class AlphaBoardFactory implements BoardFactory {
 
 	public Player createPlayer(PlayerColor pc, int unitCount) {
 		StandardPlayer sp = new StandardPlayer(pc);
+		sp.withdraw(sp.getCoins()); // A default value is hard-coded in standardPlayer, so we remove it
 		sp.add(unitCount);
 		return sp;
 	}

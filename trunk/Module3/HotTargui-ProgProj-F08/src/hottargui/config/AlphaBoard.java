@@ -4,7 +4,7 @@ import hottargui.framework.*;
 
 import java.util.*;
 
-public class AlphaBoard implements Board {
+public class AlphaBoard implements TestBoard {
 	private Tile[][] tiles;
 
 	private void updateBoard()
@@ -42,6 +42,7 @@ public class AlphaBoard implements Board {
 			Player p = ps[i];
 			players.put(p.getColor(), p);
 		}
+		updateBoard();
 	}
 	public int getPlayerCount() {
 		return players.size();
@@ -68,12 +69,10 @@ public class AlphaBoard implements Board {
 		return tiles[p.getRow()][p.getColumn()];
 	}
 
-	@Override
 	public boolean hasPlayer(PlayerColor pc) {
 		return players.containsKey(pc);
 	}
 
-	@Override
 	public Tile updateOwnership(Tile t, PlayerColor pc) {
 		Position p = t.getPosition();
 		Tile tt = boardFactory.createTile(t.getType(), pc, p.getRow(), p.getColumn(), t.getUnitCount());
@@ -82,7 +81,6 @@ public class AlphaBoard implements Board {
 		return tiles[p.getRow()][p.getColumn()];
 	}
 
-	@Override
 	public Tile updateUnitsOnTile(Tile t, int newCount) {
 		Position p = t.getPosition();
 		Tile tt = boardFactory.createTile(t.getType(), t.getOwnerColor(), p.getRow(), p.getColumn(), newCount);

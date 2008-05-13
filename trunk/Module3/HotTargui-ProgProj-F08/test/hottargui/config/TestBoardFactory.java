@@ -25,22 +25,20 @@ public class TestBoardFactory implements BoardFactory {
 		tiles[6][6] = new StandardTile(TileType.Settlement, PlayerColor.Yellow, 6, 6);
 		tiles[6][6].changeUnitCount(10);
 	}
-	@Override
+
 	public Player[] createPlayers() {
 		return abf.createPlayers();
 	}
 		
-	@Override
 	public Tile createTile(TileType tt, PlayerColor pc, int r, int c,
 			int unitCount) {
 		return abf.createTile(tt, pc, r, c, unitCount);
 	}
 
-	@Override
 	public Tile[][] createTiles() {
 		return tiles;
 	}
-	@Override
+
 	public Player createPlayer(PlayerColor pc, int unitCount) {
 		return abf.createPlayer(pc, unitCount);
 	}

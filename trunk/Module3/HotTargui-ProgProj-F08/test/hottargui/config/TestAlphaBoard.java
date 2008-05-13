@@ -3,11 +3,12 @@ package hottargui.config;
 import hottargui.framework.*;
 
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 public class TestAlphaBoard {
 
-  Board board;
+  TestBoard board;
   BoardFactory boardFactory;
 
   @Before 
@@ -59,11 +60,17 @@ public class TestAlphaBoard {
 	  assertEquals(10, board.getTile(new Position(0, 0)).getUnitCount());
   }
 
-/*
+  @Test
+  public void yellowLoosesOnlyTileResultsInPlayerCountThree()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[6][6].changePlayerColor(PlayerColor.Red);
+	  board = new AlphaBoard(tbf);
+	  assertEquals(3, board.getPlayerCount());
+  }
   
   
-  
-  
+/* Old test included for history
   
   @Test 
   public void iterateTilesCountEqualsSevenTimesSeven() {
