@@ -331,9 +331,13 @@ public class TestAlphaTargui {
   }
   
   @Test
-  public void redWithTenCoinsBuyTwoCamelsForUnownedErgInvalid()
+  public void redWithTenCoinsBuyTwoCamelsForRedOwnedErgInvalid()
   {
-	  assertFalse(game.buy(2, new Position(0,6)));
+  	  TestBoardFactory tbf = new TestBoardFactory(TileType.Saltmine);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Red);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  assertFalse(game.buy(2, new Position(1,0)));
   }
   
   @Test
