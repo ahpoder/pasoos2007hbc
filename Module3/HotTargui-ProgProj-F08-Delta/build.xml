@@ -101,12 +101,28 @@
 
   <!-- JUNIT TESTING -->
   <target name="test" depends="build_all">
+  
+      <junit>
+      <classpath refid="_classpath" />
+      <formatter type="xml"/>
+      <test name="hottargui.TestAll" />
+    </junit>
+
+	<!--
     <java 
       fork="yes"
       classname="org.junit.runner.JUnitCore">
       <classpath> <path refid="_classpath"/> </classpath>
       <arg value="hottargui.TestAll"/>
-    </java>      
+    </java>
+	-->
+	<mkdir dir="./reports"/>
+		<junitreport todir="./report">
+			<fileset dir=".">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="./report/html"/>
+		</junitreport>	
   </target>
 
   
