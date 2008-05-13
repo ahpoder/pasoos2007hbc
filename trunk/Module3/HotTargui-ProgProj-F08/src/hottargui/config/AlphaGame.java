@@ -173,8 +173,15 @@ public PlayerColor turnCard() {
 		if (turnStrategy.getRoundCount() >= 25)
 		{
 			currentState = State.newGame;
-			Tile t = board.getTile(new Position(3,3));
-			return t.getOwnerColor();
+			Iterator<? extends Tile> itt = board.getBoardIterator();
+			while (itt.hasNext())
+			{
+				Tile t = itt.next();
+				if (t.getType() == TileType.Saltmine)
+				{
+					return t.getOwnerColor();
+				}
+			}
 		}
 		return PlayerColor.None;
 	}
