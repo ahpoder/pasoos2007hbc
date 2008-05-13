@@ -106,5 +106,6 @@ public interface Game {
    * @return the integer value of the die, in the interval 1..6
    */
   public int getDieValue();
+  
+  public PlayerColor getWinner();
 }
-

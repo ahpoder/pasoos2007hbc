@@ -5,8 +5,8 @@ package hottargui.framework;
 */  
 
 public interface PlayerTurnStrategy {
-
-//	public PlayerColor nextPlayer();
-		public int getRoundCount();
-//	public void AddRoundDoneObserver(IRoundObserver observer);
+	public PlayerColor nextPlayer();
+	public int getRoundCount();
+	public void addRoundDoneObserver(RoundObserver observer);
+	public void removeRoundDoneObserver(RoundObserver observer);
 }

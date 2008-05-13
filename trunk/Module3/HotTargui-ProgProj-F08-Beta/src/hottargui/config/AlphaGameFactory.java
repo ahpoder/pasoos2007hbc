@@ -2,26 +2,23 @@ package hottargui.config;
 
 import hottargui.framework.*;
 
-public class AlphaGameFactory implements GameFactory{
-
+public class AlphaGameFactory implements GameFactory {
+	private Game game;
+	public AlphaGameFactory(Game g)
+	{
+		game = g;
+	}
+	
 	public Board createBoard() {
-		return new Board(new AlphaBoardFactory());
+		AlphaBoardFactory abf = new AlphaBoardFactory();
+		return new AlphaBoard(abf);
 	}
 
 	public PlayerTurnStrategy createTurnStrategy() {
 		return new SimpleTurnStrategy();
 	}
 
-	public WinnerStrategy createWinnerStrategy() {
-		return new AlphaWinnerStrategy();
-	}
-
-	public PutUnitsStrategy createPutUnitsStrategy() {
-		return new AlphaPutUnitsStrategy();
-	}
-
-	public AttackStrategy createAttackStrategy() {
-		return new AlphaAttackStrategy();
+	public MoveValidationStrategy createMoveValidationStrategy() {
+		return new StandardMoveValidationStrategy(game);
 	}
 }
-

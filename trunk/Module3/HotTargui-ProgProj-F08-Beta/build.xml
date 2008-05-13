@@ -37,13 +37,6 @@
 
     Ant build system for HotTargui.
       Targets are:
-      
-      Gui targets,
-        Alpha: Play Alpha game variant.
-        Beta: Play Beta game variant.
-        Delta: Play Delta game variant.
-        Gamma: Play Gamma game variant.
-        Semi: Play Semi game variant.
     
       Testing: 
         clean: Delete the build output directory.
@@ -94,38 +87,6 @@
 	<include name="*.lst"/>
       </fileset>
     </copy>
-  </target>
-  
-  <!-- == GUI == -->
-  
-  <target name="Alpha" depends="build_all">
-    <java fork="yes" classname="hottargui.view.Alpha">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-
-  <target name="Beta" depends="build_all">
-    <java fork="yes" classname="hottargui.view.Beta">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-
-  <target name="Delta" depends="build_all">
-  	<java fork="yes" classname="hottargui.view.Delta">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-
-  <target name="Gamma" depends="build_all">
-    <java fork="yes" classname="hottargui.view.Gamma">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-
-  <target name="Semi" depends="build_all">
-    <java fork="yes" classname="hottargui.view.Semi">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
   </target>
  
   <target name="clean">

@@ -16,7 +16,8 @@ import minidraw.framework.*;
 public class Alpha {
   
   public static void main(String[] args) {
-    Game game = new StandardGame(new AlphaGameFactory());
+//    Game game = new StandardGame(new AlphaGameFactory());
+    Game game = new AlphaGame();
     game.newGame();
     ViewFactory f = new ViewFactory(game);
     DrawingEditor window = new MiniDrawApplication("TarGui", f);
