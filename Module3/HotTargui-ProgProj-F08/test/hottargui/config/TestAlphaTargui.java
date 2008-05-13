@@ -305,10 +305,133 @@ public class TestAlphaTargui {
 	  assertEquals(4, game.getTile(new Position(1,0)).getUnitCount());
   }
   
+  @Test
+  public void redWithTenCoinsBuyFiveCamelsForRedSettlementValid()
+  {
+	  assertTrue(game.buy(5, new Position(0,0)));
+  }
+    
+  @Test
+  public void redWithTenCoinsBuyFiveCamelsForRedSettlementResultsInFifteenCamelsOnSettlement()
+  {
+	  game.buy(5, new Position(0,0));
+	  assertEquals(15, game.getTile(new Position(0,0)).getUnitCount());
+  }
+  
+  @Test
+  public void redWithTenCoinsBuyElevenCamelsForRedSettlementInvalid()
+  {
+	  assertFalse(game.buy(11, new Position(0,0)));
+  }
+  
+  @Test
+  public void redWithTenCoinsBuyTwoCamelsForGreenSettlementInvalid()
+  {
+	  assertFalse(game.buy(2, new Position(0,6)));
+  }
+  
+  @Test
+  public void redWithTenCoinsBuyTwoCamelsForUnownedErgInvalid()
+  {
+	  assertFalse(game.buy(2, new Position(0,6)));
+  }
+  
+  @Test
+  public void revenueRedWithSettlementGivesFourteenUnitsToRed()
+  {
+	  completeRound();
+	  assertEquals(14, game.getPlayerInTurn().getCoins());
+  }
+  
+  @Test
+  public void revenueRedWithSettlementAndSaltMineGivesNineteenUnitsToRed()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Saltmine);
+	  tbf.tiles[1][0].changePlayerColor(PlayerColor.Red);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  completeRound();
+	  assertEquals(19, game.getPlayerInTurn().getCoins());
+  }
+  
+  @Test
+  public void revenueGreenWithSettlementGivesFourteenUnitsToGreen()
+  {
+	  completeRound();
+	  goToGreenTurn();
+	  assertEquals(14, game.getPlayerInTurn().getCoins());
+  }
+  
+  @Test
+  public void revenueYellowWithErgButNoSettlementGivesTenUnitsToYellow()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[6][5].changePlayerColor(PlayerColor.Yellow);
+	  tbf.tiles[6][6].changePlayerColor(PlayerColor.Red);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  goToYellowTurn();
+	  assertTrue(game.buy(0, new Position(6,5)));
+	  goToYellowTurn();
+	  assertEquals(10, game.getPlayerInTurn().getCoins());
+  }
+  
+  @Test
+  public void currentPlayerAfterRedWithGreenDeadIsBlue()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[0][6].changePlayerColor(PlayerColor.Red);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  assertTrue(game.buy(0, new Position(0,0)));
+	  assertEquals(PlayerColor.Blue, game.getPlayerInTurn().getColor());
+  }
+  
+  @Test
+  public void currentPlayerAfterRedWithGreenAndBlueDeadIsYellow()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[0][6].changePlayerColor(PlayerColor.Red);
+	  tbf.tiles[6][0].changePlayerColor(PlayerColor.Red);
+	  gameFactory = new TestGameFactory(game, tbf);
+	  initialize();
+	  assertTrue(game.buy(0, new Position(0,0)));
+	  assertEquals(PlayerColor.Yellow, game.getPlayerInTurn().getColor());
+  }
+  
+  @Test
+  public void winnerInFirstRoundIsNone()
+  {
+	  assertEquals(PlayerColor.None, game.getWinner());
+  }
+  
+  @Test
+  public void redOwnsSaltMineAfterTwentyfiveTurnsGivesRedWinner()
+  {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[0][6].changePlayerColor(PlayerColor.Red);
+	  tbf.tiles[6][0].changePlayerColor(PlayerColor.Red);
+	  TestTurnStrategy tts = new TestTurnStrategy();
+	  tts.roundReturnValue = 25;
+	  gameFactory = new TestGameFactory(game, tts);
+	  initialize();
+	  assertEquals(PlayerColor.Red, game.getWinner());
+  }
+  
+  @Test
+  public void yellowOwnsSaltMineAfterTwentyfiveTurnsGivesYellowWinner()
+  {
+	  TestTurnStrategy tts = new TestTurnStrategy();
+	  tts.roundReturnValue = 25;
+	  gameFactory = new TestGameFactory(game, tts);
+	  initialize();
+	  assertEquals(PlayerColor.Yellow, game.getWinner());
+  }
   
   
   
-  ///
+  
+/* All the old tests has been included jyust to show the difference 
   
   
   @Test
@@ -604,4 +727,6 @@ public class TestAlphaTargui {
 	// Validate result Blue = 10 (original) + 4 (settlement) = 14
 	assertEquals(14, game.getPlayerInTurn().getCoins());
   }
+  
+*/
 }

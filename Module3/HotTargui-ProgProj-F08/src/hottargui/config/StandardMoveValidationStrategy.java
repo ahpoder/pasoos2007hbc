@@ -10,7 +10,6 @@ public class StandardMoveValidationStrategy implements MoveValidationStrategy {
 		this.game = game;
 	}
 	
-	@Override
 	public MoveAttemptResult validateMove(Position from, Position to,
 			PlayerColor player) {
 

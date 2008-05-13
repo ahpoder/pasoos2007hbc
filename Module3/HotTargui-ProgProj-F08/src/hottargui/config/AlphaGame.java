@@ -101,7 +101,11 @@ public boolean buy(int count, Position deploy) {
 	      p = board.updatePlayerUnits(p, p.getCoins() - count);
 	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
 	      currentState = State.move;
-	      currentPlayer = this.turnStrategy.nextPlayer();
+	      do
+	      {
+	    	  currentPlayer = this.turnStrategy.nextPlayer();
+	      }
+	      while (!board.hasPlayer(currentPlayer));
 	  	  return true;
 	    }
 	}

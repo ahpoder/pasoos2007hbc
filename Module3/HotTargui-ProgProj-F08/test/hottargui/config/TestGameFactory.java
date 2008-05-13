@@ -4,32 +4,30 @@ import hottargui.framework.*;
 
 public class TestGameFactory implements GameFactory {
 
-	public Game game;
-	public TestGameFactory(Game game)
-	{
-		this.game = game; 
-	}
-	
 	AlphaGameFactory agf;
 	BoardFactory bf;
 	public TestGameFactory(Game g, BoardFactory bf) {
 		agf = new AlphaGameFactory(g);
 		this.bf = bf;
+		pts = agf.createTurnStrategy();
 	}
 
-	@Override
+	PlayerTurnStrategy pts = null;
+	public TestGameFactory(Game g, BoardFactory bf, PlayerTurnStrategy ts) {
+		agf = new AlphaGameFactory(g);
+		this.bf = bf;
+		this.pts = ts;
+	}
+
 	public Board createBoard() {
 		return new AlphaBoard(bf);
 	}
 
-	@Override
 	public PlayerTurnStrategy createTurnStrategy() {
-		return agf.createTurnStrategy();
+		return pts;
 	}
-
-	@Override
+	
 	public MoveValidationStrategy createMoveValidationStrategy() {
-		// TODO Auto-generated method stub
 		return agf.createMoveValidationStrategy();
 	}
 }

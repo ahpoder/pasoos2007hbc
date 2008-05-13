@@ -3,7 +3,6 @@ package hottargui.framework;
 import java.util.Iterator;
 
 public interface Board {
-	public int getPlayerCount();
 	public boolean hasPlayer(PlayerColor pc);
 	public Player getPlayer(PlayerColor pc);
 	public Iterator<PlayerColor> getPlayers();
