@@ -29,6 +29,10 @@ public class DeltaTile implements Tile {
         return playerColor;
     }
 
+    public void changePlayerColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
+    }
+
     public int getUnitCount() {
         return unitCount;
     }
