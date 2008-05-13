@@ -6,7 +6,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
   @Suite.SuiteClasses(
   {   hottargui.config.TestAlphaTargui.class,
-	  hottargui.config.TestBoard.class
+	  hottargui.config.TestBoard.class,
+	  hottargui.config.TestDeltaBoard.class
   })
   
   public class TestAll {
