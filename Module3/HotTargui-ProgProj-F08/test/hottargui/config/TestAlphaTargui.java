@@ -409,11 +409,10 @@ public class TestAlphaTargui {
   public void redOwnsSaltMineAfterTwentyfiveTurnsGivesRedWinner()
   {
 	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
-	  tbf.tiles[0][6].changePlayerColor(PlayerColor.Red);
-	  tbf.tiles[6][0].changePlayerColor(PlayerColor.Red);
+	  tbf.tiles[3][3] = new StandardTile(TileType.Saltmine, PlayerColor.Red, 3, 3);
 	  TestTurnStrategy tts = new TestTurnStrategy();
 	  tts.roundReturnValue = 25;
-	  gameFactory = new TestGameFactory(game, tts);
+	  gameFactory = new TestGameFactory(game, tbf, tts);
 	  initialize();
 	  assertEquals(PlayerColor.Red, game.getWinner());
   }
@@ -421,9 +420,11 @@ public class TestAlphaTargui {
   @Test
   public void yellowOwnsSaltMineAfterTwentyfiveTurnsGivesYellowWinner()
   {
+	  TestBoardFactory tbf = new TestBoardFactory(TileType.Erg);
+	  tbf.tiles[3][3] = new StandardTile(TileType.Saltmine, PlayerColor.Yellow, 3, 3);
 	  TestTurnStrategy tts = new TestTurnStrategy();
 	  tts.roundReturnValue = 25;
-	  gameFactory = new TestGameFactory(game, tts);
+	  gameFactory = new TestGameFactory(game, tbf, tts);
 	  initialize();
 	  assertEquals(PlayerColor.Yellow, game.getWinner());
   }
