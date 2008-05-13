@@ -1,6 +1,7 @@
 package hottargui.config;
 
 import hottargui.framework.*;
+import hottargui.standard.StandardPlayer;
 
 import java.util.*;
 
@@ -16,9 +17,14 @@ public class DeltaBoardFactory implements BoardFactory {
         deck = new DeltaDeck();
     }
 
-    public Player[] createPlayers() {
-        return new Player[0];
-    }
+	public Player[] createPlayers() {
+		Player[] temp = new Player[4];
+		temp[0] = new StandardPlayer(PlayerColor.Red);
+		temp[1] = new StandardPlayer(PlayerColor.Green);
+		temp[2] = new StandardPlayer(PlayerColor.Blue);
+		temp[3] = new StandardPlayer(PlayerColor.Yellow);
+		return temp;
+	}
 
     public Collection<Tile> createTiles() {
 
