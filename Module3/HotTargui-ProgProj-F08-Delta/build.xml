@@ -116,7 +116,7 @@
       <arg value="hottargui.TestAll"/>
     </java>
 	-->
-	<mkdir dir="./reports"/>
+	<mkdir dir="./report"/>
 		<junitreport todir="./report">
 			<fileset dir=".">
 				<include name="TEST-*.xml"/>
