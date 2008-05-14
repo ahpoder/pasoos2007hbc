@@ -1,6 +1,5 @@
 package	hottargui.standard;
 
-import hottargui.config.*;
 import hottargui.framework.*;
 
 import java.util.*;
@@ -16,6 +15,13 @@ public class StandardGame implements Game, RoundObserver {
   private GameFactory gameFactory;
   private PlayerTurnStrategy turnStrategy = null;
   private MoveValidationStrategy moveValidationStrategy;
+  	// The strategy for putting units after buy
+	private PutUnitsStrategy putUnitsStrategy;
+	// The strategy for attack
+	private AttackStrategy attackStrategy;
+	// The strategy for finding the winner
+	private WinnerStrategy winnerStrategy;
+	
   int roundsCompleted = 0;
   public StandardGame() { }
   
@@ -32,6 +38,10 @@ public class StandardGame implements Game, RoundObserver {
 	  board = gameFactory.createBoard();
 	  moveValidationStrategy = gameFactory.createMoveValidationStrategy();
 	  turnStrategy = gameFactory.createTurnStrategy();
+	  putUnitsStrategy = gameFactory.createPutUnitsStrategy();
+		attackStrategy = gameFactory.createAttackStrategy();
+		winnerStrategy = gameFactory.createWinnerStrategy();
+
 	  currentPlayer = turnStrategy.nextPlayer();
 	  turnStrategy.addRoundDoneObserver(this);
 	  currentState = State.move;
@@ -97,7 +107,7 @@ public boolean buy(int count, Position deploy) {
 	{
 	    Player p = getPlayerInTurn();
 	    Tile t = board.getTile(deploy);
-	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor())
+	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor() && (t.getType() == TileType.Settlement || count == 0))
 	    {
 	      p = board.updatePlayerUnits(p, p.getCoins() - count);
 	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
