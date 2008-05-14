@@ -21,4 +21,16 @@ public class AlphaGameFactory implements GameFactory {
 	public MoveValidationStrategy createMoveValidationStrategy() {
 		return new StandardMoveValidationStrategy(game);
 	}
+	
+		public WinnerStrategy createWinnerStrategy() {
+		return new BetaWinnerStrategy();
+	}
+
+	public PutUnitsStrategy createPutUnitsStrategy() {
+		return new BetaPutUnitsStrategy();
+	}
+
+	public AttackStrategy createAttackStrategy() {
+		return new BetaAttackStrategy();
+	}
 }

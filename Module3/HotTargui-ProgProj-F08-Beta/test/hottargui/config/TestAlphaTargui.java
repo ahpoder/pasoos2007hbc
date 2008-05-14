@@ -1,8 +1,7 @@
 package hottargui.config;
 
 import hottargui.framework.*;
-import hottargui.standard.StandardPlayer;
-import hottargui.standard.StandardTile;
+import hottargui.standard.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -14,14 +13,17 @@ public class TestAlphaTargui {
 
   @Before 
   public void setUp() {
-	game = new AlphaGame();
+//  		game = new AlphaGame();
+	game = new StandardGame();
     gameFactory = new AlphaGameFactory(game);
     initialize();
   }
    
   private void initialize()
   {
-    ((AlphaGame)game).setGameFactory(gameFactory);
+    ((StandardGame)game).setGameFactory(gameFactory);
+//        ((AlphaGame)game).setGameFactory(gameFactory);
+
 	game.newGame();
   }
   

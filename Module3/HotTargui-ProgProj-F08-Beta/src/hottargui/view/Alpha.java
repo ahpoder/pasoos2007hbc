@@ -2,6 +2,7 @@ package hottargui.view;
 
 import hottargui.config.*;
 import hottargui.framework.*;
+import hottargui.standard.*;
 
 import minidraw.standard.*;
 import minidraw.framework.*;
@@ -16,9 +17,11 @@ import minidraw.framework.*;
 public class Alpha {
   
   public static void main(String[] args) {
-//    Game game = new StandardGame(new AlphaGameFactory());
-    Game game = new AlphaGame();
-    game.newGame();
+    Game game = new StandardGame();
+    GameFactory gameFactory = new AlphaGameFactory(game);
+    ((StandardGame)game).setGameFactory(gameFactory);
+		game.newGame();
+    
     ViewFactory f = new ViewFactory(game);
     DrawingEditor window = new MiniDrawApplication("TarGui", f);
     window.setTool(new hottargui.view.UnitMoveTool(window, game));
