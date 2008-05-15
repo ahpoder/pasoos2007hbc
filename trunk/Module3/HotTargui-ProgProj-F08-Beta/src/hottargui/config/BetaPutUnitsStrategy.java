@@ -2,20 +2,20 @@ package hottargui.config;
 
 import hottargui.framework.*;
 
-public class BetaPutUnitsStrategy implements PutUnitsStrategy {
-	Tile t;
-	Player p;
+/*
+* When units are bought they can be put in any tile that is in the player's possession
+ */
 
+public class BetaPutUnitsStrategy implements PutUnitsStrategy {
 
 	public boolean isPutValid(Player p, Tile t) {
-		this.t = t;
-		this.p = p;
-		if (t.getOwnerColor() != p.getColor()){
-			return false;
+		
+		// Is player color identical to tile color?
+		if (p.getColor() == t.getOwnerColor()){
+			return true;
 		}
 		else{ 
-			return true;
+			return false;
 		}			
 	}
-
 }

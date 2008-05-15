@@ -107,7 +107,8 @@ public boolean buy(int count, Position deploy) {
 	{
 	    Player p = getPlayerInTurn();
 	    Tile t = board.getTile(deploy);
-	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor() && (t.getType() == TileType.Settlement || count == 0))
+//	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor() && (t.getType() == TileType.Settlement || count == 0))
+	    if ((p.getCoins() >= count) && this.putUnitsStrategy.isPutValid(p, t) && (t.getType() == TileType.Settlement || count == 0))
 	    {
 	      p = board.updatePlayerUnits(p, p.getCoins() - count);
 	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
