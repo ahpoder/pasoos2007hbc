@@ -1,7 +1,6 @@
 package hottargui.config;
 
 import hottargui.framework.*;
-import hottargui.standard.StandardPlayer;
 
 import java.util.*;
 
@@ -13,20 +12,12 @@ public class RandomOrderBoardFactory implements BoardFactory {
 
     private Deck deck;
 
+    private StaticBoardFactory sgf = new StaticBoardFactory();
     public RandomOrderBoardFactory() {
         deck = new DeltaDeck();
     }
 
-	public Player[] createPlayers() {
-		Player[] temp = new Player[4];
-		temp[0] = new StandardPlayer(PlayerColor.Red);
-		temp[1] = new StandardPlayer(PlayerColor.Green);
-		temp[2] = new StandardPlayer(PlayerColor.Blue);
-		temp[3] = new StandardPlayer(PlayerColor.Yellow);
-		return temp;
-	}
-
-    public Collection<Tile> createTiles() {
+    public Tile[][] createTiles() {
 
         // Generate all the available Positions
         ArrayList<Tile> tiles = new ArrayList<Tile>();
@@ -40,8 +31,7 @@ public class RandomOrderBoardFactory implements BoardFactory {
                     Tile tile = deck.getTile(position);
                     tiles.add(tile);
                 } else {
-                    DeltaTile saltmineTile = new DeltaTile(TileType.Saltmine, PlayerColor.None);
-                    saltmineTile.setPosition(position);
+                    Tile saltmineTile = createTile(TileType.Saltmine, PlayerColor.None, position.getRow(), position.getColumn(), 0);
                     tiles.add(saltmineTile);
                 }
             }
@@ -60,26 +50,45 @@ public class RandomOrderBoardFactory implements BoardFactory {
 
             if (row==0 && column==0) {
                 tilesIterator.remove();
-                DeltaTile redSettlement = new DeltaTile(TileType.Settlement, PlayerColor.Red);
-                redSettlement.setPosition(new Position(0,0));
+                Tile redSettlement = createTile(TileType.Settlement, PlayerColor.Red, 0, 0, 10);
                 tilesIterator.add(redSettlement);
             } else if (row==0 && column==6) {
                 tilesIterator.remove();
-                DeltaTile greenSettlement = new DeltaTile(TileType.Settlement, PlayerColor.Green);
-                greenSettlement.setPosition(new Position(0,6));
+                Tile greenSettlement = createTile(TileType.Settlement, PlayerColor.Green, 0, 6, 10);
                 tilesIterator.add(greenSettlement);
             } else if (row==6 && column==0) {
                 tilesIterator.remove();
-                DeltaTile blueSettlement = new DeltaTile(TileType.Settlement, PlayerColor.Blue);
-                blueSettlement.setPosition(new Position(6,0));
+                Tile blueSettlement = createTile(TileType.Settlement, PlayerColor.Blue, 6, 0, 10);
                 tilesIterator.add(blueSettlement);
             } else if (row==6 && column==6) {
                 tilesIterator.remove();
-                DeltaTile yellowSettlement = new DeltaTile(TileType.Settlement, PlayerColor.Yellow);
-                yellowSettlement.setPosition(new Position(6,6));
+                Tile yellowSettlement = createTile(TileType.Settlement, PlayerColor.Yellow, 6, 6, 10);
                 tilesIterator.add(yellowSettlement);
             }
         }
-        return tiles;
+        
+        Tile[][] tilesArray = new Tile[7][7];
+        Iterator<Tile> itt = tiles.iterator();
+        while (itt.hasNext())
+        {
+        	Tile t = itt.next();
+        	Position pos = t.getPosition();
+        	tilesArray[pos.getRow()][pos.getColumn()] = t;
+        }
+        
+        return tilesArray;
     }
+
+	public Player[] createPlayers() {
+		return sgf.createPlayers();
+	}
+
+	public Player createPlayer(PlayerColor pc, int unitCount) {
+		return sgf.createPlayer(pc, unitCount);
+	}
+
+	public Tile createTile(TileType tt, PlayerColor pc, int r, int c,
+			int unitCount) {
+		return sgf.createTile(tt, pc, r, c, unitCount);
+	}
 }

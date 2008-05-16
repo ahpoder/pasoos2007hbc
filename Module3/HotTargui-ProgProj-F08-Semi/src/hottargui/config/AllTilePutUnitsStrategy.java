@@ -6,7 +6,6 @@ public class AllTilePutUnitsStrategy implements PutUnitsStrategy {
 	Tile t;
 	Player p;
 
-
 	public boolean isPutValid(Player p, Tile t) {
 		this.t = t;
 		this.p = p;
@@ -17,5 +16,4 @@ public class AllTilePutUnitsStrategy implements PutUnitsStrategy {
 			return true;
 		}			
 	}
-
 }
