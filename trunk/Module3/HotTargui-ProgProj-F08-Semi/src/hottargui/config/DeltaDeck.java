@@ -1,6 +1,7 @@
 package hottargui.config;
 
 import hottargui.framework.*;
+import hottargui.standard.*;
 
 import java.util.*;
 
@@ -29,43 +30,42 @@ public class DeltaDeck implements Deck {
 
     private void populateDeck() {
         // Add the Saltmine
-        deck.push(new DeltaTile(TileType.Saltmine, PlayerColor.None));
+        deck.push(new StandardTile(TileType.Saltmine, PlayerColor.None, 0, 0));
 
         // Create six Oasis tiles
         for (int i=0; i<6; i++) {
-            deck.push(new DeltaTile(TileType.Oasis, PlayerColor.None));
+            deck.push(new StandardTile(TileType.Oasis, PlayerColor.None, 0, 0));
         }
 
         // Create the twelve Erg tiles
         for (int i=0; i<12; i++) {
-            deck.push(new DeltaTile(TileType.Erg, PlayerColor.None));
+            deck.push(new StandardTile(TileType.Erg, PlayerColor.None, 0, 0));
         }
 
         // Create the twelve Reg tiles
         for (int i=0; i<12; i++) {
-            deck.push(new DeltaTile(TileType.Reg, PlayerColor.None));
+            deck.push(new StandardTile(TileType.Reg, PlayerColor.None, 0, 0));
         }
 
         // Create the eight Fesh-fesh
         for (int i=0; i<8; i++) {
-            deck.push(new DeltaTile(TileType.Feshfesh, PlayerColor.None));
+            deck.push(new StandardTile(TileType.Feshfesh, PlayerColor.None, 0, 0));
         }
 
         // Create six Mountain tiles
         for (int i=0; i<6; i++) {
-            deck.push(new DeltaTile(TileType.Mountain, PlayerColor.None));
+            deck.push(new StandardTile(TileType.Mountain, PlayerColor.None, 0, 0));
         }
 
         // Create the four Saltlakes
         for (int i=0; i<4; i++) {
-            deck.push(new DeltaTile(TileType.Saltlake, PlayerColor.None));
+            deck.push(new StandardTile(TileType.Saltlake, PlayerColor.None, 0, 0));
         }
     }
 
     public Tile getTile(Position position) {
-        DeltaTile tile = (DeltaTile)deck.pop();
-        tile.setPosition(position);
-        return tile;
+        Tile tile = deck.pop();
+        return new StandardTile(tile.getType(), tile.getOwnerColor(), position.getRow(), position.getColumn());
     }
 
     public void shuffleDeck() {

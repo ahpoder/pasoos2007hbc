@@ -2,7 +2,7 @@ package hottargui.config;
 
 import hottargui.framework.*;
 
-public class BetaAttackStrategy implements AttackStrategy{
+public class DieRollAttackStrategy implements AttackStrategy{
 
 	public int attack(Tile tFrom,Tile tTo, int dieValue, int noOfAttackUnits){
 		int deadCamels = Math.round((dieValue + tFrom.getStrategicValue())/2);
