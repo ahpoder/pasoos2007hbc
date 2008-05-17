@@ -7,7 +7,6 @@ package hottargui.framework;
 */
 
 public interface WinnerStrategy {
-
-	PlayerColor getWinner();
-
+	// TODO - we could also give it a TurnStrategy reference
+	PlayerColor getWinner(int round);
 }

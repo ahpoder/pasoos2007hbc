@@ -1,7 +1,9 @@
 package hottargui.config;
 
+import hottargui.factory.*;
 import hottargui.framework.*;
 import hottargui.standard.*;
+import hottargui.strategy.*;
 
 public class AlphaGameFactory implements GameFactory {
 	private Game game;
@@ -27,15 +29,13 @@ public class AlphaGameFactory implements GameFactory {
 		return new SimpleAttackStrategy();
 	}
 
-	@Override
 	public PutUnitsStrategy createPutUnitsStrategy() {
 		// TODO Auto-generated method stub
 		return new SettlementOnlyPutUnitsStrategy();
 	}
 
-	@Override
 	public WinnerStrategy createWinnerStrategy() {
 		// TODO Auto-generated method stub
-		return new SaltMineWinnerStrategy();
+		return new SaltMineWinnerStrategy(game);
 	}
 }

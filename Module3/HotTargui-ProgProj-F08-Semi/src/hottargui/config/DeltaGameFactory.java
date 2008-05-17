@@ -5,19 +5,18 @@ import hottargui.framework.*;
 import hottargui.standard.*;
 import hottargui.strategy.*;
 
-public class BetaGameFactory implements GameFactory{
-
+public class DeltaGameFactory implements GameFactory {
 	private Game game;
-	public BetaGameFactory(Game g)
+	public DeltaGameFactory(Game g)
 	{
 		game = g;
 	}
 	
 	public Board createBoard() {
-		StaticBoardFactory abf = new StaticBoardFactory();
-		return new StandardBoard(abf);
+		RandomOrderBoardFactory rbf = new RandomOrderBoardFactory();
+		return new StandardBoard(rbf);
 	}
-	
+
 	public PlayerTurnStrategy createTurnStrategy() {
 		return new SimpleTurnStrategy();
 	}
@@ -26,16 +25,17 @@ public class BetaGameFactory implements GameFactory{
 		return new StandardMoveValidationStrategy(game);
 	}
 
-	public WinnerStrategy createWinnerStrategy() {
-		return new RevenueWinnerStrategy();
+	public AttackStrategy createAttackStrategy() {
+		return new SimpleAttackStrategy();
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {
-		return new AllTilePutUnitsStrategy();
+		// TODO Auto-generated method stub
+		return new SettlementOnlyPutUnitsStrategy();
 	}
 
-	public AttackStrategy createAttackStrategy() {
-		return new DieRollAttackStrategy();
+	public WinnerStrategy createWinnerStrategy() {
+		// TODO Auto-generated method stub
+		return new RevenueWinnerStrategy();
 	}
 }
-

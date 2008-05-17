@@ -15,7 +15,7 @@ public class StandardGame implements Game, RoundObserver {
   private GameFactory gameFactory;
   private PlayerTurnStrategy turnStrategy = null;
   private MoveValidationStrategy moveValidationStrategy;
-  int roundsCompleted = 0;
+  private WinnerStrategy winnerStrategy;
   public StandardGame() { }
   
   public void setGameFactory(GameFactory gameFactory)
@@ -33,6 +33,7 @@ public class StandardGame implements Game, RoundObserver {
 	  turnStrategy = gameFactory.createTurnStrategy();
 	  currentPlayer = turnStrategy.nextPlayer();
 	  turnStrategy.addRoundDoneObserver(this);
+	  winnerStrategy = gameFactory.createWinnerStrategy();
 	  currentState = State.move;
   }
 
@@ -170,20 +171,7 @@ public PlayerColor turnCard() {
   }
 
 	public PlayerColor getWinner() {
-		if (turnStrategy.getRoundCount() >= 25)
-		{
-			currentState = State.newGame;
-			Iterator<? extends Tile> itt = board.getBoardIterator();
-			while (itt.hasNext())
-			{
-				Tile t = itt.next();
-				if (t.getType() == TileType.Saltmine)
-				{
-					return t.getOwnerColor();
-				}
-			}
-		}
-		return PlayerColor.None;
+		return winnerStrategy.getWinner(turnStrategy.getRoundCount());
 	}
 
 	public void roundDone() {

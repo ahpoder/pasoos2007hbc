@@ -1,4 +1,4 @@
-package hottargui.config;
+package hottargui.strategy;
 
 import hottargui.framework.*;
 
