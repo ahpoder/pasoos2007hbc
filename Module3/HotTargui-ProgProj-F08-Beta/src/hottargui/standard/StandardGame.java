@@ -108,7 +108,7 @@ public boolean buy(int count, Position deploy) {
 	    Player p = getPlayerInTurn();
 	    Tile t = board.getTile(deploy);
 //	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor() && (t.getType() == TileType.Settlement || count == 0))
-	    if ((p.getCoins() >= count) && this.putUnitsStrategy.isPutValid(p, t) && (t.getType() == TileType.Settlement || count == 0))
+	    if ((p.getCoins() >= count && putUnitsStrategy.isPutValid(p, t)) || count == 0)
 	    {
 	      p = board.updatePlayerUnits(p, p.getCoins() - count);
 	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
@@ -141,7 +141,7 @@ public boolean buy(int count, Position deploy) {
 				  {
 					  hasSettlement = true;
 				  }
-				  revenue += t.getEcconomicValue();
+				  revenue += t.getEconomicValue();
 			  }
 		  }
 		  if (hasSettlement)
@@ -185,7 +185,8 @@ public PlayerColor turnCard() {
 		if (turnStrategy.getRoundCount() >= 25)
 		{
 			currentState = State.newGame;
-			Iterator<? extends Tile> itt = board.getBoardIterator();
+			return winnerStrategy.getWinner();
+/*			Iterator<? extends Tile> itt = board.getBoardIterator();
 			while (itt.hasNext())
 			{
 				Tile t = itt.next();
@@ -194,6 +195,7 @@ public PlayerColor turnCard() {
 					return t.getOwnerColor();
 				}
 			}
+*/
 		}
 		return PlayerColor.None;
 	}

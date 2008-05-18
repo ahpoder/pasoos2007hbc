@@ -129,7 +129,7 @@ public boolean buy(int count, Position deploy) {
 				  {
 					  hasSettlement = true;
 				  }
-				  revenue += t.getEcconomicValue();
+				  revenue += t.getEconomicValue();
 			  }
 		  }
 		  if (hasSettlement)

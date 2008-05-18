@@ -36,7 +36,7 @@ public class StandardTile implements Tile {
 	   "units="+ unit;
   }
 
-	public int getEcconomicValue() {
+	public int getEconomicValue() {
 		if (getType() == TileType.Settlement)
 		{
 			return 4;

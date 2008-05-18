@@ -1,20 +1,17 @@
 package hottargui.config;
 
 import hottargui.framework.*;
+import java.util.*;
 
 public class AlphaWinnerStrategy implements WinnerStrategy {
-/*    private Board board;
+  private Game game;
 
-    public AlphaWinnerStrategy(Board board) {
-        this.board = board;
-    }
-*/	
-	public AlphaWinnerStrategy() {
+  public AlphaWinnerStrategy(Game game) {
+  	this.game = game;
 	}
 
 	public PlayerColor getWinner(){
-//			Tile saltMine = board.getTile(new Position(3, 3));
-//      return saltMine.getOwnerColor();
-		return PlayerColor.None;
+			Tile saltMine = game.getTile(new Position(3, 3));
+      return saltMine.getOwnerColor();  
 	}
 }

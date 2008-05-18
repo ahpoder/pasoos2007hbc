@@ -4,17 +4,17 @@ import hottargui.framework.*;
 
 public class TestGameFactory implements GameFactory {
 
-	BetaGameFactory bgf;
+	AlphaGameFactory bgf;
 	BoardFactory bf;
 	public TestGameFactory(Game g, BoardFactory bf) {
-		bgf = new BetaGameFactory(g);
+		bgf = new AlphaGameFactory(g);
 		this.bf = bf;
 		pts = bgf.createTurnStrategy();
 	}
 
 	PlayerTurnStrategy pts = null;
 	public TestGameFactory(Game g, BoardFactory bf, PlayerTurnStrategy ts) {
-		bgf = new BetaGameFactory(g);
+		bgf = new AlphaGameFactory(g);
 		this.bf = bf;
 		this.pts = ts;
 	}

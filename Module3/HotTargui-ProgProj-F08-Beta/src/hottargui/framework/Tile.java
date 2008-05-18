@@ -31,7 +31,7 @@ public interface Tile {
    */
   public TileType getType();
   
-  public int getEcconomicValue();
+  public int getEconomicValue();
 
   public int getStrategicValue();
 }
