@@ -6,7 +6,7 @@ public class AllTilePutUnitsStrategy implements PutUnitsStrategy {
 	Tile t;
 	Player p;
 
-	public boolean isPutValid(Player p, Tile t) {
+	public boolean isPutValid(Player p, Tile t, int count) {
 		this.t = t;
 		this.p = p;
 		if (t.getOwnerColor() != p.getColor()){
