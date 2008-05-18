@@ -65,7 +65,7 @@ public class StandardGame implements Game, RoundObserver {
   public boolean move(Position from, Position to, int count) {
 	MoveAttemptResult res = moveValidationStrategy.validateMove(from, to, getPlayerInTurn().getColor());
 	if (res == MoveAttemptResult.MOVE_VALID)
-    {
+  {
     	// Perform move
 		Tile tFrom = board.getTile(from);
 		Tile tTo = board.getTile(to);
@@ -78,23 +78,13 @@ public class StandardGame implements Game, RoundObserver {
     else if (res == MoveAttemptResult.ATTACK_NEEDED)
     {
     	// Perform attack
-		Tile tFrom = board.getTile(from);
-		Tile tTo = board.getTile(to);
-		if (isAttackValid(tFrom, tTo))
-		{
-			tTo = board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());
-			tFrom = board.updateUnitsOnTile(tFrom, 0);
-			tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
-		}
-		else
-		{
-			tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() - tFrom.getUnitCount());
-			tFrom = board.updateUnitsOnTile(tFrom, 0);
-		}
-		currentState = State.buy;
-		return true;
+			Tile tFrom = board.getTile(from);
+			Tile tTo = board.getTile(to);
+    	attackStrategy.attack(tFrom, tTo, 0, 0);
+			currentState = State.buy;
+			return true;
     }
-	return false;
+		return false;
   }
 
 private boolean isAttackValid(Tile from, Tile to) {
@@ -202,6 +192,10 @@ public PlayerColor turnCard() {
 
 	public void roundDone() {
 		calculateRevenue();
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 }
 

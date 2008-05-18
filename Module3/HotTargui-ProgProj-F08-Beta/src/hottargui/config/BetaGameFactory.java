@@ -32,7 +32,7 @@ public class BetaGameFactory implements GameFactory{
 	}
 
 	public AttackStrategy createAttackStrategy() {
-		return new BetaAttackStrategy();
+		return new BetaAttackStrategy(game);
 	}
 }
 
