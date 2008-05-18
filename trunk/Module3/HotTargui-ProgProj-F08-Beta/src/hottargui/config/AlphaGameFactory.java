@@ -31,6 +31,6 @@ public class AlphaGameFactory implements GameFactory {
 	}
 
 	public AttackStrategy createAttackStrategy() {
-		return new AlphaAttackStrategy();
+		return new AlphaAttackStrategy(game);
 	}
 }

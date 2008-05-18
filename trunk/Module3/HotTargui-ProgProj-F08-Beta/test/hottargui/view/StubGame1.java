@@ -177,8 +177,14 @@ public class StubGame1 implements Game {
     }
   }
 
-public PlayerColor getWinner() {
-	// TODO Auto-generated method stub
-	return null;
-}
+	public PlayerColor getWinner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Board getBoard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
