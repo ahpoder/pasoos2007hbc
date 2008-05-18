@@ -22,15 +22,15 @@ public class AlphaGameFactory implements GameFactory {
 		return new StandardMoveValidationStrategy(game);
 	}
 	
-		public WinnerStrategy createWinnerStrategy() {
-		return new BetaWinnerStrategy();
+	public WinnerStrategy createWinnerStrategy() {
+		return new AlphaWinnerStrategy(game);
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {
-		return new BetaPutUnitsStrategy();
+		return new AlphaPutUnitsStrategy();
 	}
 
 	public AttackStrategy createAttackStrategy() {
-		return new BetaAttackStrategy();
+		return new AlphaAttackStrategy();
 	}
 }

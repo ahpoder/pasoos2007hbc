@@ -24,7 +24,7 @@ public class BetaGameFactory implements GameFactory{
 	}
 
 	public WinnerStrategy createWinnerStrategy() {
-		return new BetaWinnerStrategy();
+		return new BetaWinnerStrategy(game);
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {

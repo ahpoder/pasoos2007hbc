@@ -10,7 +10,7 @@ public class AlphaPutUnitsStrategy implements PutUnitsStrategy {
 
 	public boolean isPutValid(Player p, Tile t) {
 		// Is player color == tile color and is tile type == settlement?
-		if ((p.getColor() == t.getOwnerColor()) && t.getType() == TileType.Settlement) {
+		if (t.getOwnerColor() == p.getColor() && t.getType() == TileType.Settlement) {
 			return true;
 		}
 		else {
