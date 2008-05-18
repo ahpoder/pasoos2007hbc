@@ -7,11 +7,11 @@ package hottargui.framework;
 *	Input dieValue is only used in AlphaTargui
 *	Input noAttackUnits is only used in BetaTarGui
 *
-*	attack() returns the number of surviving units???
+*	attack()
 */  
 
 public interface AttackStrategy {
 
-	public int attack(Tile tFrom,Tile tTo, int dieValue, int noOfAttackUnits);
+	public void attack(Tile tFrom,Tile tTo, int dieValue, int noOfAttackUnits);
 
 }

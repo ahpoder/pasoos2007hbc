@@ -26,7 +26,7 @@ public class AlphaGameFactory implements GameFactory {
 	}
 
 	public AttackStrategy createAttackStrategy() {
-		return new SimpleAttackStrategy();
+		return new SimpleAttackStrategy(game);
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {

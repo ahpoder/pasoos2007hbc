@@ -5,7 +5,6 @@ import java.util.*;
 import hottargui.framework.*;
 
 public class SimpleTurnStrategy implements PlayerTurnStrategy{
-	
 	public SimpleTurnStrategy()
 	{
 		players = new PlayerColor[4];

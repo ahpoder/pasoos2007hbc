@@ -16,6 +16,8 @@ public class StandardGame implements Game, RoundObserver {
   private PlayerTurnStrategy turnStrategy = null;
   private MoveValidationStrategy moveValidationStrategy;
   private WinnerStrategy winnerStrategy;
+  private PutUnitsStrategy putUnitsStrategy;
+  private AttackStrategy attackStrategy;
   public StandardGame() { }
   
   public void setGameFactory(GameFactory gameFactory)
@@ -34,6 +36,8 @@ public class StandardGame implements Game, RoundObserver {
 	  currentPlayer = turnStrategy.nextPlayer();
 	  turnStrategy.addRoundDoneObserver(this);
 	  winnerStrategy = gameFactory.createWinnerStrategy();
+	  putUnitsStrategy = gameFactory.createPutUnitsStrategy();
+	  attackStrategy = gameFactory.createAttackStrategy();
 	  currentState = State.move;
   }
 
@@ -67,29 +71,14 @@ public class StandardGame implements Game, RoundObserver {
     }
     else if (res == MoveAttemptResult.ATTACK_NEEDED)
     {
-    	// Perform attack
 		Tile tFrom = board.getTile(from);
 		Tile tTo = board.getTile(to);
-		if (isAttackValid(tFrom, tTo))
-		{
-			tTo = board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());
-			tFrom = board.updateUnitsOnTile(tFrom, 0);
-			tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
-		}
-		else
-		{
-			tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() - tFrom.getUnitCount());
-			tFrom = board.updateUnitsOnTile(tFrom, 0);
-		}
+    	attackStrategy.attack(tFrom, tTo, 0, 0);
 		currentState = State.buy;
 		return true;
     }
 	return false;
   }
-
-private boolean isAttackValid(Tile from, Tile to) {
-	return from.getUnitCount() > to.getUnitCount();
-}
 
 public boolean buy(int count, Position deploy) {
 	// It is allowed to buy without having moved, but the turn goes to the next player
@@ -97,7 +86,7 @@ public boolean buy(int count, Position deploy) {
 	{
 	    Player p = getPlayerInTurn();
 	    Tile t = board.getTile(deploy);
-	    if ((p.getCoins() >= count) && t.getOwnerColor() == p.getColor())
+	    if (putUnitsStrategy.isPutValid(p, t, count))
 	    {
 	      p = board.updatePlayerUnits(p, p.getCoins() - count);
 	      t = board.updateUnitsOnTile(t, t.getUnitCount() + count);
@@ -176,6 +165,10 @@ public PlayerColor turnCard() {
 
 	public void roundDone() {
 		calculateRevenue();
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 }
 

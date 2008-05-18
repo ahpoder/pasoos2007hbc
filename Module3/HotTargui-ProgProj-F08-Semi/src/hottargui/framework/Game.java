@@ -108,4 +108,6 @@ public interface Game {
   public int getDieValue();
   
   public PlayerColor getWinner();
+  
+  public Board getBoard();
 }
