@@ -4,9 +4,7 @@ import hottargui.framework.*;
 
 import java.util.*;
 
-/** BetaGame implementation.
-    Presently simply a temporary test stub to be expanded
-    by a test-driven process.
+/** StandardGame implementation.
  */
 
 public class StandardGame implements Game, RoundObserver {
