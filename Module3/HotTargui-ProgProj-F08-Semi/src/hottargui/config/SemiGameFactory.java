@@ -1,42 +1,38 @@
 package hottargui.config;
 
-import hottargui.framework.AttackStrategy;
-import hottargui.framework.Board;
-import hottargui.framework.GameFactory;
-import hottargui.framework.MoveValidationStrategy;
-import hottargui.framework.PlayerTurnStrategy;
-import hottargui.framework.PutUnitsStrategy;
-import hottargui.framework.WinnerStrategy;
+import hottargui.factory.*;
+import hottargui.framework.*;
+import hottargui.standard.*;
+import hottargui.strategy.*;
 
 public class SemiGameFactory implements GameFactory {
 
+	Game game;
+	public SemiGameFactory(Game game) {
+		this.game = game;
+	}
 	public Board createBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		RandomOrderBoardFactory rbf = new RandomOrderBoardFactory();
+		return new StandardBoard(rbf);
 	}
 
 	public MoveValidationStrategy createMoveValidationStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new StandardMoveValidationStrategy(game);
 	}
 
 	public PlayerTurnStrategy createTurnStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SimpleTurnStrategy();
 	}
 
 	public AttackStrategy createAttackStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DieRollAttackStrategy();
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new AllTilePutUnitsStrategy();
 	}
 
 	public WinnerStrategy createWinnerStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new RevenueWinnerStrategy();
 	}
 }
