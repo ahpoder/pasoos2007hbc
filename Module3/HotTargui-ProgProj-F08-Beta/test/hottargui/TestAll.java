@@ -9,7 +9,9 @@ import org.junit.runners.Suite;
 	hottargui.config.TestAlphaTargui.class,
 	hottargui.config.TestAlphaBoard.class,
 	hottargui.config.TestPutUnitsStrategy.class,
-	hottargui.config.TestWinnerStrategy.class
+	hottargui.config.TestWinnerStrategy.class,
+	hottargui.config.TestAttackStrategy.class,
+	hottargui.config.SystematicTest.class
   })
   
   public class TestAll {
