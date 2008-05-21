@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class TestWinnerStrategy {
 
 	private Game game;
-	private Position redHomeSettlement, greenHomeSettlement, saltminePos;
+	private Position saltminePos;
 	private GameFactory gameFactory;
 	private BetaWinnerStrategy betaWinner;
 
