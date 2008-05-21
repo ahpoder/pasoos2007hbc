@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
   {   
 	hottargui.config.TestAlphaTargui.class,
 	hottargui.config.TestAlphaBoard.class,
-	hottargui.config.TestPutUnitsStrategy.class
+	hottargui.config.TestPutUnitsStrategy.class,
+	hottargui.config.TestWinnerStrategy.class
   })
   
   public class TestAll {
