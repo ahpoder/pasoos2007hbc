@@ -67,13 +67,13 @@ public class StandardGame implements Game, RoundObserver {
 	if (res == MoveAttemptResult.MOVE_VALID)
   {
     	// Perform move
-		Tile tFrom = board.getTile(from);
-		Tile tTo = board.getTile(to);
-		tFrom = board.updateUnitsOnTile(tFrom, tFrom.getUnitCount() - count);
-		tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() + count);
-		tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
-		currentState = State.buy;
-		return true;
+			Tile tFrom = board.getTile(from);
+			Tile tTo = board.getTile(to);
+			tFrom = board.updateUnitsOnTile(tFrom, tFrom.getUnitCount() - count);
+			tTo = board.updateUnitsOnTile(tTo, tTo.getUnitCount() + count);
+			tTo = board.updateOwnership(tTo, tFrom.getOwnerColor());
+			currentState = State.buy;
+			return true;
     }
     else if (res == MoveAttemptResult.ATTACK_NEEDED)
     {
