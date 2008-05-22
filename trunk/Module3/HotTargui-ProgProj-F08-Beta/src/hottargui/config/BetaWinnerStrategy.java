@@ -17,7 +17,7 @@ public class BetaWinnerStrategy implements WinnerStrategy {
 		int greenPlayer = getRevenue(PlayerColor.Green);
 		int yellowPlayer = getRevenue(PlayerColor.Yellow);
 		
-    System.out.println("Revenues: Red = " + redPlayer + ", Blue = " + bluePlayer + ", Green = " + greenPlayer + ", Yellow = " + yellowPlayer);
+//    System.out.println("Revenues: Red = " + redPlayer + ", Blue = " + bluePlayer + ", Green = " + greenPlayer + ", Yellow = " + yellowPlayer);
 
 		// Create a winner array and add the winners to it
 		PlayerColor[] winners = new PlayerColor[4];

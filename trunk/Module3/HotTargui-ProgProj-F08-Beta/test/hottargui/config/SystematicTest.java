@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class SystematicTest {
 
-	private Game game;
+	private StandardGame game;
 	private Position saltminePos;
 	private GameFactory gameFactory;
 
@@ -19,7 +19,7 @@ public class SystematicTest {
 
 		game = new StandardGame();
   	gameFactory = new BetaGameFactory(game);
-  	((StandardGame)game).setGameFactory(gameFactory);
+  	game.setGameFactory(gameFactory);
 		game.newGame();
 
 		saltminePos = new Position(3,3);

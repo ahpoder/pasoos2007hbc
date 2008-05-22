@@ -10,7 +10,8 @@ import static org.junit.Assert.*;
 
 public class TestWinnerStrategy {
 
-	private Game game;
+	private StandardGame game;
+//	private Game game;
 	private Position saltminePos;
 	private GameFactory gameFactory;
 	private BetaWinnerStrategy betaWinner;
@@ -20,7 +21,8 @@ public class TestWinnerStrategy {
 
 		game = new StandardGame();
   	gameFactory = new BetaGameFactory(game);
-  	((StandardGame)game).setGameFactory(gameFactory);
+  	game.setGameFactory(gameFactory);
+//  	((StandardGame)game).setGameFactory(gameFactory);
 		game.newGame();
 
 		betaWinner = new BetaWinnerStrategy(game);  
