@@ -9,7 +9,6 @@ public class StandardTile implements Tile {
   protected Position position;
   protected TileType type;
   protected PlayerColor player;
-
   /** number of units on this tile */
   private int unit;
 
@@ -30,37 +29,43 @@ public class StandardTile implements Tile {
   public PlayerColor getOwnerColor() { return player; }
   public int getUnitCount() { return unit; }
   public TileType getType() { return type; }
-
+  
   public String toString() {
     return "Tile ("+position.getRow()+","+position.getColumn()+") "+
 	   "units="+ unit;
   }
 
 	public int getEconomicValue() {
-		if (getType() == TileType.Settlement)
-		{
-			return 4;
-		}
-		else if (getType() == TileType.Saltmine)
-		{
-			return 5;
-		}
-		else if (getType() == TileType.Oasis)
-		{
-			return 3;
-		}
-		else if (getType() == TileType.Erg)
-		{
-			return 1;
-		}
-		else if (getType() == TileType.Reg)
-		{
-			return 2;
-		}
-		return 0;
+		switch (type) {
+    	case Settlement:
+      	return 4;
+      case Saltmine:
+        return 5;
+      case Oasis:
+      	return 3;
+      case Erg:
+        return 1;
+      case Reg:
+        return 2;
+      default:
+        return 0;
+    }
 	}
 
   public int getStrategicValue(){
-		return 0; //fake it
-  };
+  	switch (type) {
+    	case Settlement:
+      	return 4;
+      case Saltmine:
+        return 5;
+      case Oasis:
+        return 3;
+      case Feshfesh:
+        return 2;
+      case Mountain:
+        return 1;
+      default:
+        return 0;
+      }
+  }
 }

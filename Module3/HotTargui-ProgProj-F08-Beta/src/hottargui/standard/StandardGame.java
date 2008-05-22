@@ -15,12 +15,13 @@ public class StandardGame implements Game, RoundObserver {
   private GameFactory gameFactory;
   private PlayerTurnStrategy turnStrategy = null;
   private MoveValidationStrategy moveValidationStrategy;
-  	// The strategy for putting units after buy
+  // The strategy for putting units after buy
 	private PutUnitsStrategy putUnitsStrategy;
 	// The strategy for attack
 	private AttackStrategy attackStrategy;
 	// The strategy for finding the winner
 	private WinnerStrategy winnerStrategy;
+	private Die die;
 	
   int roundsCompleted = 0;
   public StandardGame() { }
@@ -45,6 +46,8 @@ public class StandardGame implements Game, RoundObserver {
 	  currentPlayer = turnStrategy.nextPlayer();
 	  turnStrategy.addRoundDoneObserver(this);
 	  currentState = State.move;
+	  
+	  die = new StandardDie();
   }
 
   /** return a specific tile */
@@ -61,12 +64,16 @@ public class StandardGame implements Game, RoundObserver {
   public State getState() {
     return currentState;
   }
+  
+  public void setState(State state) {
+  	currentState = state;
+  }
 
   public boolean move(Position from, Position to, int count) {
 	MoveAttemptResult res = moveValidationStrategy.validateMove(from, to, getPlayerInTurn().getColor());
 	if (res == MoveAttemptResult.MOVE_VALID)
   {
-    	// Perform move
+		// Perform move
 			Tile tFrom = board.getTile(from);
 			Tile tTo = board.getTile(to);
 			tFrom = board.updateUnitsOnTile(tFrom, tFrom.getUnitCount() - count);
@@ -80,16 +87,11 @@ public class StandardGame implements Game, RoundObserver {
     	// Perform attack
 			Tile tFrom = board.getTile(from);
 			Tile tTo = board.getTile(to);
-    	attackStrategy.attack(tFrom, tTo, 0, 0);
-			currentState = State.buy;
+    	currentState = attackStrategy.attack(tFrom, tTo, 0, 0);
 			return true;
     }
 		return false;
   }
-
-private boolean isAttackValid(Tile from, Tile to) {
-	return from.getUnitCount() > to.getUnitCount();
-}
 
 public boolean buy(int count, Position deploy) {
 	// It is allowed to buy without having moved, but the turn goes to the next player
@@ -147,10 +149,19 @@ public PlayerColor turnCard() {
   }
 
   public void rollDie() {
+ 		switch (currentState) {
+      case attack:
+      case defend:
+      	die.rollDie();
+
+        break;
+      default:
+	      throw new IllegalActionException(currentState);
+      }
   }
 
   public int getDieValue() {
-    return 1;
+  	return die.getValue();
   }
   
   public Iterator<? extends Tile> getBoardIterator() {
@@ -197,5 +208,11 @@ public PlayerColor turnCard() {
 	public Board getBoard() {
 		return board;
 	}
+	
+	public boolean dieRolled(int dieValue) {
+  	die.setValue(dieValue);
+    return true;
+  }
+	
 }
 

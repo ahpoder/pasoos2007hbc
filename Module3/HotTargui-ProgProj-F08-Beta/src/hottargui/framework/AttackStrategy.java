@@ -12,6 +12,6 @@ package hottargui.framework;
 
 public interface AttackStrategy {
 
-	public void attack(Tile tFrom, Tile tTo, int dieValue, int noOfAttackUnits);
+	public State attack(Tile tFrom, Tile tTo, int dieValue, int noOfAttackUnits);
 
 }
