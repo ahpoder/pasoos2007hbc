@@ -87,7 +87,7 @@ public class StandardGame implements Game, RoundObserver {
     	// Perform attack
 			Tile tFrom = board.getTile(from);
 			Tile tTo = board.getTile(to);
-    	currentState = attackStrategy.attack(tFrom, tTo, 0, 0);
+    	currentState = attackStrategy.moveAttack(tFrom, tTo);
 			return true;
     }
 		return false;
@@ -210,7 +210,14 @@ public PlayerColor turnCard() {
 	}
 	
 	public boolean dieRolled(int dieValue) {
-  	die.setValue(dieValue);
+//  	die.setValue(dieValue);
+  	currentState = attackStrategy.dieRolled(dieValue);
+    return true;
+  }
+  
+  public boolean givingUp() {
+//  	die.setValue(dieValue);
+  	currentState = attackStrategy.givingUp();
     return true;
   }
 	
