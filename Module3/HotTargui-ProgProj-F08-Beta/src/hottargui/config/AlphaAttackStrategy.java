@@ -10,7 +10,7 @@ public class AlphaAttackStrategy implements AttackStrategy{
 		this.game = game;
 	}
 	
-	public State attack(Tile tFrom, Tile tTo, int dieValue, int noOfAttackUnits){
+	public State moveAttack(Tile tFrom, Tile tTo){
     	
     	// Perform attack
 		Board board = game.getBoard();
@@ -27,6 +27,16 @@ public class AlphaAttackStrategy implements AttackStrategy{
 		}
 		return State.buy;
 	}
+	
+	public State dieRolled(int dieValue) {
+  	// Should never be invoked in Alpha variant
+    return null;
+  }
+  
+  public State givingUp() {
+    // Should never be invoked in Alpha variant
+    return null;
+  }
 	
 	private boolean isAttackValid(Tile from, Tile to) {
 		return from.getUnitCount() > to.getUnitCount();
