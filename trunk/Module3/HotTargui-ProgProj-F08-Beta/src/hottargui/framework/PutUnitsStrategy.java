@@ -1,7 +1,7 @@
 package hottargui.framework;
 
 /*
-*	Responsibility: Determine if tile is avalid place to put units
+*	Responsibility: Determine if tile is a valid place to put units
 *
 *	isPutValid() returns true if put is valid.
 */
