@@ -1,6 +1,8 @@
 package hottargui.framework;
 
-public interface GameRepository {
+import java.rmi.Remote;
+
+public interface GameRepository extends Remote {
 	// Create a board for the game   
 	Board getBoard();
 
@@ -15,7 +17,9 @@ public interface GameRepository {
 	PutUnitsStrategy getPutUnitsStrategy();
 
 	AttackStrategy getAttackStrategy();
-	
+
+	Die getDieStrategy();
+
 	void reinitialize();
 	
 	// TODO - consider if set-methods should be included.

@@ -1,8 +1,15 @@
 package hottargui.standard;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 import hottargui.framework.*;
 
-public class StandardGameRepository implements GameRepository {
+public class StandardGameRepository extends UnicastRemoteObject implements GameRepository {
+
+	public StandardGameRepository() throws RemoteException {
+		super();
+	}
 
 	private Board board;
 	private AttackStrategy attackStrategy;
@@ -10,6 +17,7 @@ public class StandardGameRepository implements GameRepository {
 	private PutUnitsStrategy putUnitsStrategy;
 	private PlayerTurnStrategy playerTurnStrategy;
 	private WinnerStrategy winnerStrategy;
+	private Die dieStrategy;
 	
 	private GameFactory gameFactory;
 	private Game game;
@@ -23,6 +31,7 @@ public class StandardGameRepository implements GameRepository {
 		putUnitsStrategy = gf.createPutUnitsStrategy();
 		playerTurnStrategy = gf.createTurnStrategy();
 		winnerStrategy = gf.createWinnerStrategy();
+		dieStrategy = gf.createDieStrategy();
 	}
 	
 	public AttackStrategy getAttackStrategy() {
@@ -51,5 +60,9 @@ public class StandardGameRepository implements GameRepository {
 
 	public void reinitialize() {
 		initialize(gameFactory, game);
+	}
+
+	public Die getDieStrategy() {
+		return dieStrategy;
 	}
 }

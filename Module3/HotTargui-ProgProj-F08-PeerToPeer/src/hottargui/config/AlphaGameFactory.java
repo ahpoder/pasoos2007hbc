@@ -30,12 +30,16 @@ public class AlphaGameFactory implements GameFactory {
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {
-		// TODO Auto-generated method stub
 		return new SettlementOnlyPutUnitsStrategy();
 	}
 
 	public WinnerStrategy createWinnerStrategy() {
-		// TODO Auto-generated method stub
 		return new SaltMineWinnerStrategy(game);
+	}
+
+	@Override
+	public Die createDieStrategy() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
