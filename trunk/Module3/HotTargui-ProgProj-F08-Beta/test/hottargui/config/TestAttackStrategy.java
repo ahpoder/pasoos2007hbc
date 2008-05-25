@@ -39,6 +39,14 @@ public class TestAttackStrategy {
     game.setGameFactory(gameFactory);
 		game.newGame();
   }
+  
+  @Test
+  public void testDieValue() {
+        Die die = new StandardDie();
+        die.rollDie();
+        int res = die.getValue();
+        assertTrue(1 <= res && res <= 6);
+  }
 	
 	@Test
 	public void testAttackerIsWinner() {
