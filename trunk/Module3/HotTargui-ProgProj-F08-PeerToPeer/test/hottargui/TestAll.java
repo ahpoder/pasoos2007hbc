@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
   @Suite.SuiteClasses(
-  {   hottargui.config.TestSemiTargui.class,
+  {   hottargui.config.TestPeerToPeerTargui.class,
   })
   
   public class TestAll {

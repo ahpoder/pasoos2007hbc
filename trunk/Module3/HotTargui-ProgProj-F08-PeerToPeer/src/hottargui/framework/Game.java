@@ -1,5 +1,6 @@
 package hottargui.framework;
 
+import java.rmi.Remote;
 import java.util.*;
 
 /** Facade pattern that represents the Targui game as
@@ -14,7 +15,7 @@ import java.util.*;
 */
 
 
-public interface Game {
+public interface Game extends Remote {
 
   /** start the game all over. */
   public void newGame();

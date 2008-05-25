@@ -35,4 +35,11 @@ public class SemiGameFactory implements GameFactory {
 	public WinnerStrategy createWinnerStrategy() {
 		return new RevenueWinnerStrategy();
 	}
+	public Die createDieStrategy() {
+		try {
+			return new StandardDie();
+		}
+		catch (Exception ex) { }
+		return null;
+	}
 }
