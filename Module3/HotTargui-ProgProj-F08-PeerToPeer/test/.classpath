@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/minidraw.jar"/>
+	<classpathentry kind="lib" path="C:/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/junit-4.4.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/HotTargui_Semi"/>
+	<classpathentry kind="lib" path="/HotTargui_Semi/hottargui"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
