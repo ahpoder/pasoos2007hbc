@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<project name="dDist RMI" default="help" basedir=".">
+
+  <target name="help">
+    <echo message="dDist RMI Ant build script"/>
+    <echo message="Valid targets:"/>
+    <echo message="  build_all:      Build everything"/>
+    <echo message="  runServer:      Run server"/>
+    <echo message="  runClient:      Run client"/>
+    <echo message="  clean:          Remove build"/>
+    <echo message="Registry defaults to 'localhost'; you can change"/>
+    <echo message="by setting property -Dregistry_host=(hostname)"/>
+    <echo message=""/>
+    <echo message="REMEMBER to 'start rmiregistry' first!"/>
+
+  </target>
+
+  <!-- Directory properties -->
+  <property name="src" value="src"></property>
+  <property name="resources" value="resources"></property>
+  <property name="build" value="build"></property>
+
+  <property name="policy_file" value="java.policy"/>
+  
+  <!-- 
+    Definitions of where the rmiregistry is running.
+    We need both the 'short name' to set in a java property, and
+    the 'full name' (including //'s) to give as parameter
+  -->
+  <property name="registry_host" value="localhost"/>
+  <property name="registry_host_spec" value="//${registry_host}/"/>
+  
+
+  <!-- Classpath used for compilation - NOT used for execution! -->
+  <path id="_classpath">
+    <pathelement path="${build}"/>
+  </path>
+  
+  <path id="_srcpath">
+    <pathelement path="${src}"/>
+  </path>
+
+  <!-- Make the output building directory -->
+  <target name="prepare">
+    <mkdir dir="${build}"></mkdir>
+  </target>
+
+  <!-- === RESOURCE COPYING === -->
+  <target name="copy_resources" depends="prepare">
+    <copy todir="${build}" >
+      <fileset dir="${resources}">
+	<include name="java.policy"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- COMPILATION TARGETS -->
+  <target name="compile_src" depends="prepare">
+    <javac destdir="${build}" debug="on" deprecation="on" 
+      encoding="ISO-8859-1">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+
+  <target name="compile_all" depends="compile_src"/>
+
+  <!-- RMIC targets -->
+  <target name="rmic" depends="compile_all">
+
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="ddist.EchoServer">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
+  </target>
+
+  <!-- BUILD TARGETS -->
+  <target name="build_all" depends="compile_all,rmic,copy_resources">
+  </target>
+  
+
+  <!-- RUN TARGETS -->
+  <target name="runServer" depends="build_all">
+    <echo message="Running EchoServer"/>
+    <java classname="ddist.EchoServer"
+      dir="${build}" fork="yes">
+      <classpath><path refid="_classpath"/> </classpath>
+      <sysproperty key="java.security.policy" path="${build}/java.policy"/>
+      <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
+      <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
+      <arg value="${registry_host}"/>
+    </java>
+  </target>
+  
+  <target name="runClient" depends="build_all">
+    <java classname="ddist.EchoClient"
+      dir="${build}" fork="yes">
+      <classpath><path refid="_classpath"/> </classpath>
+      <sysproperty key="java.security.policy" path="${build}/java.policy"/>
+      <arg value="${registry_host}"/>
+    </java>
+  </target>
+
+  <!-- HOUSEHOLDING TARGETS -->
+  
+  <target name="clean">
+    <delete dir="${build}"></delete>
+    <delete dir="${deploy}"></delete>
+    <delete dir="${docs}"></delete>
+    <delete dir="${zip.dir}"></delete>
+  </target>
+
+  <property name = "app.name"  value = "rmi-Echo"/>
+  <property name = "zip.dir" value="zip"/>
+  <target name="zip" depends="clean">
+    <mkdir dir="${zip.dir}"/>
+    <zip destfile="${zip.dir}/${app.name}.zip"
+    	   basedir="."
+    />
+  </target>
+
+</project>
