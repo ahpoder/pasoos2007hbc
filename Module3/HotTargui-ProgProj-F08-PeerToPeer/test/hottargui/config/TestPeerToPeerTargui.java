@@ -138,11 +138,15 @@ public class TestPeerToPeerTargui {
 	  }
 
 	  @Test 
-	  public void fourGamesInMoveState() {
+	  public void fourGamesInMoveState() throws RemoteException {
+		  assertEquals(State.move, redGameDecorator.getState());
+		  assertEquals(State.move, greenGameDecorator.getState());
+		  assertEquals(State.move, blueGameDecorator.getState());
+		  assertEquals(State.move, yellowGameDecorator.getState());
 	  }	
 
 	  @Test 
-	  public void redMoveToBoarderingErgResultsInRedOwnershipOnAllFourBoards() {
+	  public void redMoveToBoarderingErgResultsInRedOwnershipOnAllFourBoards() throws RemoteException {
 		  redGameDecorator.move(new Position(0,0), new Position(1,0), 2);
 		  assertEquals(PlayerColor.Red, redLocalGame.getTile(new Position(1,0)).getOwnerColor());
 		  assertEquals(PlayerColor.Red, greenLocalGame.getTile(new Position(1,0)).getOwnerColor());

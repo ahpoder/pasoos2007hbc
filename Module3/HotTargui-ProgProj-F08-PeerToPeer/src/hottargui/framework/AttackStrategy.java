@@ -1,5 +1,7 @@
 package hottargui.framework;
 
+import java.rmi.Remote;
+
 /*
 *	Responsibility: Handle attack
 *
@@ -10,7 +12,7 @@ package hottargui.framework;
 *	attack()
 */  
 
-public interface AttackStrategy {
+public interface AttackStrategy extends Remote {
 
 	public void attack(Tile tFrom,Tile tTo, int dieValue, int noOfAttackUnits);
 

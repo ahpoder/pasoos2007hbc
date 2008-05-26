@@ -1,8 +1,9 @@
 package hottargui.framework;
 
+import java.rmi.Remote;
 import java.util.Iterator;
 
-public interface Board {
+public interface Board extends Remote {
 	public boolean hasPlayer(PlayerColor pc);
 	public Player getPlayer(PlayerColor pc);
 	public Iterator<PlayerColor> getPlayers();

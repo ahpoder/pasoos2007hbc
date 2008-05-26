@@ -1,12 +1,14 @@
 package hottargui.framework;
 
+import java.rmi.Remote;
+
 /** The Observer role on a Game instance.
 
     Author: Henrik Bærbak Christensen.
 */
 
 
-public interface GameListener {
+public interface GameListener extends Remote {
   /** invoked when the contents of a tile has been changed 
    * @param t the tile that has been changed
    */

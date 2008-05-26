@@ -1,5 +1,7 @@
 package hottargui.strategy;
 
+import java.rmi.RemoteException;
+
 import hottargui.framework.*;
 
 public class SimpleAttackStrategy implements AttackStrategy {
@@ -11,7 +13,13 @@ public class SimpleAttackStrategy implements AttackStrategy {
 	
 	public void attack(Tile tFrom, Tile tTo, int dieValue, int noOfAttackUnits){
     	// Perform attack
-		Board board = game.getBoard();
+		Board board = null;
+		try {
+			board = game.getBoard();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (isAttackValid(tFrom, tTo))
 		{
 			tTo = board.updateUnitsOnTile(tTo, tFrom.getUnitCount() - tTo.getUnitCount());

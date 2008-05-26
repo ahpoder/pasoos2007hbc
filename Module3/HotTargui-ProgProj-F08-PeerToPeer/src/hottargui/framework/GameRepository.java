@@ -1,26 +1,26 @@
 package hottargui.framework;
 
-import java.rmi.Remote;
+import java.rmi.*;
 
 public interface GameRepository extends Remote {
 	// Create a board for the game   
-	Board getBoard();
+	Board getBoard() throws RemoteException;
 
 	// Creates the strategy for player turn
-	PlayerTurnStrategy getTurnStrategy();
+	PlayerTurnStrategy getTurnStrategy() throws RemoteException;
 	
 	// Creates the strategy for evaluating move validity
-	MoveValidationStrategy getMoveValidationStrategy();
+	MoveValidationStrategy getMoveValidationStrategy() throws RemoteException;
 	
-	WinnerStrategy getWinnerStrategy();
+	WinnerStrategy getWinnerStrategy() throws RemoteException;
 
-	PutUnitsStrategy getPutUnitsStrategy();
+	PutUnitsStrategy getPutUnitsStrategy() throws RemoteException;
 
-	AttackStrategy getAttackStrategy();
+	AttackStrategy getAttackStrategy() throws RemoteException;
 
-	Die getDieStrategy();
+	Die getDieStrategy() throws RemoteException;
 
-	void reinitialize();
+	void reinitialize() throws RemoteException;
 	
 	// TODO - consider if set-methods should be included.
 }
