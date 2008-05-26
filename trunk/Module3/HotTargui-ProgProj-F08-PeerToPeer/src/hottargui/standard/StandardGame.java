@@ -16,21 +16,22 @@ public class StandardGame extends UnicastRemoteObject implements Game, RoundObse
 		super();
 	}
   
-  public void newGame() {
-	  gameRepository.getTurnStrategy().removeRoundDoneObserver(this);
+  public void newGame() throws RemoteException {
+	gameRepository.getTurnStrategy().removeRoundDoneObserver(this);
 
-	  currentPlayer = gameRepository.getTurnStrategy().nextPlayer();
-	  gameRepository.getTurnStrategy().addRoundDoneObserver(this);
-	  currentState = State.move;
+	currentPlayer = gameRepository.getTurnStrategy().nextPlayer();
+	gameRepository.getTurnStrategy().addRoundDoneObserver(this);
+	currentState = State.move;
   }
 
-  /** return a specific tile */
-  public Tile getTile( Position p ) {
+  /** return a specific tile 
+ * @throws RemoteException */
+  public Tile getTile( Position p ) throws RemoteException {
     return gameRepository.getBoard().getTile(p);
   }
 
   private PlayerColor currentPlayer = PlayerColor.Red;
-  public Player getPlayerInTurn() {
+  public Player getPlayerInTurn() throws RemoteException {
     return gameRepository.getBoard().getPlayer(currentPlayer);
   }
 
@@ -39,7 +40,7 @@ public class StandardGame extends UnicastRemoteObject implements Game, RoundObse
     return currentState;
   }
 
-  public boolean move(Position from, Position to, int count) {
+  public boolean move(Position from, Position to, int count) throws RemoteException {
 	MoveAttemptResult res = gameRepository.getMoveValidationStrategy().validateMove(from, to, getPlayerInTurn().getColor());
 	if (res == MoveAttemptResult.MOVE_VALID)
     {
@@ -63,7 +64,7 @@ public class StandardGame extends UnicastRemoteObject implements Game, RoundObse
 	return false;
   }
 
-public boolean buy(int count, Position deploy) {
+public boolean buy(int count, Position deploy) throws RemoteException {
 	// It is allowed to buy without having moved, but the turn goes to the next player
 	if (getState() == State.buy || getState() == State.move)
 	{
@@ -85,7 +86,7 @@ public boolean buy(int count, Position deploy) {
     return false;
   }
 
-  private void calculateRevenue() {
+  private void calculateRevenue() throws RemoteException {
 	  Iterator<PlayerColor> playerItt = gameRepository.getBoard().getPlayers();
 	  while (playerItt.hasNext())
 	  {
@@ -124,7 +125,7 @@ public PlayerColor turnCard() {
     return 1;
   }
   
-  public Iterator<? extends Tile> getBoardIterator() {
+  public Iterator<? extends Tile> getBoardIterator() throws RemoteException {
     return gameRepository.getBoard().getBoardIterator();
   }
 
@@ -142,15 +143,20 @@ public PlayerColor turnCard() {
 	  }
   }
 
-	public PlayerColor getWinner() {
+	public PlayerColor getWinner() throws RemoteException {
 		return gameRepository.getWinnerStrategy().getWinner(gameRepository.getTurnStrategy().getRoundCount());
 	}
 
 	public void roundDone() {
-		calculateRevenue();
+		try {
+			calculateRevenue();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public Board getBoard() {
+	public Board getBoard() throws RemoteException {
 		return gameRepository.getBoard();
 	}
 }

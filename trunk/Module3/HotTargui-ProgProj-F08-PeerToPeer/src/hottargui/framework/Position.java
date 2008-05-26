@@ -1,5 +1,7 @@
 package hottargui.framework;
 
+import java.io.Serializable;
+
 /** Position on the board.
     
     Responsibilities:
@@ -8,7 +10,7 @@ package hottargui.framework;
 
 
 
-public class Position {
+public class Position implements Serializable {
 
   /** create a position. 
    * PRECONDITION: row and column must be within the range 0..6 whenever

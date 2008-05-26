@@ -1,5 +1,7 @@
 package hottargui.framework;
 
+import java.rmi.Remote;
+
 /** Tile represents a single territory tile of a given type.
 
     Responsibilities:
@@ -8,7 +10,7 @@ package hottargui.framework;
 
  */
 
-public interface Tile {
+public interface Tile extends Remote {
 
   /** return position of this tile on the board. 
    * @return position of tile.

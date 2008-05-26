@@ -82,26 +82,6 @@ public class GameInitializer {
 		} while (true);
 	}
 
-	private Game getRemoteGame(String color) throws MalformedURLException {
-		do {
-			try {
-				return (Game)Naming.lookup("//localhost/" + color + "HotTargui");
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} while (true);
-	}
-
 	private PlayerColor stringToColor(String color)
 	{
 		if (color.toUpperCase().equals("RED"))

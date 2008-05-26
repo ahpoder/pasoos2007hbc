@@ -1,5 +1,6 @@
 package hottargui.net;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 import hottargui.framework.*;
@@ -17,10 +18,10 @@ public class GameSynchronizer implements Game {
 		remoteGames.put(gameProxy, gameRepositoryProxy);
 	}
 	
-	public void addGameListener(GameListener observer) {
+	public void addGameListener(GameListener observer) throws RemoteException {
 		game.addGameListener(observer);
 	}
-	public boolean buy(int count, Position deploy) {
+	public boolean buy(int count, Position deploy) throws RemoteException {
 		boolean res = game.buy(count, deploy);
 		if (res)
 		{
@@ -34,28 +35,28 @@ public class GameSynchronizer implements Game {
 		}
 		return res;
 	}
-	public Board getBoard() {
+	public Board getBoard() throws RemoteException {
 		return game.getBoard();
 	}
-	public Iterator<? extends Tile> getBoardIterator() {
+	public Iterator<? extends Tile> getBoardIterator() throws RemoteException {
 		return game.getBoardIterator();
 	}
-	public int getDieValue() {
+	public int getDieValue() throws RemoteException {
 		return game.getDieValue();
 	}
-	public Player getPlayerInTurn() {
+	public Player getPlayerInTurn() throws RemoteException {
 		return game.getPlayerInTurn();
 	}
-	public State getState() {
+	public State getState() throws RemoteException {
 		return game.getState();
 	}
-	public Tile getTile(Position p) {
+	public Tile getTile(Position p) throws RemoteException {
 		return game.getTile(p);
 	}
-	public PlayerColor getWinner() {
+	public PlayerColor getWinner() throws RemoteException {
 		return game.getWinner();
 	}
-	public boolean move(Position from, Position to, int count) {
+	public boolean move(Position from, Position to, int count) throws RemoteException {
 		boolean res = game.move(from, to, count);
 		if (res)
 		{
@@ -69,7 +70,7 @@ public class GameSynchronizer implements Game {
 		}
 		return res;
 	}
-	public void newGame() {
+	public void newGame() throws RemoteException {
 		game.newGame();
 		Set<Game> coll = remoteGames.keySet();
 		Iterator<Game> itt = coll.iterator();
@@ -79,7 +80,7 @@ public class GameSynchronizer implements Game {
 			g.newGame(); // No reason to look at return value
 		}
 	}
-	public void rollDie() {
+	public void rollDie() throws RemoteException {
 		game.rollDie();
 		Set<Game> coll = remoteGames.keySet();
 		Iterator<Game> itt = coll.iterator();
@@ -87,14 +88,20 @@ public class GameSynchronizer implements Game {
 		{
 			Game g = itt.next();
 			GameRepository gr = remoteGames.get(g);
-			Die ds = gr.getDieStrategy();
+			Die ds = null;
+			try {
+				ds = gr.getDieStrategy();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// First we actually roll the die to ensure propper state change
 			g.rollDie(); 
 			// The we manually override its value with the value we want
 			ds.setValue(game.getDieValue());
 		}
 	}
-	public PlayerColor turnCard() {
+	public PlayerColor turnCard() throws RemoteException {
 		PlayerColor pc = game.turnCard();
 		Set<Game> coll = remoteGames.keySet();
 		Iterator<Game> itt = coll.iterator();
