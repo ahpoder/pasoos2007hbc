@@ -97,16 +97,13 @@
 
   <!-- JUNIT TESTING -->
   <target name="test" depends="build_all">
-    <java 
-	  dir="${build}"
-      fork="yes"
-      classname="org.junit.runner.JUnitCore">
-      <classpath> <path refid="_classpath"/> </classpath>
-      <arg value="hottargui.TestAll"/>
+    <java classname="hottargui.config.NonUnitTest"
+      dir="${build}" fork="yes">
+      <classpath><path refid="_classpath"/> </classpath>
       <sysproperty key="java.security.policy" path="${build}/resource/java.policy"/>
       <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
       <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
-    </java>      
+    </java>   
   </target>
 
   <!-- RMIC targets -->

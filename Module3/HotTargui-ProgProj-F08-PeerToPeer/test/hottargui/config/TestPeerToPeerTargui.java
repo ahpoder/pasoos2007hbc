@@ -1,46 +1,43 @@
 package hottargui.config;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import hottargui.framework.Game;
+import hottargui.framework.Position;
+import hottargui.net.GameInitializer;
 
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
-import org.junit.*;
-
-import hottargui.framework.*;
-import hottargui.net.*;
-
 public class TestPeerToPeerTargui {
+
 	/**
-	 * This test is only designed to show that the configuration
-	 * is correct, as the individual parts of the configuration is
-	 * already tested.
+	 * @param args
 	 */
+	  Game redGameDecorator;
+	  TestGame redLocalGame;
+	  TestDie redLocalDie;
+	  TestGameRepository redLocalRepository;
 
-	  static Game redGameDecorator;
-	  static TestGame redLocalGame;
-	  static TestDie redLocalDie;
-	  static TestGameRepository redLocalRepository;
+	  Game greenGameDecorator;
+	  TestGame greenLocalGame;
+	  TestDie greenLocalDie;
+	  TestGameRepository greenLocalRepository;
 
-	  static Game greenGameDecorator;
-	  static TestGame greenLocalGame;
-	  static TestDie greenLocalDie;
-	  static TestGameRepository greenLocalRepository;
+	  Game blueGameDecorator;
+	  TestGame blueLocalGame;
+	  TestDie blueLocalDie;
+	  TestGameRepository blueLocalRepository;
 
-	  static Game blueGameDecorator;
-	  static TestGame blueLocalGame;
-	  static TestDie blueLocalDie;
-	  static TestGameRepository blueLocalRepository;
-
-	  static Game yellowGameDecorator;
-	  static TestGame yellowLocalGame;
-	  static TestDie yellowLocalDie;
-	  static TestGameRepository yellowLocalRepository;
-
-	  @BeforeClass 
-	  public static void setUp() throws RemoteException, MalformedURLException {
+	  Game yellowGameDecorator;
+	  TestGame yellowLocalGame;
+	  TestDie yellowLocalDie;
+	  TestGameRepository yellowLocalRepository;
+	  
+	  public TestPeerToPeerTargui() throws RemoteException, MalformedURLException
+	  {
 		  System.out.println(System.getProperty("java.security.policy"));
 
           if (System.getSecurityManager() == null) {
@@ -114,32 +111,45 @@ public class TestPeerToPeerTargui {
 		  // Run YELLOW setup
           setupYellow();
 	  }
+
+	public static void main(String[] args) {
+		try {
+			TestPeerToPeerTargui p = new TestPeerToPeerTargui();
+			p.runTransitionTour();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	  
-	  private static void setupRed() throws RemoteException, MalformedURLException
+	  private void setupRed() throws RemoteException, MalformedURLException
 	  {
 		  GameInitializer gi = new GameInitializer();
 		  redGameDecorator = gi.initialize("RED", redLocalGame, redLocalRepository);
 	  }
 
-	  private static void setupGreen() throws RemoteException, MalformedURLException
+	  private void setupGreen() throws RemoteException, MalformedURLException
 	  {
 		  GameInitializer gi = new GameInitializer();
 		  greenGameDecorator = gi.initialize("GREEN", greenLocalGame, greenLocalRepository);
 	  }
 
-	  private static void setupBlue() throws RemoteException, MalformedURLException
+	  private void setupBlue() throws RemoteException, MalformedURLException
 	  {
 		  GameInitializer gi = new GameInitializer();
 		  blueGameDecorator = gi.initialize("BLUE", blueLocalGame, blueLocalRepository);
 	  }
 
-	  private static void setupYellow() throws RemoteException, MalformedURLException
+	  private void setupYellow() throws RemoteException, MalformedURLException
 	  {
 		  GameInitializer gi = new GameInitializer();
 		  yellowGameDecorator = gi.initialize("YELLOW", yellowLocalGame, yellowLocalRepository);
 	  }
 
-	  @Test
 	  public void runTransitionTour() throws RemoteException
 	  {
 		  validateAll();
@@ -276,4 +286,5 @@ public class TestPeerToPeerTargui {
 		  assertEquals(5, blueLocalDie.setValueVal);
 		  assertEquals(5, yellowLocalDie.setValueVal);
 	  }
+
 }
