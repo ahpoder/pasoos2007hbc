@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/minidraw.jar"/>
+	<classpathentry kind="lib" path="C:/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/minidraw.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/HotTargui_PeerToPeer"/>
 	<classpathentry kind="lib" path="/HotTargui_PeerToPeer/hottargui"/>
-	<classpathentry kind="lib" path="C:/privat/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="C:/PaSOOS/Module3/HotTargui-ProgProj-F08/lib/junit-4.4.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

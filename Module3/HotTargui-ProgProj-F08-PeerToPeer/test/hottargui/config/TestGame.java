@@ -41,13 +41,13 @@ public class TestGame extends UnicastRemoteObject implements Game {
 	}
 
 	public boolean getDieValueCalled = false;
-	public int dieValueToReturn = 0;
+	public int getDieValueReturnValue = 0;
 	public int getDieValue() throws RemoteException {
 		if (getDieValueCalled) // We only allow one move at a time
 			throw new RemoteException();
 		getDieValueCalled = true;
 		// TODO Auto-generated method stub
-		return dieValueToReturn;
+		return getDieValueReturnValue;
 	}
 
 	public Player getPlayerInTurn() throws RemoteException {

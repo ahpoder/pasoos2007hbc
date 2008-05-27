@@ -36,16 +36,13 @@
   
   <!-- Help -->
   <target name="help">
-<echo>
-
-    Ant build system for HotTargui.
-      Targets are:
-    
-      Testing: 
-        build_all: Build all code and generate networking stubs. Ensure propper security policy
-		clean:     Delete the build output directory.
-        test:      Run all JUnit test cases.
-	</echo>
+    <echo message="Ant build system for HotTargui."/>
+    <echo message="Targets are:"/>
+    <echo message="  build_all:      Build everything and generate networking stubs."/>
+    <echo message="  test:           Run all JUnit test cases."/>
+    <echo message="  clean:          Delete the build output directory."/>
+    <echo message=""/>
+    <echo message="REMEMBER to 'start rmiregistry' first!"/>
   </target>
   
   <!-- Core tasks: compiling ect -->
@@ -97,7 +94,7 @@
 
   <!-- JUNIT TESTING -->
   <target name="test" depends="build_all">
-    <java classname="hottargui.config.NonUnitTest"
+    <java classname="hottargui.config.TestPeerToPeerTargui"
       dir="${build}" fork="yes">
       <classpath><path refid="_classpath"/> </classpath>
       <sysproperty key="java.security.policy" path="${build}/resource/java.policy"/>

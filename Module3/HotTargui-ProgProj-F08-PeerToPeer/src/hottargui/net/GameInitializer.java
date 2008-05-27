@@ -5,8 +5,8 @@ import java.rmi.*;
 
 import hottargui.framework.*;
 
-public class GameInitializer {
-	public Game initialize(String color, Game localGame, GameRepository localRepository) throws MalformedURLException, RemoteException
+public abstract class GameInitializer {
+	public static void bind(String color, Game localGame, GameRepository localRepository) throws MalformedURLException, RemoteException
 	{
 		PlayerColor pc = stringToColor(color);
 		if (pc == PlayerColor.None)
@@ -17,8 +17,26 @@ public class GameInitializer {
 		Naming.rebind("//localhost/" + color.toUpperCase() + "HotTarguiGame", localGame);
 		// Expose GameRepository class
 		Naming.rebind("//localhost/" + color.toUpperCase() + "HotTarguiGameRepository", localRepository);
+	}
 
-		GameNetworkDecorator gs;
+	public static void unbind(String color) throws RemoteException, MalformedURLException, NotBoundException
+	{
+		PlayerColor pc = stringToColor(color);
+		if (pc == PlayerColor.None)
+		{
+			throw new IllegalArgumentException("Only Red, green, blue and yellow allowed");
+		}
+		// Expose game class
+		Naming.unbind("//localhost/" + color.toUpperCase() + "HotTarguiGame");
+		// Expose GameRepository class
+		Naming.unbind("//localhost/" + color.toUpperCase() + "HotTarguiGameRepository");
+	}
+	
+	public static Game connect(String color, Game localGame) throws MalformedURLException, RemoteException
+	{
+		PlayerColor pc = stringToColor(color);
+
+		GameNetworkDecorator gs = null;
 		// Retrieve the other games
 		Pair[] g = new Pair[3];
 		int i = 0;
@@ -38,6 +56,7 @@ public class GameInitializer {
 		{
 			g[i++] = getRemote("YELLOW");
 		}
+
 		// i now has to be 3.
 		gs = new GameNetworkDecorator(localGame);
 		for (i = 0; i < 3; ++i)
@@ -46,8 +65,8 @@ public class GameInitializer {
 		}
 		return gs;
 	}
-	
-	class Pair
+
+	private static class Pair
 	{
 		public Pair(Game g, GameRepository gr) {
 			game = g;
@@ -57,7 +76,7 @@ public class GameInitializer {
 		public GameRepository gameRepository;
 	}
 	
-	private Pair getRemote(String color) throws MalformedURLException {
+	private static Pair getRemote(String color) throws MalformedURLException {
 		do {
 			try {
 				Game g = (Game)Naming.lookup("//localhost/" + color + "HotTarguiGame");
@@ -79,7 +98,7 @@ public class GameInitializer {
 		} while (true);
 	}
 
-	private PlayerColor stringToColor(String color)
+	private static PlayerColor stringToColor(String color)
 	{
 		if (color.toUpperCase().equals("RED"))
 		{
