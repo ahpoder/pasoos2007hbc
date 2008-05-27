@@ -12,10 +12,6 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
 public class TestPeerToPeerTargui {
-
-	/**
-	 * @param args
-	 */
 	  Game redGameDecorator;
 	  TestGame redLocalGame;
 	  TestDie redLocalDie;
@@ -47,18 +43,26 @@ public class TestPeerToPeerTargui {
 	      redLocalDie = new TestDie();
 		  redLocalRepository = new TestGameRepository();
 	      redLocalGame = new TestGame();
-
+	      System.out.println("Binding RED");
+	      GameInitializer.bind("RED", redLocalGame, redLocalRepository);
+		  
   	      greenLocalDie = new TestDie();
 	      greenLocalRepository = new TestGameRepository();
 	      greenLocalGame = new TestGame();
+	      System.out.println("Binding GREEN");
+	      GameInitializer.bind("GREEN", greenLocalGame, greenLocalRepository);
 
 	      blueLocalDie = new TestDie();
 	      blueLocalRepository = new TestGameRepository();
 	      blueLocalGame = new TestGame();
+	      System.out.println("Binding BLUE");
+	      GameInitializer.bind("BLUE", blueLocalGame, blueLocalRepository);
 
 	      yellowLocalDie = new TestDie();
 	      yellowLocalRepository = new TestGameRepository();
 	      yellowLocalGame = new TestGame();
+	      System.out.println("Binding YELLOW");
+	      GameInitializer.bind("YELLOW", yellowLocalGame, yellowLocalRepository);
 
 		  // Run network RED setup
 		  new Thread(new Runnable() {
@@ -110,51 +114,92 @@ public class TestPeerToPeerTargui {
 
 		  // Run YELLOW setup
           setupYellow();
+          try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println();
 	  }
 
 	public static void main(String[] args) {
 		try {
 			TestPeerToPeerTargui p = new TestPeerToPeerTargui();
 			p.runTransitionTour();
+			p.finalize();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		System.out.println("Killing");
+        System.exit(0);
 	}
 	
+	protected void finalize() throws Throwable
+	{
+	  System.out.println();
+	  System.out.println("Cleaning up");
+	  GameInitializer.unbind("RED");
+	  GameInitializer.unbind("GREEN");
+	  GameInitializer.unbind("BLUE");
+	  GameInitializer.unbind("YELLOW");
+	  super.finalize(); //not necessary if extending Object.¨
+	}
 	  
 	  private void setupRed() throws RemoteException, MalformedURLException
 	  {
-		  GameInitializer gi = new GameInitializer();
-		  redGameDecorator = gi.initialize("RED", redLocalGame, redLocalRepository);
+	      System.out.println("Connecting RED to other applications");
+		  redGameDecorator = GameInitializer.connect("RED", redLocalGame);
+		  assertTrue(redGameDecorator != null);
 	  }
 
 	  private void setupGreen() throws RemoteException, MalformedURLException
 	  {
-		  GameInitializer gi = new GameInitializer();
-		  greenGameDecorator = gi.initialize("GREEN", greenLocalGame, greenLocalRepository);
+	      System.out.println("Connecting GREEN to other applications");
+		  greenGameDecorator = GameInitializer.connect("GREEN", greenLocalGame);
+		  assertTrue(greenGameDecorator != null);
 	  }
 
 	  private void setupBlue() throws RemoteException, MalformedURLException
 	  {
-		  GameInitializer gi = new GameInitializer();
-		  blueGameDecorator = gi.initialize("BLUE", blueLocalGame, blueLocalRepository);
+	      System.out.println("Connecting BLUE to other applications");
+		  blueGameDecorator = GameInitializer.connect("BLUE", blueLocalGame);
+		  assertTrue(blueGameDecorator != null);
 	  }
 
 	  private void setupYellow() throws RemoteException, MalformedURLException
 	  {
-		  GameInitializer gi = new GameInitializer();
-		  yellowGameDecorator = gi.initialize("YELLOW", yellowLocalGame, yellowLocalRepository);
+	      System.out.println("Connecting YELLOW to other applications");
+		  yellowGameDecorator = GameInitializer.connect("YELLOW", yellowLocalGame);
+		  assertTrue(yellowGameDecorator != null);
 	  }
 
 	  public void runTransitionTour() throws RemoteException
 	  {
+		  System.out.println("Beginning test");
+		  System.out.println();
 		  validateAll();
 		  newGamePropagatesToAll();
+		  System.out.println("newGamePropagatesToAll: SUCCESS");
 		  movePropagatesToAll();
+		  System.out.println("movePropagatesToAll: SUCCESS");
+		  invalidMovePropagatesToNone();
+		  System.out.println("invalidMovePropagatesToNone: SUCCESS");
+		  buyPropagatesToAll();
+		  System.out.println("buyPropagatesToAll: SUCCESS");
+		  invalidBuyPropagatesToNone();
+		  System.out.println("invalidBuyPropagatesToNone: SUCCESS");
+		  rollDiePropagatesToAll();
+		  System.out.println("rollDiePropagatesToAll: SUCCESS");
+		  System.out.println();
+		  System.out.println("Test completed");
 	  }
 	  
 	  private void validateAll()
@@ -202,9 +247,9 @@ public class TestPeerToPeerTargui {
 		  assertEquals(yellowLocalGame.moveTo, new Position(1,0));
 
 		  assertEquals(redLocalGame.moveCount, 2);
-		  assertEquals(greenLocalGame.moveTo, 2);
-		  assertEquals(blueLocalGame.moveTo, 2);
-		  assertEquals(yellowLocalGame.moveTo, 2);
+		  assertEquals(greenLocalGame.moveCount, 2);
+		  assertEquals(blueLocalGame.moveCount, 2);
+		  assertEquals(yellowLocalGame.moveCount, 2);
 	  }
 	  
 	  public void invalidMovePropagatesToNone() throws RemoteException {
@@ -249,7 +294,7 @@ public class TestPeerToPeerTargui {
 		  // Setup
 		  redLocalGame.buyResult = false;
 
-		  redGameDecorator.move(new Position(0,0), new Position(1,0), 2);
+		  redGameDecorator.buy(2, new Position(3,3));
 		  redLocalGame.buyResult = true;
 		  assertTrue(redLocalGame.buyCalled);
 		  redLocalGame.buyCalled = false;
@@ -261,8 +306,8 @@ public class TestPeerToPeerTargui {
 	  
 	  public void rollDiePropagatesToAll() throws RemoteException {
 		  // Setup
-		  redLocalDie.getValueReturnValue = 5; // Requires as it is set for the other Die's
-		  redLocalRepository.getDieReturnValue = redLocalDie;
+		  redLocalGame.getDieValueReturnValue = 5; // Requires as it is set for the other Die's
+		  redLocalRepository.getDieReturnValue = redLocalDie; // Not needed
 		  greenLocalRepository.getDieReturnValue = greenLocalDie;
 		  blueLocalRepository.getDieReturnValue = blueLocalDie;
 		  yellowLocalRepository.getDieReturnValue = yellowLocalDie;
