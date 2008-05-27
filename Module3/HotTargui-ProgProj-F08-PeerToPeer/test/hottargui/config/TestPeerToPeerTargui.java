@@ -3,6 +3,7 @@ package hottargui.config;
 import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
@@ -26,17 +27,17 @@ public class TestPeerToPeerTargui {
 	  static Game greenGameDecorator;
 	  static TestGame greenLocalGame;
 	  static TestDie greenLocalDie;
-	  static GameRepository greenLocalRepository;
+	  static TestGameRepository greenLocalRepository;
 
 	  static Game blueGameDecorator;
 	  static TestGame blueLocalGame;
 	  static TestDie blueLocalDie;
-	  static GameRepository blueLocalRepository;
+	  static TestGameRepository blueLocalRepository;
 
 	  static Game yellowGameDecorator;
 	  static TestGame yellowLocalGame;
 	  static TestDie yellowLocalDie;
-	  static GameRepository yellowLocalRepository;
+	  static TestGameRepository yellowLocalRepository;
 
 	  @BeforeClass 
 	  public static void setUp() throws RemoteException, MalformedURLException {
@@ -47,19 +48,19 @@ public class TestPeerToPeerTargui {
 		  }
 
 	      redLocalDie = new TestDie();
-		  redLocalRepository = new TestGameRepository(redLocalDie);
+		  redLocalRepository = new TestGameRepository();
 	      redLocalGame = new TestGame();
 
-	      greenLocalDie = new TestDie();
-	      greenLocalRepository = new TestGameRepository(greenLocalDie);
+  	      greenLocalDie = new TestDie();
+	      greenLocalRepository = new TestGameRepository();
 	      greenLocalGame = new TestGame();
 
 	      blueLocalDie = new TestDie();
-	      blueLocalRepository = new TestGameRepository(blueLocalDie);
+	      blueLocalRepository = new TestGameRepository();
 	      blueLocalGame = new TestGame();
 
 	      yellowLocalDie = new TestDie();
-	      yellowLocalRepository = new TestGameRepository(yellowLocalDie);
+	      yellowLocalRepository = new TestGameRepository();
 	      yellowLocalGame = new TestGame();
 
 		  
@@ -195,5 +196,85 @@ public class TestPeerToPeerTargui {
 		  assertEquals(greenLocalGame.moveTo, 2);
 		  assertEquals(blueLocalGame.moveTo, 2);
 		  assertEquals(yellowLocalGame.moveTo, 2);
+	  }
+	  
+	  public void invalidMovePropagatesToNone() throws RemoteException {
+		  // Setup
+		  redLocalGame.moveResult = false;
+
+		  redGameDecorator.move(new Position(0,0), new Position(1,0), 2);
+		  redLocalGame.moveResult = true;
+		  assertTrue(redLocalGame.moveCalled);
+		  redLocalGame.moveCalled = false;
+		  assertFalse(greenLocalGame.moveCalled);
+		  assertFalse(blueLocalGame.moveCalled);
+		  assertFalse(yellowLocalGame.moveCalled);
+		  validateAll(); // Ensure that nothing else was called
+	  }
+	  
+	  public void buyPropagatesToAll() throws RemoteException {
+		  redGameDecorator.buy(10, new Position(0,0));
+		  assertTrue(redLocalGame.buyCalled);
+		  redLocalGame.buyCalled = false;
+		  assertTrue(greenLocalGame.buyCalled);
+		  greenLocalGame.buyCalled = false;
+		  assertTrue(blueLocalGame.buyCalled);
+		  blueLocalGame.buyCalled = false;
+		  assertTrue(yellowLocalGame.buyCalled);
+		  yellowLocalGame.buyCalled = false;
+		  validateAll(); // Ensure that nothing else was called
+
+		  // Test values
+		  assertEquals(redLocalGame.buyCount, 10);
+		  assertEquals(greenLocalGame.buyCount, 10);
+		  assertEquals(blueLocalGame.buyCount, 10);
+		  assertEquals(yellowLocalGame.buyCount, 10);
+
+		  assertEquals(redLocalGame.buyDeploy, new Position(0,0));
+		  assertEquals(greenLocalGame.buyDeploy, new Position(0,0));
+		  assertEquals(blueLocalGame.buyDeploy, new Position(0,0));
+		  assertEquals(yellowLocalGame.buyDeploy, new Position(0,0));
+	  }
+	  
+	  public void invalidBuyPropagatesToNone() throws RemoteException {
+		  // Setup
+		  redLocalGame.buyResult = false;
+
+		  redGameDecorator.move(new Position(0,0), new Position(1,0), 2);
+		  redLocalGame.buyResult = true;
+		  assertTrue(redLocalGame.buyCalled);
+		  redLocalGame.buyCalled = false;
+		  assertFalse(greenLocalGame.buyCalled);
+		  assertFalse(blueLocalGame.buyCalled);
+		  assertFalse(yellowLocalGame.buyCalled);
+		  validateAll(); // Ensure that nothing else was called
+	  }
+	  
+	  public void rollDiePropagatesToAll() throws RemoteException {
+		  // Setup
+		  redLocalDie.getValueReturnValue = 5; // Requires as it is set for the other Die's
+		  redLocalRepository.getDieReturnValue = redLocalDie;
+		  greenLocalRepository.getDieReturnValue = greenLocalDie;
+		  blueLocalRepository.getDieReturnValue = blueLocalDie;
+		  yellowLocalRepository.getDieReturnValue = yellowLocalDie;
+		  
+		  redGameDecorator.rollDie();
+		  
+		  // Validate result
+		  assertTrue(redLocalGame.getDieValueCalled); // The local call performed by the decorator
+		  
+		  assertFalse(redLocalRepository.getDieStrategyCalled); // This is not called as it is red that instigates
+		  assertTrue(greenLocalRepository.getDieStrategyCalled);
+		  assertTrue(blueLocalRepository.getDieStrategyCalled);
+		  assertTrue(yellowLocalRepository.getDieStrategyCalled);
+
+		  assertFalse(redLocalDie.setValueCalled); // This is not called as it is red that instigates
+		  assertTrue(greenLocalDie.setValueCalled);
+		  assertTrue(blueLocalDie.setValueCalled);
+		  assertTrue(yellowLocalDie.setValueCalled);
+		  
+		  assertEquals(5, greenLocalDie.setValueVal);
+		  assertEquals(5, blueLocalDie.setValueVal);
+		  assertEquals(5, yellowLocalDie.setValueVal);
 	  }
 }
