@@ -30,12 +30,14 @@ public class DeltaGameFactory implements GameFactory {
 	}
 
 	public PutUnitsStrategy createPutUnitsStrategy() {
-		// TODO Auto-generated method stub
 		return new SettlementOnlyPutUnitsStrategy();
 	}
 
 	public WinnerStrategy createWinnerStrategy() {
-		// TODO Auto-generated method stub
 		return new RevenueWinnerStrategy();
+	}
+
+	public Die createDieStrategy() {
+		return null;
 	}
 }

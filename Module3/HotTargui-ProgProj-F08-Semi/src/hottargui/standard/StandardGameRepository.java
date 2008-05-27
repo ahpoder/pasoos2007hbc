@@ -10,6 +10,7 @@ public class StandardGameRepository implements GameRepository {
 	private PutUnitsStrategy putUnitsStrategy;
 	private PlayerTurnStrategy playerTurnStrategy;
 	private WinnerStrategy winnerStrategy;
+	private Die die;
 	
 	private GameFactory gameFactory;
 	private Game game;
@@ -23,6 +24,7 @@ public class StandardGameRepository implements GameRepository {
 		putUnitsStrategy = gf.createPutUnitsStrategy();
 		playerTurnStrategy = gf.createTurnStrategy();
 		winnerStrategy = gf.createWinnerStrategy();
+		die = gf.createDieStrategy();
 	}
 	
 	public AttackStrategy getAttackStrategy() {
@@ -47,6 +49,10 @@ public class StandardGameRepository implements GameRepository {
 
 	public WinnerStrategy getWinnerStrategy() {
 		return winnerStrategy;
+	}
+
+	public Die getDieStrategy() {
+		return die;
 	}
 
 	public void reinitialize() {

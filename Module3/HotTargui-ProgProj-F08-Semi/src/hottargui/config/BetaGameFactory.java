@@ -37,5 +37,9 @@ public class BetaGameFactory implements GameFactory{
 	public AttackStrategy createAttackStrategy() {
 		return new DieRollAttackStrategy();
 	}
+
+	public Die createDieStrategy() {
+		return new StandardDie();
+	}
 }
 
