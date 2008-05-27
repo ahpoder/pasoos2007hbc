@@ -38,4 +38,8 @@ public class AlphaGameFactory implements GameFactory {
 		// TODO Auto-generated method stub
 		return new SaltMineWinnerStrategy(game);
 	}
+
+	public Die createDieStrategy() {
+		return null;
+	}
 }

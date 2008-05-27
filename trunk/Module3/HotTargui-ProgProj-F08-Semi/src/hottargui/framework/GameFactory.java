@@ -22,4 +22,6 @@ public interface GameFactory {
 	public PutUnitsStrategy createPutUnitsStrategy();
 
 	public AttackStrategy createAttackStrategy();
+
+	public Die createDieStrategy();
 }

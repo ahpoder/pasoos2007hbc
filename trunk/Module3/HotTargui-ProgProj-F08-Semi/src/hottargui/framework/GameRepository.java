@@ -16,6 +16,8 @@ public interface GameRepository {
 
 	AttackStrategy getAttackStrategy();
 	
+	Die getDieStrategy();
+
 	void reinitialize();
 	
 	// TODO - consider if set-methods should be included.
