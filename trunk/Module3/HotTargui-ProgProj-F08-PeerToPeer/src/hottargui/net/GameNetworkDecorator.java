@@ -5,9 +5,9 @@ import java.util.*;
 
 import hottargui.framework.*;
 
-public class GameSynchronizer implements Game {
+public class GameNetworkDecorator implements Game {
 	private Game game;
-	public GameSynchronizer(Game gp)
+	public GameNetworkDecorator(Game gp)
 	{
 		this.game = gp;
 	}
@@ -82,6 +82,8 @@ public class GameSynchronizer implements Game {
 	}
 	public void rollDie() throws RemoteException {
 		game.rollDie();
+		int value = game.getDieValue();
+
 		Set<Game> coll = remoteGames.keySet();
 		Iterator<Game> itt = coll.iterator();
 		while (itt.hasNext())
@@ -98,7 +100,7 @@ public class GameSynchronizer implements Game {
 			// First we actually roll the die to ensure propper state change
 			g.rollDie(); 
 			// The we manually override its value with the value we want
-			ds.setValue(game.getDieValue());
+			ds.setValue(value);
 		}
 	}
 	public PlayerColor turnCard() throws RemoteException {

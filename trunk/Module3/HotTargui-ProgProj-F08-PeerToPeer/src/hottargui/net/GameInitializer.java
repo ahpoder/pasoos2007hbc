@@ -18,7 +18,7 @@ public class GameInitializer {
 		// Expose GameRepository class
 		Naming.rebind("//localhost/" + color.toUpperCase() + "HotTarguiGameRepository", localRepository);
 
-		GameSynchronizer gs;
+		GameNetworkDecorator gs;
 		// Retrieve the other games
 		Pair[] g = new Pair[3];
 		int i = 0;
@@ -39,7 +39,7 @@ public class GameInitializer {
 			g[i++] = getRemote("YELLOW");
 		}
 		// i now has to be 3.
-		gs = new GameSynchronizer(localGame);
+		gs = new GameNetworkDecorator(localGame);
 		for (i = 0; i < 3; ++i)
 		{
 			gs.addGame(g[i].game, g[i].gameRepository);
