@@ -26,15 +26,15 @@ public class GameInitializer {
 		{
 			g[i++] = getRemote("RED");
 		}
-		else if (pc != PlayerColor.Green)
+		if (pc != PlayerColor.Green)
 		{
 			g[i++] = getRemote("GREEN");
 		}
-		else if (pc != PlayerColor.Blue)
+		if (pc != PlayerColor.Blue)
 		{
 			g[i++] = getRemote("BLUE");
 		}
-		else if (pc != PlayerColor.Yellow)
+		if (pc != PlayerColor.Yellow)
 		{
 			g[i++] = getRemote("YELLOW");
 		}

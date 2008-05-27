@@ -12,6 +12,9 @@
   <property name="build" value="build"></property>
   <property name="doc" value="doc"></property>
 
+  <property name="registry_host" value="localhost"/>
+  <property name="registry_host_spec" value="//${registry_host}/"/>
+
   <!-- Jar Files -->
   <property name="junit" value="lib/junit-4.4.jar"/>
   <property name="minidraw_jar" value="lib/minidraw.jar"/>
@@ -95,11 +98,14 @@
   <!-- JUNIT TESTING -->
   <target name="test" depends="build_all">
     <java 
+	  dir="${build}"
       fork="yes"
       classname="org.junit.runner.JUnitCore">
       <classpath> <path refid="_classpath"/> </classpath>
-      <sysproperty key="java.security.policy" path="${build}/resource/java.policy"/>
       <arg value="hottargui.TestAll"/>
+      <sysproperty key="java.security.policy" path="${build}/resource/java.policy"/>
+      <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
+      <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
     </java>      
   </target>
 

@@ -63,7 +63,6 @@ public class TestPeerToPeerTargui {
 	      yellowLocalRepository = new TestGameRepository();
 	      yellowLocalGame = new TestGame();
 
-		  
 		  // Run network RED setup
 		  new Thread(new Runnable() {
 			    public void run() {
