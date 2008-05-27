@@ -1,6 +1,6 @@
 package hottargui.net;
 
-import java.net.MalformedURLException;
+import java.net.*;
 import java.rmi.*;
 
 import hottargui.framework.*;
@@ -12,9 +12,6 @@ public class GameInitializer {
 		if (pc == PlayerColor.None)
 		{
 			throw new IllegalArgumentException("Only Red, green, blue and yellow allowed");
-		}
-		if (System.getSecurityManager() == null) {
-			System.setSecurityManager(new RMISecurityManager());
 		}
 		// Expose game class
 		Naming.rebind("//localhost/" + color.toUpperCase() + "HotTarguiGame", localGame);
