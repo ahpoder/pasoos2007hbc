@@ -39,22 +39,10 @@
       Targets are:
     
       Testing: 
-        clean: Delete the build output directory.
-        test: run all JUnit test cases.
-        doc: Generate documentation in doc dir.
-    
-
-      Gui Testing targets,
-        sbc: Show computed graphics for the board.
-        sbu: Show board updates reflected on GUI.
-        mu: Move Units and see change in game instance.
-        sm: Show message boxes.
-        rd: Roll die tool.
-        ttc: Turn tribe card tool.
-        mv: Multi view of the game board.
-    
-    Henrik B Christensen 2006-2008
-    </echo>
+        build_all: Build all code and generate networking stubs. Ensure propper security policy
+		clean:     Delete the build output directory.
+        test:      Run all JUnit test cases.
+	</echo>
   </target>
   
   <!-- Core tasks: compiling ect -->
@@ -85,6 +73,7 @@
       <fileset dir="${resource}">
 	<include name="*.gif"/>
 	<include name="*.lst"/>
+	<include name="*.policy"/>
       </fileset>
     </copy>
   </target>
@@ -94,9 +83,13 @@
     <delete dir="${build}"></delete>
     <!-- <delete file="${minidraw_jar}"></delete> -->
   </target>
- 
+
+  <!-- COMPILE ALL -->
+  <target name="compile_all" depends="build_src,build_test">
+  </target>
+
   <!-- BUILD ALL -->
-  <target name="build_all" depends="build_src,build_test,copy_resource">
+  <target name="build_all" depends="compile_all,rmic,copy_resource">
   </target>
 
   <!-- JUNIT TESTING -->
@@ -105,95 +98,39 @@
       fork="yes"
       classname="org.junit.runner.JUnitCore">
       <classpath> <path refid="_classpath"/> </classpath>
+      <sysproperty key="java.security.policy" path="${build}/resource/java.policy"/>
       <arg value="hottargui.TestAll"/>
     </java>      
   </target>
 
-  
-  <!-- == GUI Testing == -->
+  <!-- RMIC targets -->
+  <target name="rmic" depends="compile_all">
 
-  <target name="run-gui-test" depends="build_all">
-    <java fork="yes" classname="hottargui.view.${className}">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-  
-  <target name="sbc">
-    <antcall target="run-gui-test">
-      <param name="className" value="ShowBoardComputed"/>
-    </antcall>
-  </target>
-
-  <target name="sbu">
-    <antcall target="run-gui-test">
-      <param name="className" value="ShowBoardUpdate"/>
-    </antcall>
-  </target>
-
-  <target name="mu" depends="build_all">
-    <antcall target="run-gui-test">
-      <param name="className" value="MoveUnit"/>
-    </antcall>
-  </target>
-
-  <target name="sm" depends="build_all">
-    <antcall target="run-gui-test">
-      <param name="className" value="ShowMessage"/>
-    </antcall>
-  </target>
-
-  <target name="rd" depends="build_all">
-    <antcall target="run-gui-test">
-      <param name="className" value="RollDie"/>
-    </antcall>
-  </target>
-
-  <target name="ttc" depends="build_all">
-    <antcall target="run-gui-test">
-      <param name="className" value="TurnTribeCard"/>
-    </antcall>
-  </target>
-
-  <target name="mv" depends="build_all">
-    <antcall target="run-gui-test">
-      <param name="className" value="MultiView"/>
-    </antcall>
-  </target>
-
-  <!-- === Documentation === -->
-  <target name="mkdirdoc">
-    <mkdir dir="${doc}"></mkdir>
-  </target>
-
-  <target name="copy_doc_resource">
-    <copy todir="${doc}" >
-      <fileset dir="${src}">
-	<include name="**/*.gif"/>
-      </fileset>
-    </copy>
-  </target>
-
-  <target name="doc" depends="clean,build_src,mkdirdoc,copy_doc_resource">
-    <javadoc
-      source = "1.5"
-      packagenames=
-      "hottargui.*"
-      sourcepath="${src}"
-      destdir="${doc}"
-      package="true"
-      doctitle="&lt;b&gt;HotTargui&lt;/b&gt;"
-      bottom="&lt;b&gt;Partly authored by Henrik Bærbak &lt;/b&gt;"
-      windowtitle="HotTargui"
-      >
-      <sourcepath> 
-	<path refid="_srcpath"/> 
-      </sourcepath>
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="hottargui.config.TestDie">
       <classpath> 
-	<path refid="_classpath"/> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
       </classpath>
-    </javadoc>
+    </rmic>
+
+   <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="hottargui.config.TestGameRepository">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
+
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="hottargui.config.TestGame">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
   </target>
-  
+
 </project>
 
 

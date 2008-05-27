@@ -3,14 +3,13 @@ package hottargui.config;
 import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
 import org.junit.*;
 
 import hottargui.framework.*;
 import hottargui.net.*;
-import hottargui.standard.*;
-
 
 public class TestPeerToPeerTargui {
 	/**
@@ -19,29 +18,52 @@ public class TestPeerToPeerTargui {
 	 * already tested.
 	 */
 
-	  Game redGameDecorator;
-	  Game redLocalGame;
-	  GameFactory redLocalFactory;
-	  StandardGameRepository redLocalRepository;
+	  static Game redGameDecorator;
+	  static TestGame redLocalGame;
+	  static TestDie redLocalDie;
+	  static TestGameRepository redLocalRepository;
 
-	  Game greenGameDecorator;
-	  Game greenLocalGame;
-	  GameFactory greenLocalFactory;
-	  StandardGameRepository greenLocalRepository;
+	  static Game greenGameDecorator;
+	  static TestGame greenLocalGame;
+	  static TestDie greenLocalDie;
+	  static GameRepository greenLocalRepository;
 
-	  Game blueGameDecorator;
-	  Game blueLocalGame;
-	  GameFactory blueLocalFactory;
-	  StandardGameRepository blueLocalRepository;
+	  static Game blueGameDecorator;
+	  static TestGame blueLocalGame;
+	  static TestDie blueLocalDie;
+	  static GameRepository blueLocalRepository;
 
-	  Game yellowGameDecorator;
-	  Game yellowLocalGame;
-	  GameFactory yellowLocalFactory;
-	  StandardGameRepository yellowLocalRepository;
+	  static Game yellowGameDecorator;
+	  static TestGame yellowLocalGame;
+	  static TestDie yellowLocalDie;
+	  static GameRepository yellowLocalRepository;
 
-	  @Before 
-	  public void setUp() throws RemoteException, MalformedURLException {
-		  // Run RED setup
+	  @BeforeClass 
+	  public static void setUp() throws RemoteException, MalformedURLException {
+		  System.out.println(System.getProperty("java.security.policy"));
+
+          if (System.getSecurityManager() == null) {
+	          System.setSecurityManager(new RMISecurityManager());
+		  }
+
+	      redLocalDie = new TestDie();
+		  redLocalRepository = new TestGameRepository(redLocalDie);
+	      redLocalGame = new TestGame();
+
+	      greenLocalDie = new TestDie();
+	      greenLocalRepository = new TestGameRepository(greenLocalDie);
+	      greenLocalGame = new TestGame();
+
+	      blueLocalDie = new TestDie();
+	      blueLocalRepository = new TestGameRepository(blueLocalDie);
+	      blueLocalGame = new TestGame();
+
+	      yellowLocalDie = new TestDie();
+	      yellowLocalRepository = new TestGameRepository(yellowLocalDie);
+	      yellowLocalGame = new TestGame();
+
+		  
+		  // Run network RED setup
 		  new Thread(new Runnable() {
 			    public void run() {
 			      try {
@@ -93,64 +115,85 @@ public class TestPeerToPeerTargui {
           setupYellow();
 	  }
 	  
-	  private void setupRed() throws RemoteException, MalformedURLException
+	  private static void setupRed() throws RemoteException, MalformedURLException
 	  {
-	      redLocalRepository = new StandardGameRepository();
-	      redLocalGame = new StandardGame(redLocalRepository);
-	      redLocalFactory = new SemiGameFactory(redLocalGame);
-	      redLocalRepository.initialize(redLocalFactory, redLocalGame);
 		  GameInitializer gi = new GameInitializer();
 		  redGameDecorator = gi.initialize("RED", redLocalGame, redLocalRepository);
-		  redGameDecorator.newGame();
 	  }
 
-	  private void setupGreen() throws RemoteException, MalformedURLException
+	  private static void setupGreen() throws RemoteException, MalformedURLException
 	  {
-	      greenLocalRepository = new StandardGameRepository();
-	      greenLocalGame = new StandardGame(greenLocalRepository);
-	      greenLocalFactory = new SemiGameFactory(greenLocalGame);
-	      greenLocalRepository.initialize(greenLocalFactory, greenLocalGame);
 		  GameInitializer gi = new GameInitializer();
 		  greenGameDecorator = gi.initialize("GREEN", greenLocalGame, greenLocalRepository);
-		  greenGameDecorator.newGame();
 	  }
 
-	  private void setupBlue() throws RemoteException, MalformedURLException
+	  private static void setupBlue() throws RemoteException, MalformedURLException
 	  {
-	      blueLocalRepository = new StandardGameRepository();
-	      blueLocalGame = new StandardGame(blueLocalRepository);
-	      blueLocalFactory = new SemiGameFactory(blueLocalGame);
-	      blueLocalRepository.initialize(blueLocalFactory, blueLocalGame);
 		  GameInitializer gi = new GameInitializer();
 		  blueGameDecorator = gi.initialize("BLUE", blueLocalGame, blueLocalRepository);
-		  blueGameDecorator.newGame();
 	  }
 
-	  private void setupYellow() throws RemoteException, MalformedURLException
+	  private static void setupYellow() throws RemoteException, MalformedURLException
 	  {
-	      yellowLocalRepository = new StandardGameRepository();
-	      yellowLocalGame = new StandardGame(yellowLocalRepository);
-	      yellowLocalFactory = new SemiGameFactory(yellowLocalGame);
-	      yellowLocalRepository.initialize(yellowLocalFactory, yellowLocalGame);
 		  GameInitializer gi = new GameInitializer();
 		  yellowGameDecorator = gi.initialize("YELLOW", yellowLocalGame, yellowLocalRepository);
-		  yellowGameDecorator.newGame();
 	  }
 
-	  @Test 
-	  public void fourGamesInMoveState() throws RemoteException {
-		  assertEquals(State.move, redGameDecorator.getState());
-		  assertEquals(State.move, greenGameDecorator.getState());
-		  assertEquals(State.move, blueGameDecorator.getState());
-		  assertEquals(State.move, yellowGameDecorator.getState());
+	  @Test
+	  public void runTransitionTour() throws RemoteException
+	  {
+		  validateAll();
+		  newGamePropagatesToAll();
+		  movePropagatesToAll();
+	  }
+	  
+	  private void validateAll()
+	  {
+		  assertTrue(redLocalGame.validateAllFalse());
+		  assertTrue(greenLocalGame.validateAllFalse());
+		  assertTrue(blueLocalGame.validateAllFalse());
+		  assertTrue(yellowLocalGame.validateAllFalse());
+	  }
+	  
+	  public void newGamePropagatesToAll() throws RemoteException {
+		  redGameDecorator.newGame();
+		  assertTrue(redLocalGame.newGameCalled);
+		  redLocalGame.newGameCalled = false;
+		  assertTrue(greenLocalGame.newGameCalled);
+		  greenLocalGame.newGameCalled = false;
+		  assertTrue(blueLocalGame.newGameCalled);
+		  blueLocalGame.newGameCalled = false;
+		  assertTrue(yellowLocalGame.newGameCalled);
+		  yellowLocalGame.newGameCalled = false;
+		  validateAll(); // Ensure that nothing else was called
 	  }	
 
-	  @Test 
-	  public void redMoveToBoarderingErgResultsInRedOwnershipOnAllFourBoards() throws RemoteException {
+	  public void movePropagatesToAll() throws RemoteException {
 		  redGameDecorator.move(new Position(0,0), new Position(1,0), 2);
-		  assertEquals(PlayerColor.Red, redLocalGame.getTile(new Position(1,0)).getOwnerColor());
-		  assertEquals(PlayerColor.Red, greenLocalGame.getTile(new Position(1,0)).getOwnerColor());
-		  assertEquals(PlayerColor.Red, blueLocalGame.getTile(new Position(1,0)).getOwnerColor());
-		  assertEquals(PlayerColor.Red, yellowLocalGame.getTile(new Position(1,0)).getOwnerColor());
-	  }	
+		  assertTrue(redLocalGame.moveCalled);
+		  redLocalGame.moveCalled = false;
+		  assertTrue(greenLocalGame.moveCalled);
+		  greenLocalGame.moveCalled = false;
+		  assertTrue(blueLocalGame.moveCalled);
+		  blueLocalGame.moveCalled = false;
+		  assertTrue(yellowLocalGame.moveCalled);
+		  yellowLocalGame.moveCalled = false;
+		  validateAll(); // Ensure that nothing else was called
+
+		  // Test values
+		  assertEquals(redLocalGame.moveFrom, new Position(0,0));
+		  assertEquals(greenLocalGame.moveFrom, new Position(0,0));
+		  assertEquals(blueLocalGame.moveFrom, new Position(0,0));
+		  assertEquals(yellowLocalGame.moveFrom, new Position(0,0));
+
+		  assertEquals(redLocalGame.moveTo, new Position(1,0));
+		  assertEquals(greenLocalGame.moveTo, new Position(1,0));
+		  assertEquals(blueLocalGame.moveTo, new Position(1,0));
+		  assertEquals(yellowLocalGame.moveTo, new Position(1,0));
+
+		  assertEquals(redLocalGame.moveCount, 2);
+		  assertEquals(greenLocalGame.moveTo, 2);
+		  assertEquals(blueLocalGame.moveTo, 2);
+		  assertEquals(yellowLocalGame.moveTo, 2);
+	  }
 }
