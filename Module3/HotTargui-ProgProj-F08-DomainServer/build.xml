@@ -114,14 +114,6 @@
       </classpath>
     </rmic>
 
-   <rmic base="${build}" stubversion="1.2" verify="on"
-      classname="hottargui.config.TestGameRepository">
-      <classpath> 
-	<path refid="_srcpath"/>
-	<path refid="_classpath"/>
-      </classpath>
-    </rmic>
-
     <rmic base="${build}" stubversion="1.2" verify="on"
       classname="hottargui.config.TestGame">
       <classpath> 
