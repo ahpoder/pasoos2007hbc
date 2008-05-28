@@ -11,7 +11,7 @@ import java.rmi.*;
 import java.rmi.server.*;
 import java.net.*;
 
-public class ClientGUI extends JFrame implements Game {
+public class ClientGUI extends JFrame {
   private StatusListener myListener;
 
   public ClientGUI() {
