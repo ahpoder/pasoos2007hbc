@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- HotTargui build file -->
+<!-- (c) Henrik Bærbak Christensen 2006-2008 -->
+
+<project name="HotTargui" default="help" basedir=".">
+  
+  <property name="src" value="src"></property>
+  <property name="test" value="test"></property>
+  <property name="resource" value="resource"></property>
+
+  <property name="build" value="build"></property>
+  <property name="doc" value="doc"></property>
+
+  <property name="registry_host" value="localhost"/>
+  <property name="registry_host_spec" value="//${registry_host}/"/>
+
+  <!-- Jar Files -->
+  <property name="junit" value="lib/junit-4.4.jar"/>
+  <property name="minidraw_jar" value="lib/minidraw.jar"/>
+  
+  <!-- Classpath -->
+  <path id="_classpath">
+    <pathelement path="${junit}"/>
+    <pathelement path="${minidraw_jar}"/>
+    <pathelement path="${build}"/>
+  </path>
+  
+  <path id="_srcpath">
+    <pathelement path="${src}"/>
+  </path>
+  
+  <path id="_testsrcpath">
+    <pathelement path="${test}"/>
+  </path>
+  
+  <!-- Help -->
+  <target name="help">
+    <echo message="Ant build system for HotTargui."/>
+    <echo message="Targets are:"/>
+    <echo message="  build_all:      Build everything and generate networking stubs."/>
+    <echo message="  test:           Run all JUnit test cases."/>
+    <echo message="  clean:          Delete the build output directory."/>
+    <echo message=""/>
+    <echo message="REMEMBER to 'start rmiregistry' first!"/>
+  </target>
+  
+  <!-- Core tasks: compiling ect -->
+  <target name="prepare">
+    <mkdir dir="${build}"></mkdir>
+  </target>
+
+  <target name="build_src" depends="prepare">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_srcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="build_test" depends="build_src">
+    <javac 
+      destdir="${build}"
+      debug="on">
+      <src> <path refid="_testsrcpath"/> </src>
+      <classpath> <path refid="_classpath"/> </classpath>
+    </javac>
+  </target>
+  
+  <target name="copy_resource" depends="prepare">
+    <copy todir="${build}\${resource}" >
+      <fileset dir="${resource}">
+	<include name="*.gif"/>
+	<include name="*.lst"/>
+	<include name="*.policy"/>
+      </fileset>
+    </copy>
+  </target>
+ 
+  <target name="clean">
+    <delete dir="${md_build}"></delete>
+    <delete dir="${build}"></delete>
+    <!-- <delete file="${minidraw_jar}"></delete> -->
+  </target>
+
+  <!-- COMPILE ALL -->
+  <target name="compile_all" depends="build_src,build_test">
+  </target>
+
+  <!-- BUILD ALL -->
+  <target name="build_all" depends="compile_all,rmic,copy_resource">
+  </target>
+
+  <!-- JUNIT TESTING -->
+  <target name="test" depends="build_all">
+    <java classname="hottargui.config.TestDomainServerTargui"
+      dir="${build}" fork="yes">
+      <classpath><path refid="_classpath"/> </classpath>
+      <sysproperty key="java.security.policy" path="${build}/resource/java.policy"/>
+      <sysproperty key="java.rmi.server.hostname" value="${registry_host}"/>
+      <sysproperty key="java.rmi.server.codebase" value="file:///${basedir}/${build}/"/>
+    </java>   
+  </target>
+
+  <!-- RMIC targets -->
+  <target name="rmic" depends="compile_all">
+
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="hottargui.config.TestDie">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
+
+   <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="hottargui.config.TestGameRepository">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
+
+    <rmic base="${build}" stubversion="1.2" verify="on"
+      classname="hottargui.config.TestGame">
+      <classpath> 
+	<path refid="_srcpath"/>
+	<path refid="_classpath"/>
+      </classpath>
+    </rmic>
+  </target>
+
+</project>
+
+
