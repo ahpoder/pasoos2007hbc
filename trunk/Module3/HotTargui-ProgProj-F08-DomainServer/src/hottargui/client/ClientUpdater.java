@@ -13,7 +13,7 @@ public class ClientUpdater extends UnicastRemoteObject implements StatusListener
 	    super();
 	}
 
-	public void update(StatusEvent e) throws RemoteException {
+	public void updateChanges(StatusEvent e) throws RemoteException {
 
 	}
 }
