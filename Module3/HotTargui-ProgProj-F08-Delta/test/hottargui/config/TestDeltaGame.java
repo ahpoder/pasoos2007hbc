@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 public class TestDeltaGame {
 
-    /**
     private DeltaGame game;
     private DeltaGameFactory gameFactory;
     private WinnerStrategy winnerStrategy;
@@ -36,6 +35,5 @@ public class TestDeltaGame {
             System.out.println(t);
         }
     }
-    */
 
 }
