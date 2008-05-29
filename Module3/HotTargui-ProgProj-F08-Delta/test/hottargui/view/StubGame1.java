@@ -118,7 +118,11 @@ public class StubGame1 implements Game {
     return dieValue;
   }
 
-  public PlayerColor turnCard() {
+    public PlayerColor getWinner() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public PlayerColor turnCard() {
     if (inTurn == pRed) {
       inTurn = pGreen;
     } else {

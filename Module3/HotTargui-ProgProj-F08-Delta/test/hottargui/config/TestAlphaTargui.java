@@ -11,7 +11,10 @@ public class TestAlphaTargui {
 
   Game game;
 
-  @Before 
+    public TestAlphaTargui() {
+    }
+
+    @Before
   public void setUp() {
     game = new AlphaGame();
     game.newGame();
