@@ -31,7 +31,11 @@ public class StandardTile implements Tile {
   public int getUnitCount() { return unit; }
   public TileType getType() { return type; }
 
-  public String toString() {
+    public int getEconomicValue() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public String toString() {
     return "Tile ("+position.getRow()+","+position.getColumn()+") "+
 	   "units="+ unit;
   }
