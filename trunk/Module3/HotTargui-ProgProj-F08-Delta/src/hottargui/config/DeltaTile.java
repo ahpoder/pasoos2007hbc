@@ -44,4 +44,8 @@ public class DeltaTile implements Tile {
     public TileType getType() {
         return tileType;
     }
+
+    public int getEconomicValue() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
