@@ -10,7 +10,10 @@ public class TestDeltaTargui {
 
   Game game;
 
-  @Before 
+    public TestDeltaTargui() {
+    }
+
+    @Before
   public void setUp() {
     game = new DeltaGame();
     game.newGame();

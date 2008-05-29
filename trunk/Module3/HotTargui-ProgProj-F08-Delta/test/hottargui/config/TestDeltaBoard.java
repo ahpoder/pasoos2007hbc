@@ -13,14 +13,16 @@ import java.util.List;
  * This class tests the Delta Board.
  */
 public class TestDeltaBoard {
-
     private Board board;
     private DeltaBoardFactory boardFactory;
+
+    public TestDeltaBoard() {
+    }
 
     @Before
     public void setUp() {
       boardFactory = new DeltaBoardFactory();
-      board = new Board(boardFactory);
+      board = new DeltaBoard(boardFactory);
     }
 
 
@@ -75,6 +77,7 @@ public class TestDeltaBoard {
         assertTrue(tile.getOwnerColor().equals(PlayerColor.Yellow));
     }
 
+
     @Test
     public void testPositions() {
 
@@ -89,5 +92,6 @@ public class TestDeltaBoard {
 
         assertTrue(count==49);
     }
+
 
 }
