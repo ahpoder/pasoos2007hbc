@@ -1,0 +1,1 @@
+Added a diagram for part 1 of exercise 2 for this week
